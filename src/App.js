@@ -6,13 +6,15 @@ import Experience from './components/Experience';
 import Contact from './components/Contact';
 import Blog from './components/Blog';
 import Nav from './Nav';
+import Typical from 'react-typical'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <h1>Jordan Hilado</h1>
+        <Link to="/" style={{ textDecoration: 'none' }}><h1 className="flex name">/Jordan Hilado</h1></Link>
         <Nav />
         <Switch>
           <Route path="/" exact component={Home} />
@@ -29,7 +31,20 @@ function App() {
 
 const Home = () => (
   <div>
-    <h1>homepage</h1>
+    <h1 className="flex">homepage</h1>
+    <p className="moving-text">
+      I'm a {' '}
+      <Typical
+      loop={Infinity}
+      steps={['Student 📚', 1500,
+            'Developer 👨‍💻', 1500,
+            'Laker Fan 🏀', 1500,
+            'Open Sourcer 🛠', 1500,
+            'Hydro Homie 🚰', 1500,
+            'Learner 📝', 1500]}
+      wrapper="b"
+      />
+    </p>
   </div>
 )
 

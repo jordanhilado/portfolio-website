@@ -2,7 +2,7 @@
   text-align: center;
 }
 body {
-  background-color: darkslategrey;
+  background-color: #F1E8D5;
 }
 .App-logo {
   height: 40vmin;
@@ -37,8 +37,33 @@ body {
 
 .flex-nav {
   display: flex;
-  font-family: 'PT Serif', serif;
+  /* font-family: 'PT Serif', serif; */
+  font-family: 'IBM Plex Mono', monospace;
   color: white;
-  font-size: 38px;
+  font-size: 30px;
   margin-left: 100px;
+  color: #2C2C2C;
+  border: 1px solid black;
+  max-width: 200px;
+  text-decoration: none;
+}
+.flex-nav:hover {
+  color: green;
+}
+.name {
+  color: #2C2C2C;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 40px;
+  font-weight: 300;
+}
+.moving-text {
+  color: #4B4B4B;
+  font-family: 'IBM Plex Mono', monospace;
+  border: 1px solid black;
+  height: 40px;
+  line-height: 200%;
+  width: 220px;
+}
+.flex {
+  display: flex;
 }
