@@ -14,7 +14,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Link to="/" style={{ textDecoration: 'none' }}><h1 className="flex name">Jordan Ali Hilado</h1></Link>
+        {/* <Link to="/" style={{ textDecoration: 'none' }}><h1 className="flex name">Jordan Ali Hilado</h1></Link> */}
         <Nav />
         <Switch>
           <Route path="/" exact component={Home} />
@@ -31,7 +31,7 @@ function App() {
 
 const Home = () => (
   <div>
-    <h1 className="flex content-title">homepage</h1>
+    <h1 className="flex content">homepage</h1>
     <p className="flex moving-text">
       I'm a {' '}
       <Typical
