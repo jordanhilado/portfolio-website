@@ -1,25 +1,37 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { Container, Text, Box } from "@chakra-ui/react";
+import { Container, Center, Text, Box, Flex } from "@chakra-ui/react";
+import Card from "../components/Card";
 
 const Education: NextPage = () => {
   return (
-    <Box id="section1">
-      <Head>
-        <title>jordan hilado - education</title>
-      </Head>
-
-      <main>
-        <Container h="100vh" textAlign="center">
-          <Text as="b" fontSize="5xl">
-            Education
-          </Text>
-        </Container>
-        <Container>Education</Container>
-      </main>
-
-      <Container textAlign="center">Last updated 9/5/2022</Container>
+    <Box bg="lightskyblue" id="education" h="fit-content">
+      <Container pt={130} textAlign="center">
+        <Text as="b" fontSize="5xl">
+          education
+        </Text>
+      </Container>
+      <Container textAlign="center">
+        <Text fontSize="2xl">california state university, long beach</Text>
+        <Text fontSize="1xl">
+          b.s. computer science | august 2020 - december 2023
+        </Text>
+      </Container>
+      <Container textAlign="center">
+        <Text as="b" fontSize="3xl">
+          clubs and activities
+        </Text>
+      </Container>
+      <Center>
+        <Box width="1000px" bg="orange">
+          <Flex flexDirection={"row"} flexWrap="wrap" justifyContent="center">
+            <Card />
+            <Card />
+            <Card />
+          </Flex>
+        </Box>
+      </Center>
     </Box>
   );
 };

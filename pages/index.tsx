@@ -7,6 +7,12 @@ import {
   Image,
   useMediaQuery,
 } from "@chakra-ui/react";
+import Education from "./education";
+import Experience from "./experience";
+import Projects from "./projects";
+import Skills from "./skills";
+import Badge from "../components/Badge";
+import Profile from "../components/Profile";
 
 const Home: NextPage = () => {
   const [mobile] = useMediaQuery("(min-width: 950px)");
@@ -19,8 +25,9 @@ const Home: NextPage = () => {
           </Head>
 
           <main>
-            <Center h="80vh">
-              <Container textAlign="center">
+            <Center h="100vh" bg="pink">
+              <Profile />
+              {/* <Container textAlign="center">
                 <Center p={10}>
                   <Image
                     src="/headshot.jpeg"
@@ -32,9 +39,13 @@ const Home: NextPage = () => {
                 science. i enjoy building full-stack software applications. when
                 i’m not coding, i’m either listening to podcasts, 3d printing,
                 or playing sports like basketball or golf.
-              </Container>
+              </Container> */}
             </Center>
           </main>
+          <Education />
+          <Experience />
+          <Projects />
+          <Skills />
         </div>
       ) : (
         <div>

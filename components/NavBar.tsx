@@ -1,13 +1,7 @@
 import React from "react";
-import {
-  Box,
-  Link,
-  Flex,
-  Button,
-  useMediaQuery,
-  Heading,
-} from "@chakra-ui/react";
+import { Box, Flex, Button, useMediaQuery, Heading } from "@chakra-ui/react";
 import NextLink from "next/link";
+import { Link } from "react-scroll";
 
 interface NavBarProps {}
 
@@ -28,32 +22,32 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
           >
             <Flex width="fit-content" mb={4}>
               <NextLink href="/">
-                <Link>
+                <a>
                   <Heading>jordan hilado</Heading>
-                </Link>
+                </a>
               </NextLink>
             </Flex>
             <Flex width="550px" justifyContent="space-between">
-              <Link to="section1" spy={true} smooth={true} duration={1000}>
+              <Link to="education" spy={true} smooth={true} duration={1000}>
                 <Button colorScheme="green" size="md">
                   education
                 </Button>
               </Link>
-              <NextLink href="/experience">
+              <Link to="experience" spy={true} smooth={true} duration={1000}>
                 <Button colorScheme="green" size="md">
                   experience
                 </Button>
-              </NextLink>
-              <NextLink href="/projects">
+              </Link>
+              <Link to="projects" spy={true} smooth={true} duration={1000}>
                 <Button colorScheme="green" size="md">
                   projects
                 </Button>
-              </NextLink>
-              <NextLink href="/skills">
+              </Link>
+              <Link to="skills" spy={true} smooth={true} duration={1000}>
                 <Button colorScheme="green" size="md">
                   skills
                 </Button>
-              </NextLink>
+              </Link>
               <a
                 href="https://tinyurl.com/hiladojordan2023"
                 target="_blank"
