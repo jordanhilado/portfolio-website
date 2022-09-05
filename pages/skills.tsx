@@ -1,91 +1,42 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { Container, Text, Box, Flex } from "@chakra-ui/react";
-import Badge from "../components/Badge";
+import { Container, Text, Center, Box, Flex } from "@chakra-ui/react";
+import { Badge } from "../components/Badge";
+import sk from "../data/skills.json";
 
 const Skills: NextPage = () => {
   return (
-    <Box bg="lightcyan" id="skills">
-      <Container pt={130} h="100vh">
-        <Box textAlign="center">
-          <Text as="b" fontSize="5xl">
-            skills
-          </Text>
+    <Box pt={130} bg="lightcyan" id="skills" h="100vh">
+      {/* <Container pt={130} h="100vh"> */}
+      <Box textAlign="center">
+        <Text as="b" fontSize="5xl">
+          skills
+        </Text>
+      </Box>
+      <Center>
+        <Box w="800px">
+          {sk.map((s) => {
+            return (
+              <>
+                <Text as="b" fontSize="3xl">
+                  {s.group}
+                </Text>
+                <Flex
+                  flexWrap="wrap"
+                  flexDirection="row"
+                  justifyContent="start"
+                >
+                  {s.list.map((l) => {
+                    return <Badge name={l.name} icon={l.icon} />;
+                  })}
+                </Flex>
+              </>
+            );
+          })}
         </Box>
-        <Container bg="grey">
-          <Text as="b" fontSize="3xl">
-            frameworks
-          </Text>
-          <Flex
-            bg="pink"
-            flexWrap="wrap"
-            flexDirection="row"
-            justifyContent="start"
-          >
-            <Badge />
-            <Badge />
-            <Badge />
-            <Badge />
-            <Badge />
-            <Badge />
-          </Flex>
-        </Container>
-        <Container bg="grey">
-          <Text as="b" fontSize="3xl">
-            languages
-          </Text>
-          <Flex
-            bg="pink"
-            flexWrap="wrap"
-            flexDirection="row"
-            justifyContent="start"
-          >
-            <Badge />
-            <Badge />
-            <Badge />
-            <Badge />
-          </Flex>
-        </Container>
-        <Container bg="grey">
-          <Text as="b" fontSize="3xl">
-            database
-          </Text>
-          <Flex
-            bg="pink"
-            flexWrap="wrap"
-            flexDirection="row"
-            justifyContent="start"
-          >
-            <Badge />
-            <Badge />
-            <Badge />
-            <Badge />
-            <Badge />
-            <Badge />
-            <Badge />
-          </Flex>
-        </Container>
-        <Container bg="grey">
-          <Text as="b" fontSize="3xl">
-            software & tools
-          </Text>
-          <Flex
-            bg="pink"
-            flexWrap="wrap"
-            flexDirection="row"
-            justifyContent="start"
-          >
-            <Badge />
-            <Badge />
-            <Badge />
-            <Badge />
-            <Badge />
-            <Badge />
-            <Badge />
-          </Flex>
-        </Container>
-      </Container>
+        {/* </Container> */}
+      </Center>
     </Box>
   );
 };

@@ -1,0 +1,98 @@
+[
+    {
+        "group": "frameworks",
+        "list": [
+            {
+                "name": "python",
+                "icon": "python.png"
+            },
+            {
+                "name": "c++",
+                "icon": "cpp.svg"
+            },
+            {
+                "name": "java",
+                "icon": "python"
+            },
+            {
+                "name": "java",
+                "icon": "python"
+            },
+            {
+                "name": "java",
+                "icon": "python"
+            },
+            {
+                "name": "java",
+                "icon": "python"
+            }
+        ]
+    },
+    {
+        "group": "languages",
+        "list": [
+            {
+                "name": "react",
+                "icon": "python"
+            },
+            {
+                "name": "typescript",
+                "icon": "python"
+            },
+            {
+                "name": "yes",
+                "icon": "python"
+            },
+            {
+                "name": "yes",
+                "icon": "python"
+            },
+            {
+                "name": "yes",
+                "icon": "python"
+            },
+            {
+                "name": "yes",
+                "icon": "python"
+            },
+            {
+                "name": "yes",
+                "icon": "python"
+            },
+            {
+                "name": "yes",
+                "icon": "python"
+            }
+        ]
+    },
+    {
+        "group": "database",
+        "list": [
+            {
+                "name": "mysql",
+                "icon": "python"
+            },
+            {
+                "name": "ppostgresql",
+                "icon": "python"
+            },
+            {
+                "name": "redis",
+                "icon": "python"
+            }
+        ]
+    },
+    {
+        "group": "software and tools",
+        "list": [
+            {
+                "name": "xcode",
+                "icon": "xcode"
+            },
+            {
+                "name": "test",
+                "icon": "test"
+            }
+        ]
+    }
+]

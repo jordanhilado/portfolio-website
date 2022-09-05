@@ -10,7 +10,12 @@ import {
   Image,
 } from "@chakra-ui/react";
 
-export default function Badge() {
+interface BadgeProps {
+  name: string;
+  icon: string;
+}
+
+export const Badge = ({ name, icon }: BadgeProps) => {
   return (
     <Box
       //   textAlign="right"
@@ -23,11 +28,11 @@ export default function Badge() {
       m={1.5}
     >
       <Center>
-        <Image src="/python.png" boxSize="25px" />
-        <Text fontSize="3xl" pl={2}>
-          python
+        <Image src={icon} boxSize="25px" />
+        <Text fontSize="2xl" pl={2}>
+          {name}
         </Text>
       </Center>
     </Box>
   );
-}
+};
