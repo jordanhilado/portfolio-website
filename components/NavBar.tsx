@@ -17,7 +17,8 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             width="100%"
             top={0}
             p={4}
-            bg="white"
+            bg="rgba(255, 255, 255, 0.2)"
+            backdropFilter={"blur(10px)"}
             flexDirection="column"
             alignItems="center"
           >
