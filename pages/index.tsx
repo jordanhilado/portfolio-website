@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import { Container, Text } from "@chakra-ui/react";
 
 const Home: NextPage = () => {
   return (
@@ -10,17 +11,20 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
-        <h1>jordan hilado</h1>
-
-        <p>
+        <Container textAlign="center">
+          <Text as="b" fontSize="5xl">
+            jordan hilado
+          </Text>
+        </Container>
+        <Container>
           i’m a junior at cal state long beach majoring in computer science. i
           enjoy building full-stack software applications. when i’m not coding,
           i’m either listening to podcasts, 3d printing, or playing sports like
           basketball or golf.
-        </p>
+        </Container>
       </main>
 
-      <footer>Last updated 9/5/2022</footer>
+      <Container textAlign="center">Last updated 9/5/2022</Container>
     </div>
   );
 };
