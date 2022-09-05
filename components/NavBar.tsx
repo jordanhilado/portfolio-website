@@ -17,15 +17,16 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             width="100%"
             top={0}
             p={4}
-            bg="rgba(255, 255, 255, 0.2)"
-            backdropFilter={"blur(10px)"}
+            // bg="rgba(255, 255, 255, 0.2)"
+            // backdropFilter={"blur(10px)"}
+            bg="black"
             flexDirection="column"
             alignItems="center"
           >
             <Flex width="fit-content" mb={4}>
               <NextLink href="/">
                 <a>
-                  <Heading>jordan hilado</Heading>
+                  <Heading color="white">jordan hilado</Heading>
                 </a>
               </NextLink>
             </Flex>

@@ -8,14 +8,14 @@ import Projs from "../data/projects.json";
 
 const Projects: NextPage = () => {
   return (
-    <Box bg="lightblue" id="projects" h="fit-content">
+    <Box id="projects" h="fit-content">
       <Container pt={130} textAlign="center">
         <Text as="b" fontSize="5xl">
           projects
         </Text>
       </Container>
       <Center>
-        <Box width="1500px" bg="yellow">
+        <Box width="1500px">
           <Flex flexDirection={"row"} flexWrap="wrap" justifyContent="center">
             {Projs.map((proj) => {
               return (

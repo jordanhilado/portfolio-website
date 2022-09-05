@@ -7,7 +7,7 @@ import Clubs from "../data/clubs.json";
 
 const Education: NextPage = () => {
   return (
-    <Box bg="lightskyblue" id="education" h="fit-content">
+    <Box id="education" h="fit-content">
       <Container pt={130} textAlign="center">
         <Text as="b" fontSize="5xl">
           education
@@ -25,7 +25,7 @@ const Education: NextPage = () => {
         </Text>
       </Container>
       <Center>
-        <Box width="1000px" bg="orange">
+        <Box width="1000px">
           <Flex flexDirection={"row"} flexWrap="wrap" justifyContent="center">
             {Clubs.map((club) => {
               return (

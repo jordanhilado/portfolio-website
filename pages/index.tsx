@@ -11,7 +11,6 @@ import Education from "./education";
 import Experience from "./experience";
 import Projects from "./projects";
 import Skills from "./skills";
-import Badge from "../components/Badge";
 import Profile from "../components/Profile";
 
 const Home: NextPage = () => {
@@ -25,7 +24,7 @@ const Home: NextPage = () => {
           </Head>
 
           <main>
-            <Center h="100vh" bg="pink">
+            <Center h="100vh">
               <Profile />
               {/* <Container textAlign="center">
                 <Center p={10}>

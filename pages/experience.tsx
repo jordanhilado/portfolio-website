@@ -17,14 +17,14 @@ import Exp from "../data/experience.json";
 
 const Experience: NextPage = () => {
   return (
-    <Box bg="lightyellow" id="experience" h="fit-content">
+    <Box id="experience" h="fit-content">
       <Container pt={130} textAlign="center">
         <Text as="b" fontSize="5xl">
           experience
         </Text>
       </Container>
       <Center>
-        <Box width="1800px" bg="yellow">
+        <Box width="1800px">
           <Flex flexDirection={"row"} flexWrap="wrap" justifyContent="center">
             {Exp.map((exp) => {
               return (
