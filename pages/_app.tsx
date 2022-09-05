@@ -3,10 +3,20 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { NavBar } from "../components/NavBar";
 
 const theme = extendTheme({
+  colors: {
+    brand: {
+      100: "#000000",
+      200: "#161618",
+      300: "#212124",
+      400: "#ffffff",
+      500: "#818181",
+      600: "#319795",
+    },
+  },
   styles: {
     global: () => ({
       body: {
-        bg: "black",
+        bg: "brand.100",
       },
     }),
   },

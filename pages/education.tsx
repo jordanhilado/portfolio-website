@@ -9,18 +9,18 @@ const Education: NextPage = () => {
   return (
     <Box id="education" h="fit-content">
       <Container pt={130} textAlign="center">
-        <Text as="b" fontSize="5xl">
+        <Text as="b" color="brand.400" fontSize="5xl">
           education
         </Text>
-      </Container>
-      <Container textAlign="center">
-        <Text fontSize="2xl">california state university, long beach</Text>
-        <Text fontSize="1xl">
+        <Text color="brand.400" fontSize="2xl">
+          california state university, long beach
+        </Text>
+        <Text color="brand.500" fontSize="1xl">
           b.s. computer science | august 2020 - december 2023
         </Text>
       </Container>
-      <Container textAlign="center">
-        <Text as="b" fontSize="3xl">
+      <Container mt={5} textAlign="center">
+        <Text as="b" color="brand.400" fontSize="3xl">
           clubs and activities
         </Text>
       </Container>

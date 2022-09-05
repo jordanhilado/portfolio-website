@@ -19,7 +19,7 @@ const Experience: NextPage = () => {
   return (
     <Box id="experience" h="fit-content">
       <Container pt={130} textAlign="center">
-        <Text as="b" fontSize="5xl">
+        <Text as="b" fontSize="5xl" color="brand.400">
           experience
         </Text>
       </Container>

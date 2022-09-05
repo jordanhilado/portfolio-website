@@ -10,7 +10,7 @@ const Projects: NextPage = () => {
   return (
     <Box id="projects" h="fit-content">
       <Container pt={130} textAlign="center">
-        <Text as="b" fontSize="5xl">
+        <Text as="b" color="brand.400" fontSize="5xl">
           projects
         </Text>
       </Container>

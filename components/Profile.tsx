@@ -27,13 +27,14 @@ export default function Profile() {
         w={{ sm: "100%", md: "500px" }}
         // height={{ sm: "476px", md: "20rem" }}
         direction={{ base: "column", md: "row" }}
-        bg={useColorModeValue("grey", "gray.900")}
-        // boxShadow={"2xl"}
+        // bg={useColorModeValue("grey", "gray.900")}
+        bg="brand.200"
+        boxShadow={"2xl"}
         padding={4}
       >
         <Flex flex={1} bg="blue.200">
           <Image
-            borderRadius="35"
+            // borderRadius="35"
             objectFit="cover"
             boxSize="100%"
             src={"/headshot.jpeg"}
@@ -54,7 +55,8 @@ export default function Profile() {
           </Text> */}
           <Text
             // textAlign={"center"}
-            color={useColorModeValue("gray.700", "gray.400")}
+            // color={useColorModeValue("gray.700", "gray.400")}
+            color="brand.400"
             px={3}
           >
             hi i'm jordan. i like building things with code. some of my hobbies

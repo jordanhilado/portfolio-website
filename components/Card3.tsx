@@ -24,7 +24,8 @@ export const Card3 = ({ clubName, description, date, stack }: CardProps) => {
     <Center py={2} mx={3}>
       <Box
         w="300px"
-        bg={useColorModeValue("white", "gray.900")}
+        // bg={useColorModeValue("white", "gray.900")}
+        bg={"brand.200"}
         // boxShadow={"2xl"}
         rounded={"35"}
         p={6}
@@ -56,14 +57,15 @@ export const Card3 = ({ clubName, description, date, stack }: CardProps) => {
             Blog
           </Text> */}
           <Heading
-            color={useColorModeValue("gray.700", "white")}
+            // color={useColorModeValue("gray.700", "white")}
+            color="brand.400"
             fontSize={"2xl"}
             fontFamily={"body"}
           >
             {clubName}
           </Heading>
-          <Text color={"gray.500"}>{date}</Text>
-          <Text color={"gray.500"}>{description}</Text>
+          <Text color={"brand.500"}>{date}</Text>
+          <Text color={"brand.400"}>{description}</Text>
         </Stack>
         <Stack mt={2} direction={"row"} spacing={4} align={"center"}>
           {/* <Avatar
@@ -88,7 +90,7 @@ export const Card3 = ({ clubName, description, date, stack }: CardProps) => {
           </Flex>
         </Stack>
         <a>
-          <Button mt={3} colorScheme="pink">
+          <Button mt={3} colorScheme="teal">
             View
           </Button>
         </a>

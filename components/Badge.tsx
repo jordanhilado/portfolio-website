@@ -19,12 +19,12 @@ export const Badge = ({ name, icon }: BadgeProps) => {
   return (
     <Box
       //   textAlign="right"
-      borderWidth="1px"
+      borderWidth="2px"
       width="fit-content"
       px={4}
       borderRadius="full"
       fontSize="20px"
-      borderColor="black"
+      borderColor="brand.300"
       m={1.5}
     >
       <Center>

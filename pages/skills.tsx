@@ -7,8 +7,7 @@ import sk from "../data/skills.json";
 
 const Skills: NextPage = () => {
   return (
-    <Box pt={130} id="skills" h="100vh">
-      {/* <Container pt={130} h="100vh"> */}
+    <Box color="brand.400" pt={130} id="skills" h="100vh">
       <Box textAlign="center">
         <Text as="b" fontSize="5xl">
           skills
@@ -35,7 +34,6 @@ const Skills: NextPage = () => {
             );
           })}
         </Box>
-        {/* </Container> */}
       </Center>
     </Box>
   );

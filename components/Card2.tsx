@@ -21,7 +21,8 @@ export const Card2 = ({ clubName, description, position, date }: CardProps) => {
     <Center py={2} mx={3}>
       <Box
         w="300px"
-        bg={useColorModeValue("white", "gray.900")}
+        // bg={useColorModeValue("white", "gray.900")}
+        bg="brand.200"
         // boxShadow={"2xl"}
         rounded={"35"}
         p={6}
@@ -53,13 +54,14 @@ export const Card2 = ({ clubName, description, position, date }: CardProps) => {
             Blog
           </Text> */}
           <Heading
-            color={useColorModeValue("gray.700", "white")}
+            // color={useColorModeValue("gray.700", "white")}
+            color="brand.400"
             fontSize={"2xl"}
             fontFamily={"body"}
           >
             {clubName}
           </Heading>
-          <Text color={"gray.500"}>{description}</Text>
+          <Text color={"brand.400"}>{description}</Text>
         </Stack>
         <Stack mt={6} direction={"row"} spacing={4} align={"center"}>
           {/* <Avatar
@@ -67,8 +69,10 @@ export const Card2 = ({ clubName, description, position, date }: CardProps) => {
             alt={"Author"}
           /> */}
           <Stack direction={"column"} spacing={0} fontSize={"sm"}>
-            <Text fontWeight={600}>{position}</Text>
-            <Text color={"gray.500"}>{date}</Text>
+            <Text color={"brand.500"} fontWeight={600}>
+              {position}
+            </Text>
+            <Text color={"brand.500"}>{date}</Text>
           </Stack>
         </Stack>
       </Box>

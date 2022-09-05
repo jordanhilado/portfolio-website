@@ -23,7 +23,8 @@ export const Card = ({ title, description, posloc, date }: CardProps) => {
         minW={"445px"}
         maxW={"445px"}
         w={"full"}
-        bg={useColorModeValue("white", "gray.900")}
+        // bg={useColorModeValue("white", "gray.900")}
+        bg={"brand.200"}
         // boxShadow={"2xl"}
         rounded={"35"}
         p={6}
@@ -31,7 +32,8 @@ export const Card = ({ title, description, posloc, date }: CardProps) => {
       >
         <Box
           h={"210px"}
-          bg={"gray.100"}
+          // bg={"gray.100"}
+
           mt={-6}
           mx={-6}
           mb={6}
@@ -55,7 +57,8 @@ export const Card = ({ title, description, posloc, date }: CardProps) => {
             Blog
           </Text> */}
           <Heading
-            color={useColorModeValue("gray.700", "white")}
+            // color={useColorModeValue("gray.700", "white")}
+            color={"brand.400"}
             fontSize={"2xl"}
             fontFamily={"body"}
           >
@@ -68,11 +71,13 @@ export const Card = ({ title, description, posloc, date }: CardProps) => {
             alt={"Author"}
           /> */}
         <Stack direction={"column"} spacing={0} fontSize={"sm"}>
-          <Text fontWeight={600}>{posloc}</Text>
-          <Text color={"gray.500"}>{date}</Text>
+          <Text color={"brand.500"} fontWeight={600}>
+            {posloc}
+          </Text>
+          <Text color={"brand.500"}>{date}</Text>
         </Stack>
         {/* </Stack> */}
-        <Text mt={2} color={"gray.500"}>
+        <Text mt={2} color={"brand.400"}>
           {description}
         </Text>
       </Box>
