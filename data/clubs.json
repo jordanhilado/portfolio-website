@@ -1,0 +1,32 @@
+[
+    {
+        "clubName": "university honors program",
+        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.",
+        "position": "officer",
+        "date": "october 2020 - present"
+    },
+    {
+        "clubName": "association for computing machinery",
+        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.",
+        "position": "officer",
+        "date": "october 2020 - present"
+    },
+    {
+        "clubName": "google developer student club",
+        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.",
+        "position": "officer",
+        "date": "october 2020 - present"
+    },
+    {
+        "clubName": "assoc. engineering student body",
+        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.",
+        "position": "officer",
+        "date": "october 2020 - present"
+    },
+    {
+        "clubName": "csulb programming team",
+        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.",
+        "position": "programmer",
+        "date": "october 2020 - present"
+    }
+]

@@ -2,7 +2,8 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { Container, Center, Text, Box, Flex } from "@chakra-ui/react";
-import Card from "../components/Card";
+import { Card2 } from "../components/Card2";
+import Clubs from "../data/clubs.json";
 
 const Education: NextPage = () => {
   return (
@@ -26,9 +27,18 @@ const Education: NextPage = () => {
       <Center>
         <Box width="1000px" bg="orange">
           <Flex flexDirection={"row"} flexWrap="wrap" justifyContent="center">
-            <Card />
-            <Card />
-            <Card />
+            {Clubs.map((club) => {
+              return (
+                <>
+                  <Card2
+                    clubName={club.clubName}
+                    description={club.description}
+                    position={club.position}
+                    date={club.date}
+                  />
+                </>
+              );
+            })}
           </Flex>
         </Box>
       </Center>
