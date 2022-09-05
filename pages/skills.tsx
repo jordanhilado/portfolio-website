@@ -11,7 +11,7 @@ const Skills: NextPage = () => {
       </Head>
 
       <main>
-        <Container textAlign="center">
+        <Container h="100vh" textAlign="center">
           <Text as="b" fontSize="5xl">
             skills
           </Text>

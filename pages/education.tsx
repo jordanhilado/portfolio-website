@@ -1,17 +1,17 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { Container, Text } from "@chakra-ui/react";
+import { Container, Text, Box } from "@chakra-ui/react";
 
 const Education: NextPage = () => {
   return (
-    <div>
+    <Box id="section1">
       <Head>
         <title>jordan hilado - education</title>
       </Head>
 
       <main>
-        <Container textAlign="center">
+        <Container h="100vh" textAlign="center">
           <Text as="b" fontSize="5xl">
             Education
           </Text>
@@ -20,7 +20,7 @@ const Education: NextPage = () => {
       </main>
 
       <Container textAlign="center">Last updated 9/5/2022</Container>
-    </div>
+    </Box>
   );
 };
 

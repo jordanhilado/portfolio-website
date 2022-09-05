@@ -19,22 +19,26 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
         <Box>
           <Flex
             zIndex={1}
-            position="sticky"
+            position="fixed"
+            width="100%"
             top={0}
             p={4}
-            justifyContent="center"
+            flexDirection="column"
+            alignItems="center"
           >
-            <Flex width="800px" justifyContent="space-between">
+            <Flex width="fit-content" mb={4}>
               <NextLink href="/">
                 <Link>
                   <Heading>jordan hilado</Heading>
                 </Link>
               </NextLink>
-              <NextLink href="/education">
+            </Flex>
+            <Flex width="550px" justifyContent="space-between">
+              <Link to="section1" spy={true} smooth={true} duration={1000}>
                 <Button colorScheme="green" size="md">
                   education
                 </Button>
-              </NextLink>
+              </Link>
               <NextLink href="/experience">
                 <Button colorScheme="green" size="md">
                   experience
@@ -96,15 +100,20 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
                   skills
                 </Button>
               </NextLink>
-              <NextLink
+              <a
                 href="https://tinyurl.com/hiladojordan2023"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Button colorScheme="green" size="md" variant="outline">
+                <Button
+                  colorScheme="green"
+                  width="100%"
+                  size="md"
+                  variant="outline"
+                >
                   resume
                 </Button>
-              </NextLink>
+              </a>
             </Flex>
           </Flex>
         </Box>
