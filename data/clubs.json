@@ -1,8 +1,8 @@
 [
     {
         "clubName": "university honors program",
-        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.",
-        "position": "officer",
+        "description": "engineering honors track II",
+        "position": "student",
         "date": "october 2020 - present"
     },
     {
@@ -18,7 +18,7 @@
         "date": "october 2020 - present"
     },
     {
-        "clubName": "assoc. engineering student body",
+        "clubName": "associated engineering student body",
         "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.",
         "position": "officer",
         "date": "october 2020 - present"

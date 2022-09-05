@@ -1,0 +1,38 @@
+[
+    {
+        "title": "anonversations",
+        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+        "date": "october 2020 - present",
+        "stack": ["python", "mysql", "javascript", "typescript", "typescript"]
+    },
+    {
+        "title": "camptaneous",
+        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolod diam voluptua.",
+        "date": "october 2020 - present",
+        "stack": ["javascript", "typescript", "typescript"]
+    },
+    {
+        "title": "python sorting algorithms visualizer",
+        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+        "date": "october 2020 - present",
+        "stack": ["python", "mysql", "javascript", "typescript", "typescript", "python", "mysql"]
+    },
+    {
+        "title": "covid screener",
+        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+        "date": "october 2020 - present",
+        "stack": ["python", "mysql", "javascript", "typescript", "typescript", "python", "mysql"]
+    },
+    {
+        "title": "dayly",
+        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+        "date": "october 2020 - present",
+        "stack": ["python", "mysql", "javascript", "typescript", "typescript", "python", "mysql"]
+    },
+    {
+        "title": "central cli",
+        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+        "date": "october 2020 - present",
+        "stack": ["python", "mysql", "javascript", "typescript", "typescript", "python", "mysql"]
+    }
+]

@@ -5,32 +5,33 @@ import {
   Heading,
   Text,
   Stack,
+  Flex,
   Avatar,
+  Button,
+  Badge,
   useColorModeValue,
 } from "@chakra-ui/react";
 
 interface CardProps {
-  title: string;
-  posloc: string;
+  clubName: string;
   description: string;
   date: string;
+  stack: string[];
 }
 
-export const Card = ({ title, description, posloc, date }: CardProps) => {
+export const Card3 = ({ clubName, description, date, stack }: CardProps) => {
   return (
-    <Center py={2} mx={4}>
+    <Center py={2} mx={3}>
       <Box
-        minW={"445px"}
-        maxW={"445px"}
-        w={"full"}
+        w="300px"
         bg={useColorModeValue("white", "gray.900")}
         // boxShadow={"2xl"}
         rounded={"35"}
         p={6}
         overflow={"hidden"}
       >
-        <Box
-          h={"210px"}
+        {/* <Box
+          h={"150px"}
           bg={"gray.100"}
           mt={-6}
           mx={-6}
@@ -43,7 +44,7 @@ export const Card = ({ title, description, posloc, date }: CardProps) => {
             }
             layout={"fill"}
           />
-        </Box>
+        </Box> */}
         <Stack>
           {/* <Text
             color={"green.500"}
@@ -59,22 +60,38 @@ export const Card = ({ title, description, posloc, date }: CardProps) => {
             fontSize={"2xl"}
             fontFamily={"body"}
           >
-            {title}
+            {clubName}
           </Heading>
+          <Text color={"gray.500"}>{date}</Text>
+          <Text color={"gray.500"}>{description}</Text>
         </Stack>
-        {/* <Stack mt={6} direction={"row"} spacing={4} align={"center"}> */}
-        {/* <Avatar
+        <Stack mt={2} direction={"row"} spacing={4} align={"center"}>
+          {/* <Avatar
             src={"https://avatars0.githubusercontent.com/u/1164541?v=4"}
             alt={"Author"}
           /> */}
-        <Stack direction={"column"} spacing={0} fontSize={"sm"}>
-          <Text fontWeight={600}>{posloc}</Text>
-          <Text color={"gray.500"}>{date}</Text>
+          {/* <Text fontWeight={600}>{position}</Text> */}
+          <Flex flexWrap="wrap">
+            {stack.map((s) => {
+              return (
+                <Badge
+                  borderRadius="full"
+                  px="2"
+                  colorScheme="teal"
+                  mr="2"
+                  mb="2"
+                >
+                  {s}
+                </Badge>
+              );
+            })}
+          </Flex>
         </Stack>
-        {/* </Stack> */}
-        <Text mt={2} color={"gray.500"}>
-          {description}
-        </Text>
+        <a>
+          <Button mt={3} colorScheme="pink">
+            View
+          </Button>
+        </a>
       </Box>
     </Center>
   );

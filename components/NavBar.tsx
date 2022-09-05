@@ -17,6 +17,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             width="100%"
             top={0}
             p={4}
+            bg="white"
             flexDirection="column"
             alignItems="center"
           >

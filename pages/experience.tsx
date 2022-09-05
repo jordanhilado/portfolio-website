@@ -12,21 +12,35 @@ import {
   Flex,
   useColorModeValue,
 } from "@chakra-ui/react";
-import Card from "../components/Card";
+import { Card } from "../components/Card";
+import Exp from "../data/experience.json";
 
 const Experience: NextPage = () => {
   return (
-    <Box bg="lightyellow" id="experience" h="100vh">
+    <Box bg="lightyellow" id="experience" h="fit-content">
       <Container pt={130} textAlign="center">
         <Text as="b" fontSize="5xl">
           experience
         </Text>
       </Container>
-      <Flex flexDirection={"row"} justifyContent="space-evenly">
-        <Card />
-        <Card />
-        <Card />
-      </Flex>
+      <Center>
+        <Box width="1800px" bg="yellow">
+          <Flex flexDirection={"row"} flexWrap="wrap" justifyContent="center">
+            {Exp.map((exp) => {
+              return (
+                <>
+                  <Card
+                    title={exp.title}
+                    posloc={exp.posloc}
+                    description={exp.description}
+                    date={exp.date}
+                  />
+                </>
+              );
+            })}
+          </Flex>
+        </Box>
+      </Center>
     </Box>
   );
 };
