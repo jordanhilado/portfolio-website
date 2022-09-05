@@ -1,31 +1,67 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
-import { Container, Text } from "@chakra-ui/react";
+import {
+  Container,
+  Text,
+  Center,
+  Image,
+  useMediaQuery,
+} from "@chakra-ui/react";
 
 const Home: NextPage = () => {
+  const [mobile] = useMediaQuery("(min-width: 950px)");
   return (
-    <div>
-      <Head>
-        <title>jordan hilado</title>
-      </Head>
+    <>
+      {mobile ? (
+        <div>
+          <Head>
+            <title>jordan hilado</title>
+          </Head>
 
-      <main>
-        <Container textAlign="center">
-          <Text as="b" fontSize="5xl">
-            jordan hilado
-          </Text>
-        </Container>
-        <Container>
-          i’m a junior at cal state long beach majoring in computer science. i
-          enjoy building full-stack software applications. when i’m not coding,
-          i’m either listening to podcasts, 3d printing, or playing sports like
-          basketball or golf.
-        </Container>
-      </main>
+          <main>
+            <Center h="80vh">
+              <Container textAlign="center">
+                <Center p={10}>
+                  <Image
+                    src="/headshot.jpeg"
+                    alt="jordan hilado"
+                    boxSize="150px"
+                  />
+                </Center>
+                i’m a junior at cal state long beach majoring in computer
+                science. i enjoy building full-stack software applications. when
+                i’m not coding, i’m either listening to podcasts, 3d printing,
+                or playing sports like basketball or golf.
+              </Container>
+            </Center>
+          </main>
+        </div>
+      ) : (
+        <div>
+          <Head>
+            <title>jordan hilado</title>
+          </Head>
 
-      <Container textAlign="center">Last updated 9/5/2022</Container>
-    </div>
+          <main>
+            <Center h="60vh">
+              <Container textAlign="center">
+                <Center>
+                  <Image
+                    src="/headshot.jpeg"
+                    alt="jordan hilado"
+                    boxSize="150px"
+                  />
+                </Center>
+                i’m a junior at cal state long beach majoring in computer
+                science. i enjoy building full-stack software applications. when
+                i’m not coding, i’m either listening to podcasts, 3d printing,
+                or playing sports like basketball or golf.
+              </Container>
+            </Center>
+          </main>
+        </div>
+      )}
+    </>
   );
 };
 

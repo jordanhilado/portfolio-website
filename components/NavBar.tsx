@@ -12,7 +12,7 @@ import NextLink from "next/link";
 interface NavBarProps {}
 
 export const NavBar: React.FC<NavBarProps> = ({}) => {
-  const [mobile] = useMediaQuery("(min-width: 780px)");
+  const [mobile] = useMediaQuery("(min-width: 950px)");
   return (
     <>
       {mobile ? (
@@ -24,32 +24,41 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             p={4}
             justifyContent="center"
           >
-            <Flex width="780px" justifyContent="space-between">
+            <Flex width="800px" justifyContent="space-between">
               <NextLink href="/">
                 <Link>
                   <Heading>jordan hilado</Heading>
                 </Link>
               </NextLink>
+              <NextLink href="/education">
+                <Button colorScheme="green" size="md">
+                  education
+                </Button>
+              </NextLink>
               <NextLink href="/experience">
-                <Button colorScheme="teal" size="lg">
+                <Button colorScheme="green" size="md">
                   experience
                 </Button>
               </NextLink>
               <NextLink href="/projects">
-                <Button colorScheme="teal" size="lg">
+                <Button colorScheme="green" size="md">
                   projects
                 </Button>
               </NextLink>
-              <NextLink href="/education">
-                <Button colorScheme="teal" size="lg">
-                  education
-                </Button>
-              </NextLink>
               <NextLink href="/skills">
-                <Button colorScheme="teal" size="lg">
+                <Button colorScheme="green" size="md">
                   skills
                 </Button>
               </NextLink>
+              <a
+                href="https://tinyurl.com/hiladojordan2023"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button colorScheme="green" size="md" variant="outline">
+                  resume
+                </Button>
+              </a>
             </Flex>
           </Flex>
         </Box>
@@ -60,31 +69,40 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
               width="300px"
               flexDirection="column"
               justifyContent="space-between"
-              height="250px"
+              height="290px"
             >
               <NextLink href="/">
                 <Link>
                   <Heading textAlign="center">jordan hilado</Heading>
                 </Link>
               </NextLink>
+              <NextLink href="/education">
+                <Button colorScheme="green" size="md">
+                  education
+                </Button>
+              </NextLink>
               <NextLink href="/experience">
-                <Button colorScheme="teal" size="md">
+                <Button colorScheme="green" size="md">
                   experience
                 </Button>
               </NextLink>
               <NextLink href="/projects">
-                <Button colorScheme="teal" size="md">
+                <Button colorScheme="green" size="md">
                   projects
                 </Button>
               </NextLink>
-              <NextLink href="/education">
-                <Button colorScheme="teal" size="md">
-                  education
+              <NextLink href="/skills">
+                <Button colorScheme="green" size="md">
+                  skills
                 </Button>
               </NextLink>
-              <NextLink href="/skills">
-                <Button colorScheme="teal" size="md">
-                  skills
+              <NextLink
+                href="https://tinyurl.com/hiladojordan2023"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button colorScheme="green" size="md" variant="outline">
+                  resume
                 </Button>
               </NextLink>
             </Flex>
