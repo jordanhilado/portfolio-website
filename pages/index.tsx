@@ -14,7 +14,7 @@ import Skills from "./skills";
 import Profile from "../components/Profile";
 
 const Home: NextPage = () => {
-  const [mobile] = useMediaQuery("(min-width: 950px)");
+  const [mobile] = useMediaQuery("(min-width: 10px)");
   return (
     <>
       {mobile ? (
