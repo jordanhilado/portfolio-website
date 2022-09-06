@@ -1,8 +1,6 @@
+import { Box, Center, Container, Flex, Text } from "@chakra-ui/react";
 import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import { Container, Center, Text, Box, Flex } from "@chakra-ui/react";
-import { Card2 } from "../components/Card2";
+import { CardB } from "../components/CardB";
 import Clubs from "../data/clubs.json";
 
 const Education: NextPage = () => {
@@ -30,7 +28,7 @@ const Education: NextPage = () => {
             {Clubs.map((club) => {
               return (
                 <>
-                  <Card2
+                  <CardB
                     clubName={club.clubName}
                     description={club.description}
                     position={club.position}

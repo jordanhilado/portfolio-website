@@ -1,21 +1,17 @@
 import {
-  Badge,
-  Button,
   Center,
   Flex,
-  Heading,
+  IconButton,
   Image,
   Link,
   Stack,
   Text,
-  useColorModeValue,
-  IconButton,
 } from "@chakra-ui/react";
 import {
-  AiFillLinkedin,
-  AiOutlineGithub,
   AiFillInstagram,
+  AiFillLinkedin,
   AiFillTwitterCircle,
+  AiOutlineGithub,
 } from "react-icons/ai";
 
 export default function Profile() {
@@ -24,7 +20,7 @@ export default function Profile() {
       <Stack
         // borderWidth="1px"
         borderRadius="35"
-        w={{ sm: "100%", md: "500px" }}
+        // w={{ sm: "100%", md: "500px" }}
         // height={{ sm: "476px", md: "20rem" }}
         direction={{ base: "column", md: "row" }}
         // bg={useColorModeValue("grey", "gray.900")}

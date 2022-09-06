@@ -1,18 +1,6 @@
+import { Box, Center, Container, Flex, Text } from "@chakra-ui/react";
 import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import {
-  Container,
-  Box,
-  Center,
-  Heading,
-  Text,
-  Stack,
-  Avatar,
-  Flex,
-  useColorModeValue,
-} from "@chakra-ui/react";
-import { Card } from "../components/Card";
+import { CardA } from "../components/CardA";
 import Exp from "../data/experience.json";
 
 const Experience: NextPage = () => {
@@ -29,12 +17,12 @@ const Experience: NextPage = () => {
             {Exp.map((exp) => {
               return (
                 <>
-                  <Card
-                    image={exp.image}
+                  <CardA
                     title={exp.title}
                     posloc={exp.posloc}
                     description={exp.description}
                     date={exp.date}
+                    image={exp.image}
                   />
                 </>
               );

@@ -1,22 +1,18 @@
-import Image from "next/image";
-import {
-  Box,
-  Center,
-  Heading,
-  Text,
-  Stack,
-  Avatar,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Center, Heading, Stack, Text } from "@chakra-ui/react";
 
-interface CardProps {
+interface CardBProps {
   clubName: string;
   description: string;
   position: string;
   date: string;
 }
 
-export const Card2 = ({ clubName, description, position, date }: CardProps) => {
+export const CardB = ({
+  clubName,
+  description,
+  position,
+  date,
+}: CardBProps) => {
   return (
     <Center py={2} mx={3}>
       <Box

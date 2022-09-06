@@ -1,5 +1,5 @@
-import type { AppProps } from "next/app";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import type { AppProps } from "next/app";
 import { NavBar } from "../components/NavBar";
 
 const theme = extendTheme({

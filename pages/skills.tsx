@@ -1,7 +1,5 @@
+import { Box, Center, Flex, Text } from "@chakra-ui/react";
 import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import { Container, Text, Center, Box, Flex } from "@chakra-ui/react";
 import { Badge } from "../components/Badge";
 import sk from "../data/skills.json";
 

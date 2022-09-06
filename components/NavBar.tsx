@@ -1,6 +1,6 @@
-import React from "react";
-import { Box, Flex, Button, useMediaQuery, Heading } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, useMediaQuery } from "@chakra-ui/react";
 import NextLink from "next/link";
+import React from "react";
 import { Link } from "react-scroll";
 
 interface NavBarProps {}
@@ -75,9 +75,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
               height="290px"
             >
               <NextLink href="/">
-                <Link>
-                  <Heading textAlign="center">jordan hilado</Heading>
-                </Link>
+                <Heading textAlign="center">jordan hilado</Heading>
               </NextLink>
               <NextLink href="/education">
                 <Button colorScheme="teal" size="md">

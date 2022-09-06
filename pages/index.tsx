@@ -1,17 +1,11 @@
+import { Center, Container, Image, useMediaQuery } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Head from "next/head";
-import {
-  Container,
-  Text,
-  Center,
-  Image,
-  useMediaQuery,
-} from "@chakra-ui/react";
+import Profile from "../components/Profile";
 import Education from "./education";
 import Experience from "./experience";
 import Projects from "./projects";
 import Skills from "./skills";
-import Profile from "../components/Profile";
 
 const Home: NextPage = () => {
   const [mobile] = useMediaQuery("(min-width: 10px)");

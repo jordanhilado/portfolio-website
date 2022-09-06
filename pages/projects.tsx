@@ -1,9 +1,6 @@
+import { Box, Center, Container, Flex, Text } from "@chakra-ui/react";
 import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import { Container, Text, Center, Box, Flex } from "@chakra-ui/react";
-// import Card from "../components/Card";
-import { Card3 } from "../components/Card3";
+import { CardC } from "../components/CardC";
 import Projs from "../data/projects.json";
 
 const Projects: NextPage = () => {
@@ -20,7 +17,7 @@ const Projects: NextPage = () => {
             {Projs.map((proj) => {
               return (
                 <>
-                  <Card3
+                  <CardC
                     link={proj.link}
                     stack={proj.stack}
                     clubName={proj.title}

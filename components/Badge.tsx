@@ -1,14 +1,4 @@
-import {
-  Box,
-  Center,
-  Heading,
-  Text,
-  Stack,
-  Flex,
-  Avatar,
-  useColorModeValue,
-  Image,
-} from "@chakra-ui/react";
+import { Box, Center, Image, Text } from "@chakra-ui/react";
 
 interface BadgeProps {
   name: string;

@@ -1,19 +1,15 @@
-import Image from "next/image";
 import {
-  Box,
-  Center,
-  Heading,
-  Text,
-  Stack,
-  Link,
-  Flex,
-  Avatar,
-  Button,
   Badge,
-  useColorModeValue,
+  Box,
+  Button,
+  Center,
+  Flex,
+  Heading,
+  Stack,
+  Text,
 } from "@chakra-ui/react";
 
-interface CardProps {
+interface CardCProps {
   clubName: string;
   description: string;
   date: string;
@@ -21,13 +17,13 @@ interface CardProps {
   link: string;
 }
 
-export const Card3 = ({
+export const CardC = ({
   link,
   clubName,
   description,
   date,
   stack,
-}: CardProps) => {
+}: CardCProps) => {
   return (
     <Center py={2} mx={3}>
       <Box
