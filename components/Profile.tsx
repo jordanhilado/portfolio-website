@@ -36,6 +36,7 @@ export default function Profile() {
             objectFit="cover"
             boxSize="100%"
             src={"/headshot.jpeg"}
+            alt={"headshot"}
           />
         </Flex>
         <Stack
@@ -57,9 +58,9 @@ export default function Profile() {
             color="brand.400"
             px={3}
           >
-            hi i'm jordan. i have a passion for building full-stack
-            applications. some of my hobbies include listening to music or
-            podcasts, 3d printing, and playing sports like basketball and golf.
+            {
+              "hi i'm jordan. i have a passion for building full-stack applications. some of my hobbies include listening to music or podcasts, 3d printing, and playing sports like basketball and golf."
+            }
             {/* <Link href={"#"} color={"blue.400"}>
               #tag
             </Link> */}

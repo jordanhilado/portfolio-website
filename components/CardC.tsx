@@ -80,15 +80,17 @@ export const CardC = ({
           <Flex flexWrap="wrap">
             {stack.map((s) => {
               return (
-                <Badge
-                  borderRadius="full"
-                  px="2"
-                  colorScheme="teal"
-                  mr="2"
-                  mb="2"
-                >
-                  {s}
-                </Badge>
+                <>
+                  <Badge
+                    borderRadius="full"
+                    px="2"
+                    colorScheme="teal"
+                    mr="2"
+                    mb="2"
+                  >
+                    {s}
+                  </Badge>
+                </>
               );
             })}
           </Flex>

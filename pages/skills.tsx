@@ -25,7 +25,11 @@ const Skills: NextPage = () => {
                   justifyContent="start"
                 >
                   {s.list.map((l) => {
-                    return <Badge name={l.name} icon={l.icon} />;
+                    return (
+                      <>
+                        <Badge name={l.name} icon={l.icon} />
+                      </>
+                    );
                   })}
                 </Flex>
               </>

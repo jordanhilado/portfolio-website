@@ -37,7 +37,7 @@ export const CardA = ({
           mb={6}
           pos={"relative"}
         >
-          <Image src={image} layout={"fill"} />
+          <Image src={image} layout={"fill"} alt={image} />
         </Box>
         <Stack>
           {/* <Text

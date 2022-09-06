@@ -18,7 +18,7 @@ export const Badge = ({ name, icon }: BadgeProps) => {
       m={1.5}
     >
       <Center>
-        <Image src={icon} boxSize="25px" />
+        <Image src={icon} boxSize="25px" alt={name} />
         <Text fontSize="2xl" pl={2}>
           {name}
         </Text>
