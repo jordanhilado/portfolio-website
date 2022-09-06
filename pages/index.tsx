@@ -41,10 +41,10 @@ const Home: NextPage = () => {
               </Container> */}
             </Center>
           </main>
+          <Skills />
           <Education />
           <Experience />
           <Projects />
-          <Skills />
         </div>
       ) : (
         <div>

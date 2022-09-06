@@ -20,7 +20,7 @@ import {
 
 export default function Profile() {
   return (
-    <Center py={6}>
+    <Center>
       <Stack
         // borderWidth="1px"
         borderRadius="35"
@@ -30,11 +30,13 @@ export default function Profile() {
         // bg={useColorModeValue("grey", "gray.900")}
         bg="brand.200"
         boxShadow={"2xl"}
-        padding={4}
+        padding={8}
+        w="xl"
       >
-        <Flex flex={1} bg="blue.200">
+        <Flex flex={1}>
           <Image
-            // borderRadius="35"
+            borderRadius="10"
+            bg="black"
             objectFit="cover"
             boxSize="100%"
             src={"/headshot.jpeg"}
@@ -59,9 +61,9 @@ export default function Profile() {
             color="brand.400"
             px={3}
           >
-            hi i'm jordan. i like building things with code. some of my hobbies
-            include listening to music and podcasts, 3d printing, and playing
-            basketball and golf.
+            hi i'm jordan. i have a passion for building full-stack
+            applications. some of my hobbies include listening to music or
+            podcasts, 3d printing, and playing sports like basketball and golf.
             {/* <Link href={"#"} color={"blue.400"}>
               #tag
             </Link> */}
@@ -103,7 +105,7 @@ export default function Profile() {
             alignItems={"center"}
           >
             <Link
-              href="https://tinyurl.com/hiladojordan2023"
+              href="https://www.linkedin.com/in/jordanhilado"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -117,7 +119,7 @@ export default function Profile() {
               />
             </Link>
             <Link
-              href="https://tinyurl.com/hiladojordan2023"
+              href="https://github.com/jordanhilado"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -131,7 +133,7 @@ export default function Profile() {
               />
             </Link>
             <Link
-              href="https://tinyurl.com/hiladojordan2023"
+              href="https://www.instagram.com/jordanhilado/"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -145,7 +147,7 @@ export default function Profile() {
               />
             </Link>
             <Link
-              href="https://tinyurl.com/hiladojordan2023"
+              href="https://twitter.com/jordanhilado"
               target="_blank"
               rel="noopener noreferrer"
             >

@@ -2,19 +2,22 @@
     {
         "title": "walt disney animation studios",
         "posloc": "software engineer intern",
-        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
-        "date": "october 2020 - present"
+        "description": "for summer 2022, i interned on the information services team at walt disney animation studios, where i wrote production code for internal full-stack web applications.",
+        "date": "may 2022 - august 2022",
+        "image": "/disney.jpeg"
     },
     {
         "title": "down mobile",
         "posloc": "frontend developer",
-        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolod diam voluptua.",
-        "date": "october 2020 - present"
+        "description": "i am one of the first mobile developers at down, a mobile app that helps people find and connect with others in their area.",
+        "date": "june 2021 - january 2022",
+        "image": "/down.jpeg"
     },
     {
         "title": "major league hacking",
         "posloc": "fellow",
-        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
-        "date": "october 2020 - present"
+        "description": "for summer 2021, i was a fellow at major league hacking, where my team and i built an npm package that simplifies command line git workflow using react.js, express.js, and linode along with github api for user authentication and other various search engine apis for in-terminal search querying.",
+        "date": "june 2021 - august 2021",
+        "image": "/mlh.jpeg"
     }
 ]

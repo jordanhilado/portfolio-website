@@ -5,6 +5,7 @@ import {
   Heading,
   Text,
   Stack,
+  Link,
   Flex,
   Avatar,
   Button,
@@ -17,9 +18,16 @@ interface CardProps {
   description: string;
   date: string;
   stack: string[];
+  link: string;
 }
 
-export const Card3 = ({ clubName, description, date, stack }: CardProps) => {
+export const Card3 = ({
+  link,
+  clubName,
+  description,
+  date,
+  stack,
+}: CardProps) => {
   return (
     <Center py={2} mx={3}>
       <Box
@@ -90,9 +98,11 @@ export const Card3 = ({ clubName, description, date, stack }: CardProps) => {
           </Flex>
         </Stack>
         <a>
-          <Button mt={3} colorScheme="teal">
-            View
-          </Button>
+          <a href={link} target="_blank" rel="noopener noreferrer">
+            <Button mt={3} colorScheme="teal">
+              View
+            </Button>
+          </a>
         </a>
       </Box>
     </Center>

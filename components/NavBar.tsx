@@ -33,6 +33,11 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
               </NextLink>
             </Flex>
             <Flex width="550px" justifyContent="space-between">
+              <Link to="skills" spy={true} smooth={true} duration={1000}>
+                <Button colorScheme="teal" size="md">
+                  skills
+                </Button>
+              </Link>
               <Link to="education" spy={true} smooth={true} duration={1000}>
                 <Button colorScheme="teal" size="md">
                   education
@@ -48,18 +53,13 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
                   projects
                 </Button>
               </Link>
-              <Link to="skills" spy={true} smooth={true} duration={1000}>
-                <Button colorScheme="teal" size="md">
-                  skills
-                </Button>
-              </Link>
               <a
                 href="https://tinyurl.com/hiladojordan2023"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <Button colorScheme="teal" size="md" variant="outline">
-                  resume
+                  résumé
                 </Button>
               </a>
             </Flex>

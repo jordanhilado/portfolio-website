@@ -8,7 +8,7 @@ import Projs from "../data/projects.json";
 
 const Projects: NextPage = () => {
   return (
-    <Box id="projects" h="fit-content">
+    <Box id="projects" h="100vh">
       <Container pt={130} textAlign="center">
         <Text as="b" color="brand.400" fontSize="5xl">
           projects
@@ -21,6 +21,7 @@ const Projects: NextPage = () => {
               return (
                 <>
                   <Card3
+                    link={proj.link}
                     stack={proj.stack}
                     clubName={proj.title}
                     description={proj.description}

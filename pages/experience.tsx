@@ -30,6 +30,7 @@ const Experience: NextPage = () => {
               return (
                 <>
                   <Card
+                    image={exp.image}
                     title={exp.title}
                     posloc={exp.posloc}
                     description={exp.description}

@@ -1,10 +1,26 @@
 [
     {
-        "group": "frameworks",
+        "group": "languages",
         "list": [
             {
                 "name": "python",
                 "icon": "python.png"
+            },
+            {
+                "name": "javascript",
+                "icon": "js.png"
+            },
+            {
+                "name": "typescript",
+                "icon": "ts.png"
+            },
+            {
+                "name": "html",
+                "icon": "html.png"
+            },
+            {
+                "name": "css",
+                "icon": "css.png"
             },
             {
                 "name": "c++",
@@ -12,56 +28,48 @@
             },
             {
                 "name": "java",
-                "icon": "python"
+                "icon": "java.svg"
             },
             {
-                "name": "java",
-                "icon": "python"
+                "name": "ruby",
+                "icon": "ruby.png"
             },
             {
-                "name": "java",
-                "icon": "python"
+                "name": "sql",
+                "icon": "sql.png"
             },
             {
-                "name": "java",
-                "icon": "python"
+                "name": "graphql",
+                "icon": "gql.png"
             }
         ]
     },
     {
-        "group": "languages",
+        "group": "frameworks",
         "list": [
             {
                 "name": "react",
-                "icon": "python"
+                "icon": "react.png"
             },
             {
-                "name": "typescript",
-                "icon": "python"
+                "name": "react native",
+                "icon": "react.png"
             },
             {
-                "name": "yes",
-                "icon": "python"
+                "name": "django",
+                "icon": "django.png"
             },
             {
-                "name": "yes",
-                "icon": "python"
+                "name": "flask",
+                "icon": "flask.jpeg"
             },
             {
-                "name": "yes",
-                "icon": "python"
+                "name": "express",
+                "icon": "express.png"
             },
             {
-                "name": "yes",
-                "icon": "python"
-            },
-            {
-                "name": "yes",
-                "icon": "python"
-            },
-            {
-                "name": "yes",
-                "icon": "python"
+                "name": "next",
+                "icon": "next.png"
             }
         ]
     },
@@ -70,15 +78,15 @@
         "list": [
             {
                 "name": "mysql",
-                "icon": "python"
+                "icon": "mysql.png"
             },
             {
-                "name": "ppostgresql",
-                "icon": "python"
+                "name": "sqlite",
+                "icon": "sqlite.png"
             },
             {
-                "name": "redis",
-                "icon": "python"
+                "name": "postgresql",
+                "icon": "postgre.png"
             }
         ]
     },
@@ -86,12 +94,48 @@
         "group": "software and tools",
         "list": [
             {
-                "name": "xcode",
-                "icon": "xcode"
+                "name": "git",
+                "icon": "git.png"
             },
             {
-                "name": "test",
-                "icon": "test"
+                "name": "node",
+                "icon": "node.png"
+            },
+            {
+                "name": "docker",
+                "icon": "docker.webp"
+            },
+            {
+                "name": "linux",
+                "icon": "linux.png"
+            },
+            {
+                "name": "cypress",
+                "icon": "cypress.webp"
+            },
+            {
+                "name": "dbvisualizer",
+                "icon": "dbvis.png"
+            },
+            {
+                "name": "firebase",
+                "icon": "firebase.svg"
+            },
+            {
+                "name": "jenkins",
+                "icon": "jenkins.png"
+            },
+            {
+                "name": "postman",
+                "icon": "postman.png"
+            },
+            {
+                "name": "android",
+                "icon": "android.png"
+            },
+            {
+                "name": "xcode",
+                "icon": "xcode.png"
             }
         ]
     }

@@ -1,32 +1,38 @@
 [
     {
         "clubName": "university honors program",
-        "description": "engineering honors track II",
-        "position": "student",
-        "date": "october 2020 - present"
+        "description": "at csulb i am a university honors program student who is under engineering honors track 2. before graduating, i will complete my undergraduate thesis on a computer-science related topic.",
+        "position": "honors student",
+        "date": "2020-2023"
     },
     {
         "clubName": "association for computing machinery",
-        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.",
-        "position": "officer",
+        "description": "i currently serve as vice president at acm, csulb. i've previously served as co-vice president and beachhacks organizer. within the past three years in acm, i've made positive and impactful contributions to the computer science community at csulb.",
+        "position": "vice president",
         "date": "october 2020 - present"
     },
     {
         "clubName": "google developer student club",
-        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.",
-        "position": "officer",
-        "date": "october 2020 - present"
+        "description": "i am currently serving as the outreach lead for gdsc at csulb. i am responsible for creating and executing outreach strategies to increase the club's visibility and membership.",
+        "position": "outreach lead",
+        "date": "august 2022 - present"
     },
     {
         "clubName": "associated engineering student body",
-        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.",
-        "position": "officer",
-        "date": "october 2020 - present"
+        "description": "as a webmaster at aesb, i've rebuilt the legacy website from scratch using react, typescript, and material ui. i continue to maintain the website and the club's social media.",
+        "position": "webmaster",
+        "date": "august 2021 - present"
     },
     {
         "clubName": "csulb programming team",
-        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.",
-        "position": "programmer",
-        "date": "october 2020 - present"
+        "description": "for the 2020-2021 academic year, i competed at the socal international collegiate programming contest (icpc) regionals.",
+        "position": "icpc programmer",
+        "date": "august 2021 - present"
+    },
+    {
+        "clubName": "stem advantage scholar",
+        "description": "as a stem advantage scholar, i am a part of a cohort of hundreds of csu low-income students who are committed to pursuing a career in stem.",
+        "position": "scholar",
+        "date": "january 2022 - present"
     }
 ]
