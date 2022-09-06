@@ -19,6 +19,8 @@ export const CardA = ({
   return (
     <Center py={2} mx={4}>
       <Box
+        borderWidth="1px"
+        borderColor={"brand.300"}
         minW={"445px"}
         maxW={"445px"}
         w={"full"}

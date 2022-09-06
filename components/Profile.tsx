@@ -18,14 +18,15 @@ export default function Profile() {
   return (
     <Center>
       <Stack
-        // borderWidth="1px"
+        borderWidth="1px"
+        borderColor={"brand.300"}
         borderRadius="35"
         // w={{ sm: "100%", md: "500px" }}
         // height={{ sm: "476px", md: "20rem" }}
         direction={{ base: "column", md: "row" }}
         // bg={useColorModeValue("grey", "gray.900")}
         bg="brand.200"
-        boxShadow={"2xl"}
+        // boxShadow={"2xl"}
         padding={8}
         w="xl"
       >
@@ -46,14 +47,7 @@ export default function Profile() {
           p={1}
           pt={2}
         >
-          {/* <Heading fontSize={"2xl"} fontFamily={"body"}>
-            hi. i'm jordan.
-          </Heading> */}
-          {/* <Text fontWeight={600} color={"gray.500"} size="sm" mb={4}>
-            @jordanhilado
-          </Text> */}
           <Text
-            // textAlign={"center"}
             // color={useColorModeValue("gray.700", "gray.400")}
             color="brand.400"
             px={3}
@@ -65,6 +59,14 @@ export default function Profile() {
               #tag
             </Link> */}
             {/* me in your posts */}
+          </Text>
+          <Text
+            textAlign={"center"}
+            fontWeight={600}
+            color={"brand.500"}
+            size="sm"
+          >
+            jordanalihilado@gmail.com
           </Text>
           {/* <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
             <Badge

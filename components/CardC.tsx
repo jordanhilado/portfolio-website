@@ -27,6 +27,8 @@ export const CardC = ({
   return (
     <Center py={2} mx={3}>
       <Box
+        borderWidth="1px"
+        borderColor={"brand.300"}
         w="300px"
         // bg={useColorModeValue("white", "gray.900")}
         bg={"brand.200"}

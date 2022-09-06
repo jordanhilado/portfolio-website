@@ -8,7 +8,7 @@ const Skills: NextPage = () => {
     <Box color="brand.400" pt={130} id="skills" h="fit-content">
       <Box textAlign="center">
         <Text as="b" fontSize="5xl">
-          skills
+          technical skills
         </Text>
       </Box>
       <Center>
