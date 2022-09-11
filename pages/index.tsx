@@ -20,19 +20,6 @@ const Home: NextPage = () => {
           <main>
             <Center h="100vh">
               <Profile />
-              {/* <Container textAlign="center">
-                <Center p={10}>
-                  <Image
-                    src="/headshot.jpeg"
-                    alt="jordan hilado"
-                    boxSize="150px"
-                  />
-                </Center>
-                i’m a junior at cal state long beach majoring in computer
-                science. i enjoy building full-stack software applications. when
-                i’m not coding, i’m either listening to podcasts, 3d printing,
-                or playing sports like basketball or golf.
-              </Container> */}
             </Center>
           </main>
           <Skills />
@@ -56,10 +43,6 @@ const Home: NextPage = () => {
                     boxSize="150px"
                   />
                 </Center>
-                i’m a junior at cal state long beach majoring in computer
-                science. i enjoy building full-stack software applications. when
-                i’m not coding, i’m either listening to podcasts, 3d printing,
-                or playing sports like basketball or golf.
               </Container>
             </Center>
           </main>

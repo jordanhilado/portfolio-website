@@ -74,7 +74,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             // bg="red"
             top={0}
             p={4}
-            // bg="rgba(255, 255, 255, 0.2)"
+            // bg="rgba(255, 255, 255, 0.1)"
             // backdropFilter={"blur(10px)"}
             bg="brand.100"
             flexDirection="column"
@@ -92,26 +92,50 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             <Flex
               // bg="blue"
               width="450px"
-              height="100px"
+              height="110px"
               flexWrap="wrap"
               justifyContent="space-around"
             >
-              <Link to="skills" spy={true} smooth={true} duration={1000}>
+              <Link
+                offset={-70}
+                to="skills"
+                spy={true}
+                smooth={true}
+                duration={1000}
+              >
                 <Button colorScheme="teal" size="md">
                   skills
                 </Button>
               </Link>
-              <Link to="education" spy={true} smooth={true} duration={1000}>
+              <Link
+                offset={-70}
+                to="education"
+                spy={true}
+                smooth={true}
+                duration={1000}
+              >
                 <Button colorScheme="teal" size="md">
                   education
                 </Button>
               </Link>
-              <Link to="experience" spy={true} smooth={true} duration={1000}>
+              <Link
+                offset={-70}
+                to="experience"
+                spy={true}
+                smooth={true}
+                duration={1000}
+              >
                 <Button colorScheme="teal" size="md">
                   experience
                 </Button>
               </Link>
-              <Link to="projects" spy={true} smooth={true} duration={1000}>
+              <Link
+                offset={-70}
+                to="projects"
+                spy={true}
+                smooth={true}
+                duration={1000}
+              >
                 <Button colorScheme="teal" size="md">
                   projects
                 </Button>
