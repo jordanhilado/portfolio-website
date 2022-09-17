@@ -1,4 +1,4 @@
-import { Center, Container, Image, useMediaQuery } from "@chakra-ui/react";
+import { Box, Center, Container, Image, useMediaQuery } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Profile from "../components/Profile";
@@ -18,7 +18,8 @@ const Home: NextPage = () => {
           </Head>
 
           <main>
-            <Center h="100vh">
+            <Box bg="red" mb={60}></Box>
+            <Center>
               <Profile />
             </Center>
           </main>
@@ -28,25 +29,7 @@ const Home: NextPage = () => {
           <Projects />
         </div>
       ) : (
-        <div>
-          <Head>
-            <title>jordan hilado</title>
-          </Head>
-
-          <main>
-            <Center h="60vh">
-              <Container textAlign="center">
-                <Center>
-                  <Image
-                    src="/headshot.jpeg"
-                    alt="jordan hilado"
-                    boxSize="150px"
-                  />
-                </Center>
-              </Container>
-            </Center>
-          </main>
-        </div>
+        <div></div>
       )}
     </>
   );

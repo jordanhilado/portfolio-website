@@ -1,10 +1,14 @@
 import {
+  Box,
   Center,
   Flex,
+  Heading,
   IconButton,
   Image,
   Link,
+  position,
   Stack,
+  useMediaQuery,
   Text,
 } from "@chakra-ui/react";
 import {
@@ -15,122 +19,246 @@ import {
 } from "react-icons/ai";
 
 export default function Profile() {
+  const [mobile] = useMediaQuery("(min-width: 600px)");
   return (
-    <Center>
-      <Stack
-        borderWidth="1px"
-        borderColor={"brand.300"}
-        borderRadius="35"
-        // w={{ sm: "100%", md: "500px" }}
-        // height={{ sm: "476px", md: "20rem" }}
-        direction={{ base: "column", md: "row" }}
-        // bg={useColorModeValue("grey", "gray.900")}
-        bg="brand.200"
-        // boxShadow={"2xl"}
-        padding={8}
-        w="xl"
-      >
-        <Flex flex={1}>
-          <Image
-            borderRadius="10"
-            bg="black"
-            objectFit="cover"
-            boxSize="100%"
-            src={"/headshot.jpeg"}
-            alt={"headshot"}
-          />
-        </Flex>
-        <Stack
-          flex={1}
-          flexDirection="column"
-          justifyContent="center"
-          p={1}
-          pt={2}
-        >
-          <Text
-            // color={useColorModeValue("gray.700", "gray.400")}
-            color="brand.400"
-            px={3}
-          >
-            {
-              "hi i'm jordan. i have a passion for building full-stack applications. some of my hobbies include listening to music or podcasts, 3d printing, and playing sports like basketball and golf."
-            }
-          </Text>
-          <Text
-            textAlign={"center"}
-            fontWeight={600}
-            color={"brand.500"}
-            size="sm"
-          >
-            jordanalihilado@gmail.com
-          </Text>
+    <>
+      {mobile ? (
+        <Center>
           <Stack
-            width={"100%"}
-            mt={"2rem"}
-            direction={"row"}
-            padding={2}
-            justifyContent={"space-between"}
-            alignItems={"center"}
+            borderWidth="1px"
+            borderColor={"brand.300"}
+            borderRadius="35"
+            // w={{ sm: "400px", md: "xl" }}
+            // height={{ sm: "476px", md: "20rem" }}
+            // direction={{ sm: "column", md: "row" }}
+            direction="row"
+            // bg={useColorModeValue("grey", "gray.900")}
+            bg="brand.200"
+            // boxShadow={"2xl"}
+            padding={8}
+            w="xl"
           >
-            <Link
-              href="https://www.linkedin.com/in/jordanhilado"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <IconButton
-                variant="outline"
-                size="lg"
-                colorScheme="teal"
-                aria-label="Call Sage"
-                fontSize="40px"
-                icon={<AiFillLinkedin />}
+            <Flex flex={1}>
+              <Image
+                borderRadius="10"
+                bg="black"
+                objectFit="cover"
+                boxSize="100%"
+                src={"/headshot.jpeg"}
+                alt={"headshot"}
               />
-            </Link>
-            <Link
-              href="https://github.com/jordanhilado"
-              target="_blank"
-              rel="noopener noreferrer"
+            </Flex>
+            <Stack
+              flex={1}
+              flexDirection="column"
+              justifyContent="center"
+              p={1}
+              pt={2}
             >
-              <IconButton
-                variant="outline"
-                colorScheme="teal"
-                size="lg"
-                aria-label="Call Sage"
-                fontSize="40px"
-                icon={<AiOutlineGithub />}
-              />
-            </Link>
-            <Link
-              href="https://www.instagram.com/jordanhilado/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <IconButton
-                variant="outline"
-                size="lg"
-                colorScheme="teal"
-                aria-label="Call Sage"
-                fontSize="40px"
-                icon={<AiFillInstagram />}
-              />
-            </Link>
-            <Link
-              href="https://twitter.com/jordanhilado"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <IconButton
-                variant="outline"
-                size="lg"
-                colorScheme="teal"
-                aria-label="Call Sage"
-                fontSize="40px"
-                icon={<AiFillTwitterCircle />}
-              />
-            </Link>
+              <Text
+                // color={useColorModeValue("gray.700", "gray.400")}
+                color="brand.400"
+                px={3}
+              >
+                {
+                  "hi i'm jordan. i have a passion for building full-stack applications. some of my hobbies include listening to music or podcasts, 3d printing, and playing sports like basketball and golf."
+                }
+              </Text>
+              <Text
+                textAlign={"center"}
+                fontWeight={600}
+                color={"brand.500"}
+                size="sm"
+              >
+                jordanalihilado@gmail.com
+              </Text>
+              <Stack
+                width={"100%"}
+                mt={"2rem"}
+                direction={"row"}
+                padding={2}
+                justifyContent={"space-between"}
+                alignItems={"center"}
+              >
+                <Link
+                  href="https://www.linkedin.com/in/jordanhilado"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <IconButton
+                    variant="outline"
+                    size="lg"
+                    colorScheme="teal"
+                    aria-label="Call Sage"
+                    fontSize="40px"
+                    icon={<AiFillLinkedin />}
+                  />
+                </Link>
+                <Link
+                  href="https://github.com/jordanhilado"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <IconButton
+                    variant="outline"
+                    colorScheme="teal"
+                    size="lg"
+                    aria-label="Call Sage"
+                    fontSize="40px"
+                    icon={<AiOutlineGithub />}
+                  />
+                </Link>
+                <Link
+                  href="https://www.instagram.com/jordanhilado/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <IconButton
+                    variant="outline"
+                    size="lg"
+                    colorScheme="teal"
+                    aria-label="Call Sage"
+                    fontSize="40px"
+                    icon={<AiFillInstagram />}
+                  />
+                </Link>
+                <Link
+                  href="https://twitter.com/jordanhilado"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <IconButton
+                    variant="outline"
+                    size="lg"
+                    colorScheme="teal"
+                    aria-label="Call Sage"
+                    fontSize="40px"
+                    icon={<AiFillTwitterCircle />}
+                  />
+                </Link>
+              </Stack>
+            </Stack>
           </Stack>
-        </Stack>
-      </Stack>
-    </Center>
+        </Center>
+      ) : (
+        <Center>
+          <Stack
+            borderWidth="1px"
+            borderColor={"brand.300"}
+            borderRadius="35"
+            // w={{ sm: "400px", md: "xl" }}
+            // height={{ sm: "476px", md: "20rem" }}
+            // direction={{ sm: "column", md: "row" }}
+            direction="column"
+            // bg={useColorModeValue("grey", "gray.900")}
+            bg="brand.200"
+            // boxShadow={"2xl"}
+            padding={8}
+            w="360px"
+          >
+            <Flex flex={1}>
+              <Image
+                borderRadius="10"
+                bg="black"
+                objectFit="cover"
+                boxSize="100%"
+                src={"/headshot.jpeg"}
+                alt={"headshot"}
+              />
+            </Flex>
+            <Stack
+              flex={1}
+              flexDirection="column"
+              justifyContent="center"
+              p={1}
+              pt={2}
+            >
+              <Text
+                // color={useColorModeValue("gray.700", "gray.400")}
+                color="brand.400"
+                px={3}
+              >
+                {
+                  "hi i'm jordan. i have a passion for building full-stack applications. some of my hobbies include listening to music or podcasts, 3d printing, and playing sports like basketball and golf."
+                }
+              </Text>
+              <Text
+                textAlign={"center"}
+                fontWeight={600}
+                color={"brand.500"}
+                size="sm"
+              >
+                jordanalihilado@gmail.com
+              </Text>
+              <Stack
+                width={"100%"}
+                mt={"2rem"}
+                direction={"row"}
+                padding={2}
+                justifyContent={"space-between"}
+                alignItems={"center"}
+              >
+                <Link
+                  href="https://www.linkedin.com/in/jordanhilado"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <IconButton
+                    variant="outline"
+                    size="lg"
+                    colorScheme="teal"
+                    aria-label="Call Sage"
+                    fontSize="40px"
+                    icon={<AiFillLinkedin />}
+                  />
+                </Link>
+                <Link
+                  href="https://github.com/jordanhilado"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <IconButton
+                    variant="outline"
+                    colorScheme="teal"
+                    size="lg"
+                    aria-label="Call Sage"
+                    fontSize="40px"
+                    icon={<AiOutlineGithub />}
+                  />
+                </Link>
+                <Link
+                  href="https://www.instagram.com/jordanhilado/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <IconButton
+                    variant="outline"
+                    size="lg"
+                    colorScheme="teal"
+                    aria-label="Call Sage"
+                    fontSize="40px"
+                    icon={<AiFillInstagram />}
+                  />
+                </Link>
+                <Link
+                  href="https://twitter.com/jordanhilado"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <IconButton
+                    variant="outline"
+                    size="lg"
+                    colorScheme="teal"
+                    aria-label="Call Sage"
+                    fontSize="40px"
+                    icon={<AiFillTwitterCircle />}
+                  />
+                </Link>
+              </Stack>
+            </Stack>
+          </Stack>
+        </Center>
+      )}
+    </>
   );
 }

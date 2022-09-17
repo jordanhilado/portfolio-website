@@ -6,7 +6,7 @@ import { Link } from "react-scroll";
 interface NavBarProps {}
 
 export const NavBar: React.FC<NavBarProps> = ({}) => {
-  const [mobile] = useMediaQuery("(min-width: 425px)");
+  const [mobile] = useMediaQuery("(min-width: 600px)");
   return (
     <>
       {mobile ? (
