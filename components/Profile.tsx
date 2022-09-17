@@ -1,15 +1,12 @@
 import {
-  Box,
   Center,
   Flex,
-  Heading,
   IconButton,
   Image,
   Link,
-  position,
   Stack,
-  useMediaQuery,
   Text,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import {
   AiFillInstagram,
