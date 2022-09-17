@@ -3,42 +3,42 @@
         "title": "anonversations",
         "description": "reddit-like forum discussions web application",
         "date": "january 2022 - present",
-        "stack": ["react", "typescript", "graphql", "postgresql", "chakra ui", "node.js", "urql", "apollo", "docker", "typeorm"],
+        "stack": "react,typescript,graphql,postgresql,chakra ui,node.js,urql,apollo,docker,typeorm",
         "link": "https://github.com/jordanhilado/Anonversations"
     },
     {
         "title": "camptaneous",
         "description": "mobile application that queries nearby national park service campsites",
         "date": "june 2021",
-        "stack": ["react native", "javascript", "expo"],
+        "stack": "react native,javascript,expo",
         "link": "https://github.com/jordanhilado"
     },
     {
         "title": "python sorting algorithms visualizer",
         "description": "algorithm visualizer which displays bubble, merge, and quick sorting algorithms in user-specified speeds and volumes",
         "date": "october 2020",
-        "stack": ["python", "tkinter"],
+        "stack": "python,tkinter",
         "link": "https://github.com/jordanhilado/Algorithm-Visualizer"
     },
     {
         "title": "covid screener",
         "description": "questionnaire screening tool website intended to monitor student health statuses in educational establishments – won first place at the 2020 jumpstart edtech hackathon",
         "date": "august 2020",
-        "stack": ["python", "flask", "bootstrap"],
+        "stack": "python,flask,bootstrap",
         "link": "https://devpost.com/software/covid-screener"
     },
     {
         "title": "dayly",
         "description": "note-taking and time-management full-stack web application that allows users to create calendar events, tasks, and to-do lists",
         "date": "august 2020",
-        "stack": ["python", "flask", "bootstrap", "sqlite"],
+        "stack": "python,flask,bootstrap,sqlite",
         "link": "https://github.com/jordanhilado/Dayly"
     },
     {
         "title": "central cli",
         "description": "npm package that simplifies command line git workflow",
         "date": "june 2021 - august 2021",
-        "stack": ["react", "express.js"],
+        "stack": "react,express.js",
         "link": "https://devpost.com/software/central-cli"
     }
 ]

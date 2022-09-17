@@ -13,7 +13,7 @@ interface CardCProps {
   clubName: string;
   description: string;
   date: string;
-  stack: string[];
+  stack: string;
   link: string;
 }
 
@@ -24,6 +24,7 @@ export const CardC = ({
   date,
   stack,
 }: CardCProps) => {
+  var arr = stack.split(",");
   return (
     <Center py={2} mx={3}>
       <Box
@@ -80,7 +81,7 @@ export const CardC = ({
           /> */}
           {/* <Text fontWeight={600}>{position}</Text> */}
           <Flex flexWrap="wrap">
-            {stack.map((s) => {
+            {arr.map((s) => {
               return (
                 <>
                   <Badge
