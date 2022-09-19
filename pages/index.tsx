@@ -8,7 +8,7 @@ import Projects from "./projects";
 import Skills from "./skills";
 
 const Home: NextPage = () => {
-  const [mobile] = useMediaQuery("(min-width: 10px)");
+  const [mobile] = useMediaQuery("(min-width: 425px)");
   return (
     <>
       {mobile ? (
@@ -18,7 +18,7 @@ const Home: NextPage = () => {
           </Head>
 
           <main>
-            <Box bg="red" mb={60}></Box>
+            <Box mb={60}></Box>
             <Center>
               <Profile />
             </Center>
@@ -29,7 +29,22 @@ const Home: NextPage = () => {
           <Projects />
         </div>
       ) : (
-        <div></div>
+        <div style={{ width: "500px" }}>
+          <Head>
+            <title>jordan hilado</title>
+          </Head>
+
+          <main>
+            <Box mb={60}></Box>
+            <Center>
+              <Profile />
+            </Center>
+          </main>
+          <Skills />
+          <Education />
+          <Experience />
+          <Projects />
+        </div>
       )}
     </>
   );
