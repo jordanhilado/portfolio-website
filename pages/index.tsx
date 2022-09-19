@@ -14,6 +14,7 @@ const Home: NextPage = () => {
       {mobile ? (
         <div>
           <Head>
+            <link rel="icon" href="/headshot.png" />
             <title>jordan hilado</title>
           </Head>
 
