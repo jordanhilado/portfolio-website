@@ -32,7 +32,13 @@
     {
         "clubName": "stem advantage scholar",
         "description": "as a stem advantage scholar, i am a part of a cohort of hundreds of csu low-income students who are committed to pursuing a career in stem.",
-        "position": "scholar",
+        "position": "scholarship recipient",
         "date": "january 2022 - present"
+    },
+    {
+        "clubName": "the aerospace corporation - dean's leadership academy",
+        "description": "the aerospace corporation dean’s leadership academy is an exclusive opportunity for high-achieving students to connect and converse with industry and community executives to further develop leadership qualities.",
+        "position": "scholarship recipient",
+        "date": "september 2022 - present"
     }
 ]
