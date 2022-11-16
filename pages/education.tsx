@@ -26,16 +26,30 @@ const Education: NextPage = () => {
         <Box width="1000px">
           <Flex flexDirection={"row"} flexWrap="wrap" justifyContent="center">
             {Clubs.map((club) => {
-              return (
-                <>
-                  <CardB
-                    clubName={club.clubName}
-                    description={club.description}
-                    position={club.position}
-                    date={club.date}
-                  />
-                </>
-              );
+              if (club.link) {
+                return (
+                  <>
+                    <CardB
+                      clubName={club.clubName}
+                      description={club.description}
+                      position={club.position}
+                      date={club.date}
+                      link={club.link}
+                    />
+                  </>
+                );
+              } else {
+                return (
+                  <>
+                    <CardB
+                      clubName={club.clubName}
+                      description={club.description}
+                      position={club.position}
+                      date={club.date}
+                    />
+                  </>
+                );
+              }
             })}
           </Flex>
         </Box>

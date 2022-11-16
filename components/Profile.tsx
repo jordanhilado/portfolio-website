@@ -192,7 +192,7 @@ export default function Profile() {
                 mt={"2rem"}
                 direction={"row"}
                 padding={2}
-                justifyContent={"space-between"}
+                justifyContent={"center"}
                 alignItems={"center"}
               >
                 <Link

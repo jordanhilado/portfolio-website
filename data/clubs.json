@@ -9,7 +9,8 @@
         "clubName": "association for computing machinery",
         "description": "i currently serve as vice president at acm, csulb. i've previously served as co-vice president and beachhacks organizer. within the past three years in acm, i've made positive and impactful contributions to the computer science community at csulb.",
         "position": "vice president",
-        "date": "october 2020 - present"
+        "date": "october 2020 - present",
+        "link": "https://csulb.acm.org/"
     },
     {
         "clubName": "google developer student club",
@@ -21,13 +22,14 @@
         "clubName": "associated engineering student body",
         "description": "as a webmaster at aesb, i've rebuilt the legacy website from scratch using react, typescript, and material ui. i continue to maintain the website and the club's social media.",
         "position": "webmaster",
-        "date": "august 2021 - present"
+        "date": "august 2021 - present",
+        "link": "https://aesb.org/officers"
     },
     {
         "clubName": "csulb programming team",
         "description": "for the 2020-2021 academic year, i competed at the socal international collegiate programming contest (icpc) regionals.",
         "position": "icpc programmer",
-        "date": "august 2021 - present"
+        "date": "august 2021 - may 2022"
     },
     {
         "clubName": "stem advantage scholar",
@@ -39,6 +41,7 @@
         "clubName": "the aerospace corporation - dean's leadership academy",
         "description": "the aerospace corporation dean’s leadership academy is an exclusive opportunity for high-achieving students to connect and converse with industry and community executives to further develop leadership qualities.",
         "position": "scholarship recipient",
-        "date": "september 2022 - present"
+        "date": "september 2022 - present",
+        "link": "https://www.csulb.edu/college-of-engineering/the-aerospace-corporation-deans-leadership-academy"
     }
 ]

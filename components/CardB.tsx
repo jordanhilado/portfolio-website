@@ -1,10 +1,11 @@
-import { Box, Center, Heading, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Center, Heading, Stack, Text } from "@chakra-ui/react";
 
 interface CardBProps {
   clubName: string;
   description: string;
   position: string;
   date: string;
+  link?: string;
 }
 
 export const CardB = ({
@@ -12,6 +13,7 @@ export const CardB = ({
   description,
   position,
   date,
+  link,
 }: CardBProps) => {
   return (
     <Center py={2} mx={3}>
@@ -67,6 +69,13 @@ export const CardB = ({
             alt={"Author"}
           /> */}
           <Stack direction={"column"} spacing={0} fontSize={"sm"}>
+            {link && (
+              <a href={link} target="_blank" rel="noopener noreferrer">
+                <Button mb={3} colorScheme="teal">
+                  View
+                </Button>
+              </a>
+            )}
             <Text color={"brand.500"} fontWeight={600}>
               {position}
             </Text>
