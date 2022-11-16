@@ -74,7 +74,7 @@ export default function Profile() {
                 mt={"2rem"}
                 direction={"row"}
                 padding={2}
-                justifyContent={"space-between"}
+                justifyContent={"center"}
                 alignItems={"center"}
               >
                 <Link
@@ -105,7 +105,7 @@ export default function Profile() {
                     icon={<AiOutlineGithub />}
                   />
                 </Link>
-                <Link
+                {/* <Link
                   href="https://www.instagram.com/jordanhilado/"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -132,7 +132,7 @@ export default function Profile() {
                     fontSize="40px"
                     icon={<AiFillTwitterCircle />}
                   />
-                </Link>
+                </Link> */}
               </Stack>
             </Stack>
           </Stack>
@@ -223,7 +223,7 @@ export default function Profile() {
                     icon={<AiOutlineGithub />}
                   />
                 </Link>
-                <Link
+                {/* <Link
                   href="https://www.instagram.com/jordanhilado/"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -250,7 +250,7 @@ export default function Profile() {
                     fontSize="40px"
                     icon={<AiFillTwitterCircle />}
                   />
-                </Link>
+                </Link> */}
               </Stack>
             </Stack>
           </Stack>
