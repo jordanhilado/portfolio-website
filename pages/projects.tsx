@@ -8,7 +8,7 @@ const Projects: NextPage = () => {
     <Box id="projects" h="100vh">
       <Container pt={130} textAlign="center">
         <Text as="b" color="brand.400" fontSize="5xl">
-          projects
+          Projects
         </Text>
       </Container>
       <Center>

@@ -15,7 +15,7 @@ const Home: NextPage = () => {
         <div>
           <Head>
             <link rel="icon" href="/headshot.png" />
-            <title>jordan hilado</title>
+            <title>Jordan Hilado</title>
           </Head>
 
           <main>
@@ -32,7 +32,7 @@ const Home: NextPage = () => {
       ) : (
         <div style={{ width: "500px" }}>
           <Head>
-            <title>jordan hilado</title>
+            <title>Jordan Hilado</title>
           </Head>
 
           <main>

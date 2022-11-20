@@ -1,13 +1,13 @@
 [
     {
-        "clubName": "university honors program",
-        "description": "at csulb i am a university honors program student who is under engineering honors track 2. before graduating, i will complete my undergraduate thesis on a computer-science related topic.",
+        "clubName": "University Honors Program",
+        "description": "Conducting research.",
         "position": "honors student",
         "date": "2020-2023"
     },
     {
-        "clubName": "association for computing machinery",
-        "description": "i currently serve as vice president at acm, csulb. i've previously served as co-vice president and beachhacks organizer. within the past three years in acm, i've made positive and impactful contributions to the computer science community at csulb.",
+        "clubName": "Association for Computing Machinery",
+        "description": "Building community.", 
         "position": "vice president",
         "date": "october 2020 - present",
         "link": "https://csulb.acm.org/"

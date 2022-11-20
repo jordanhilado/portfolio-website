@@ -1,141 +1,145 @@
 [
     {
-        "group": "languages",
+        "group": "Languages",
         "list": [
             {
-                "name": "python",
+                "name": "Python",
                 "icon": "python.png"
             },
             {
-                "name": "javascript",
+                "name": "Javascript",
                 "icon": "js.png"
             },
             {
-                "name": "typescript",
+                "name": "Typescript",
                 "icon": "ts.png"
             },
             {
-                "name": "html",
+                "name": "HTML",
                 "icon": "html.png"
             },
             {
-                "name": "css",
+                "name": "CSS",
                 "icon": "css.png"
             },
             {
-                "name": "c++",
+                "name": "C++",
                 "icon": "cpp.svg"
             },
             {
-                "name": "java",
+                "name": "Java",
                 "icon": "java.svg"
             },
             {
-                "name": "ruby",
+                "name": "Ruby",
                 "icon": "ruby.png"
             },
             {
-                "name": "sql",
+                "name": "SQL",
                 "icon": "sql.png"
             },
             {
-                "name": "graphql",
+                "name": "GraphQL",
                 "icon": "gql.png"
             }
         ]
     },
     {
-        "group": "frameworks",
+        "group": "Frameworks",
         "list": [
             {
-                "name": "react",
+                "name": "React",
                 "icon": "react.png"
             },
             {
-                "name": "react native",
+                "name": "React Native",
                 "icon": "react.png"
             },
             {
-                "name": "django",
+                "name": "Django",
                 "icon": "django.png"
             },
             {
-                "name": "flask",
+                "name": "Flask",
                 "icon": "flask.jpeg"
             },
             {
-                "name": "express",
+                "name": "Express",
                 "icon": "express.png"
             },
             {
-                "name": "next",
+                "name": "Next",
                 "icon": "next.png"
             }
         ]
     },
     {
-        "group": "database",
+        "group": "Databases",
         "list": [
             {
-                "name": "mysql",
+                "name": "MySQL",
                 "icon": "mysql.png"
             },
             {
-                "name": "sqlite",
+                "name": "SQLite",
                 "icon": "sqlite.png"
             },
             {
-                "name": "postgresql",
+                "name": "PostgreSQL",
                 "icon": "postgre.png"
             }
         ]
     },
     {
-        "group": "software and tools",
+        "group": "Software and Tools",
         "list": [
             {
-                "name": "git",
+                "name": "Git",
                 "icon": "git.png"
             },
             {
-                "name": "node",
+                "name": "Node",
                 "icon": "node.png"
             },
             {
-                "name": "docker",
+                "name": "Docker",
                 "icon": "docker.webp"
             },
             {
-                "name": "linux",
+                "name": "Linux",
                 "icon": "linux.png"
             },
             {
-                "name": "cypress",
+                "name": "Cypress",
                 "icon": "cypress.webp"
             },
             {
-                "name": "dbvisualizer",
+                "name": "DBVisualizer",
                 "icon": "dbvis.png"
             },
             {
-                "name": "firebase",
+                "name": "Firebase",
                 "icon": "firebase.svg"
             },
             {
-                "name": "jenkins",
+                "name": "Jenkins",
                 "icon": "jenkins.png"
             },
             {
-                "name": "postman",
+                "name": "Postman",
                 "icon": "postman.png"
             },
             {
-                "name": "android",
+                "name": "Android",
                 "icon": "android.png"
             },
             {
-                "name": "xcode",
+                "name": "XCode",
                 "icon": "xcode.png"
+            },
+            {
+                "name": "Neovim",
+                "icon": "neovim.png"
             }
         ]
     }

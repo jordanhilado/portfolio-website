@@ -58,7 +58,7 @@ export default function Profile() {
                 px={3}
               >
                 {
-                  "hi i'm jordan. i have a passion for building full-stack applications. some of my hobbies include listening to music or podcasts, 3d printing, and playing sports like basketball and golf."
+                  "Hello, I'm Jordan. I have a passion for building full-stack applications. Some of my hobbies include listening to music and podcasts, 3D printing, and playing sports like basketball and golf."
                 }
               </Text>
               <Text

@@ -27,7 +27,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
               <NextLink href="/">
                 <a>
                   <Heading size="2xl" color="brand.400">
-                    jordan hilado
+                    Jordan Hilado
                   </Heading>
                 </a>
               </NextLink>
@@ -35,22 +35,22 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             <Flex width="550px" justifyContent="space-between">
               <Link to="skills" spy={true} smooth={true} duration={1000}>
                 <Button colorScheme="teal" size="md">
-                  skills
+                  Skills
                 </Button>
               </Link>
               <Link to="education" spy={true} smooth={true} duration={1000}>
                 <Button colorScheme="teal" size="md">
-                  education
+                  Education
                 </Button>
               </Link>
               <Link to="experience" spy={true} smooth={true} duration={1000}>
                 <Button colorScheme="teal" size="md">
-                  experience
+                  Experience
                 </Button>
               </Link>
               <Link to="projects" spy={true} smooth={true} duration={1000}>
                 <Button colorScheme="teal" size="md">
-                  projects
+                  Projects
                 </Button>
               </Link>
               <a
@@ -59,7 +59,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
                 rel="noopener noreferrer"
               >
                 <Button colorScheme="teal" size="md" variant="outline">
-                  résumé
+                  Résumé
                 </Button>
               </a>
             </Flex>
@@ -84,7 +84,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
               <NextLink href="/">
                 <a>
                   <Heading size="2xl" color="brand.400">
-                    jordan hilado
+                    Jordan Hilado
                   </Heading>
                 </a>
               </NextLink>
@@ -104,7 +104,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
                 duration={1000}
               >
                 <Button colorScheme="teal" size="md">
-                  skills
+                  Skills
                 </Button>
               </Link>
               <Link
@@ -115,7 +115,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
                 duration={1000}
               >
                 <Button colorScheme="teal" size="md">
-                  education
+                  Education
                 </Button>
               </Link>
               <Link
@@ -126,7 +126,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
                 duration={1000}
               >
                 <Button colorScheme="teal" size="md">
-                  experience
+                  Experience
                 </Button>
               </Link>
               <Link
@@ -137,7 +137,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
                 duration={1000}
               >
                 <Button colorScheme="teal" size="md">
-                  projects
+                  Projects
                 </Button>
               </Link>
               <a
@@ -146,7 +146,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
                 rel="noopener noreferrer"
               >
                 <Button colorScheme="teal" size="md" variant="outline">
-                  résumé
+                  Résumé
                 </Button>
               </a>
             </Flex>
