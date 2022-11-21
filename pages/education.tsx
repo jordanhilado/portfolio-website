@@ -19,7 +19,7 @@ const Education: NextPage = () => {
       </Container>
       <Container mt={5} textAlign="center">
         <Text as="b" color="brand.400" fontSize="3xl">
-          clubs 
+          Clubs and Activities 
         </Text>
       </Container>
       <Center>
