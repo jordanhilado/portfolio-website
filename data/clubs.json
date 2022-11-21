@@ -1,47 +1,47 @@
 [
     {
         "clubName": "University Honors Program",
-        "description": "Conducting research.",
-        "position": "honors student",
+        "description": "Currently conducting research.",
+        "position": "Honors Student",
         "date": "2020-2023"
     },
     {
         "clubName": "Association for Computing Machinery",
-        "description": "Building community.", 
-        "position": "vice president",
-        "date": "october 2020 - present",
+        "description": "Responsible for building the computer engineering and computer science community.", 
+        "position": "Vice President",
+        "date": "October 2020 - Present",
         "link": "https://csulb.acm.org/"
     },
     {
-        "clubName": "google developer student club",
-        "description": "i am currently serving as the outreach lead for gdsc at csulb. i am responsible for creating and executing outreach strategies to increase the club's visibility and membership.",
-        "position": "outreach lead",
-        "date": "august 2022 - present"
+        "clubName": "Google Developer Student Club",
+        "description": "Building a community of aspiring developers.",
+        "position": "Outreach Lead",
+        "date": "August 2022 - Present"
     },
     {
-        "clubName": "associated engineering student body",
-        "description": "as a webmaster at aesb, i've rebuilt the legacy website from scratch using react, typescript, and material ui. i continue to maintain the website and the club's social media.",
-        "position": "webmaster",
-        "date": "august 2021 - present",
+        "clubName": "Associated Engineering Student Body",
+        "description": "Building the College of Engineering community.",
+        "position": "Webmaster",
+        "date": "August 2021 - Present",
         "link": "https://aesb.org/officers"
     },
     {
-        "clubName": "csulb programming team",
-        "description": "for the 2020-2021 academic year, i competed at the socal international collegiate programming contest (icpc) regionals.",
-        "position": "icpc programmer",
-        "date": "august 2021 - may 2022"
+        "clubName": "CSULB ICPC Programming Team",
+        "description": "Competed at the 2021 Southern California ICPC Regionals.",
+        "position": "ICPC Contestant",
+        "date": "August 2021 - May 2022"
     },
     {
-        "clubName": "stem advantage scholar",
-        "description": "as a stem advantage scholar, i am a part of a cohort of hundreds of csu low-income students who are committed to pursuing a career in stem.",
-        "position": "scholarship recipient",
-        "date": "january 2022 - present"
+        "clubName": "STEM Advantage Scholar",
+        "description": "Building my professional network.",
+        "position": "Scholarship Recipient",
+        "date": "January 2022 - Present"
     },
     {
-        "clubName": "the aerospace corporation - dean's leadership academy",
-        "description": "the aerospace corporation dean’s leadership academy is an exclusive opportunity for high-achieving students to connect and converse with industry and community executives to further develop leadership qualities.",
-        "position": "scholarship recipient",
-        "date": "september 2022 - present",
+        "clubName": "The Aerospace Corporation - Dean's Leadership Academy",
+        "description": "Building leadership skills.",
+        "position": "Scholarship Recipient",
+        "date": "September 2022 - Present",
         "link": "https://www.csulb.edu/college-of-engineering/the-aerospace-corporation-deans-leadership-academy"
     }
 ]

@@ -23,6 +23,7 @@ const Experience: NextPage = () => {
                     description={exp.description}
                     date={exp.date}
                     image={exp.image}
+                    link={exp.link}
                   />
                 </>
               );

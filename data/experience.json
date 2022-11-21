@@ -1,23 +1,26 @@
 [
     {
-        "title": "walt disney animation studios",
-        "posloc": "software engineer intern",
-        "description": "for summer 2022, i interned on the information services team at walt disney animation studios, where i wrote production code for internal full-stack web applications.",
-        "date": "may 2022 - august 2022",
-        "image": "/disney.jpeg"
+        "title": "Walt Disney Animation Studios",
+        "posloc": "Software Engineer Intern",
+        "description": "Interned on the information services team, where I wrote production code for internal full-stack web applications.",
+        "date": "May 2022 - August 2022",
+        "image": "/disney.jpeg",
+        "link": "https://disneyanimation.com/interns-apprentices/"
     },
     {
-        "title": "down mobile",
-        "posloc": "frontend developer",
-        "description": "i am one of the first mobile developers at down, a mobile app that helps people find and connect with others in their area.",
-        "date": "june 2021 - january 2022",
-        "image": "/down.jpeg"
+        "title": "Down Groups",
+        "posloc": "Frontend Developer",
+        "description": "Developed the frontend archiecture of the Down mobile application using React Native and TypeScript.",
+        "date": "June 2021 - January 2022",
+        "image": "/down.jpeg",
+        "link": "https://apps.apple.com/us/app/down-groups-new-friends-irl/id1632533300"
     },
     {
-        "title": "major league hacking",
-        "posloc": "fellow",
-        "description": "for summer 2021, i was a fellow at major league hacking, where my team and i built an npm package that simplifies command line git workflow using react.js, express.js, and linode along with github api for user authentication and other various search engine apis for in-terminal search querying.",
-        "date": "june 2021 - august 2021",
-        "image": "/mlh.jpeg"
+        "title": "Major League Hacking",
+        "posloc": "Fellow",
+        "description": "Built an NPM package that simplifies the command line git workflow using React, Express, and Linode.",
+        "date": "June 2021 - August 2021",
+        "image": "/mlh.jpeg",
+        "link": "https://devpost.com/software/central-cli"
     }
 ]

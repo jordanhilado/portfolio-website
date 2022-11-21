@@ -1,4 +1,4 @@
-import { Box, Center, Heading, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Center, Heading, Stack, Text } from "@chakra-ui/react";
 import Image from "next/image";
 
 interface CardAProps {
@@ -7,6 +7,7 @@ interface CardAProps {
   description: string;
   date: string;
   image: string;
+  link?: string;
 }
 
 export const CardA = ({
@@ -15,6 +16,7 @@ export const CardA = ({
   description,
   posloc,
   date,
+  link,
 }: CardAProps) => {
   return (
     <Center py={2} mx={4}>
@@ -75,6 +77,13 @@ export const CardA = ({
         <Text mt={2} color={"brand.400"}>
           {description}
         </Text>
+        <Stack direction={"column"} spacing={0} fontSize={"sm"} mt={5}>
+          {link && (
+            <a href={link} target="_blank" rel="noopener noreferrer">
+              <Button colorScheme="teal">View</Button>
+            </a>
+          )}
+        </Stack>
       </Box>
     </Center>
   );
