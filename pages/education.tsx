@@ -14,12 +14,12 @@ const Education: NextPage = () => {
           Cal State Long Beach
         </Text>
         <Text color="brand.500" fontSize="1xl">
-          B.S. Computer Science | Aug. 2020 - Dec. 2023
+          B.S. Computer Science | August 2020 - December 2023
         </Text>
       </Container>
       <Container mt={5} textAlign="center">
         <Text as="b" color="brand.400" fontSize="3xl">
-          Clubs and Activities
+          clubs 
         </Text>
       </Container>
       <Center>
