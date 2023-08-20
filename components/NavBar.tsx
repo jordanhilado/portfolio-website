@@ -3,9 +3,7 @@ import NextLink from "next/link";
 import React from "react";
 import { Link } from "react-scroll";
 
-interface NavBarProps {}
-
-export const NavBar: React.FC<NavBarProps> = ({}) => {
+export const NavBar: React.FC = ({}) => {
   const [mobile] = useMediaQuery("(min-width: 600px)");
   return (
     <>
@@ -17,8 +15,6 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             width="100%"
             top={0}
             p={4}
-            // bg="rgba(255, 255, 255, 0.2)"
-            // backdropFilter={"blur(10px)"}
             bg="brand.100"
             flexDirection="column"
             alignItems="center"
@@ -38,14 +34,14 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
                   Skills
                 </Button>
               </Link>
-              <Link to="education" spy={true} smooth={true} duration={1000}>
-                <Button colorScheme="teal" size="md">
-                  Education
-                </Button>
-              </Link>
               <Link to="experience" spy={true} smooth={true} duration={1000}>
                 <Button colorScheme="teal" size="md">
                   Experience
+                </Button>
+              </Link>
+              <Link to="education" spy={true} smooth={true} duration={1000}>
+                <Button colorScheme="teal" size="md">
+                  Education
                 </Button>
               </Link>
               <Link to="projects" spy={true} smooth={true} duration={1000}>
@@ -71,11 +67,8 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             zIndex={1}
             position="fixed"
             width="100%"
-            // bg="red"
             top={0}
             p={4}
-            // bg="rgba(255, 255, 255, 0.1)"
-            // backdropFilter={"blur(10px)"}
             bg="brand.100"
             flexDirection="column"
             alignItems="center"
@@ -90,7 +83,6 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
               </NextLink>
             </Flex>
             <Flex
-              // bg="blue"
               width="450px"
               height="110px"
               flexWrap="wrap"
