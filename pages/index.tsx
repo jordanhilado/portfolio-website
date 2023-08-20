@@ -17,7 +17,6 @@ const Home: NextPage = () => {
             <link rel="icon" href="/headshot.png" />
             <title>Jordan Hilado</title>
           </Head>
-
           <main>
             <Box mb={60}></Box>
             <Center>
@@ -25,8 +24,8 @@ const Home: NextPage = () => {
             </Center>
           </main>
           <Skills />
-          <Education />
           <Experience />
+          <Education />
           <Projects />
         </div>
       ) : (
@@ -34,7 +33,6 @@ const Home: NextPage = () => {
           <Head>
             <title>Jordan Hilado</title>
           </Head>
-
           <main>
             <Box mb={60}></Box>
             <Center>
@@ -42,8 +40,8 @@ const Home: NextPage = () => {
             </Center>
           </main>
           <Skills />
-          <Education />
           <Experience />
+          <Education />
           <Projects />
         </div>
       )}

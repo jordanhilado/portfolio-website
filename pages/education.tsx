@@ -1,35 +1,36 @@
 import { Box, Center, Container, Flex, Text } from "@chakra-ui/react";
 import type { NextPage } from "next";
-import { CardB } from "../components/CardB";
+import { EducationCard } from "../components/EducationCard";
 import Clubs from "../data/clubs.json";
 
 const Education: NextPage = () => {
   return (
     <Box id="education" h="fit-content">
       <Container pt={130} textAlign="center">
-        <Text as="b" color="brand.400" fontSize="5xl">
+        <Text as="b" color="brand.400" fontSize="3xl">
           Education
         </Text>
-        <Text color="brand.400" fontSize="2xl">
-          Cal State Long Beach
+        <Text color="brand.400" fontSize="xl">
+          California State University, Long Beach
         </Text>
-        <Text color="brand.500" fontSize="1xl">
+        <Text color="brand.500" fontSize="lg">
           B.S. Computer Science | August 2020 - December 2023
         </Text>
       </Container>
       <Container mt={5} textAlign="center">
-        <Text as="b" color="brand.400" fontSize="3xl">
-          Clubs and Activities 
+        <Text as="b" color="brand.400" fontSize="2xl">
+          Affiliations
         </Text>
       </Container>
       <Center>
         <Box width="1000px">
           <Flex flexDirection={"row"} flexWrap="wrap" justifyContent="center">
-            {Clubs.map((club) => {
+            {Clubs.map((club, i) => {
               if (club.link) {
                 return (
                   <>
-                    <CardB
+                    <EducationCard
+                      key={i}
                       clubName={club.clubName}
                       description={club.description}
                       position={club.position}
@@ -41,7 +42,7 @@ const Education: NextPage = () => {
               } else {
                 return (
                   <>
-                    <CardB
+                    <EducationCard
                       clubName={club.clubName}
                       description={club.description}
                       position={club.position}

@@ -1,23 +1,24 @@
 import { Box, Center, Container, Flex, Text } from "@chakra-ui/react";
 import type { NextPage } from "next";
-import { CardA } from "../components/CardA";
+import { ExperienceCard } from "../components/ExperienceCard";
 import Exp from "../data/experience.json";
 
 const Experience: NextPage = () => {
   return (
     <Box id="experience" h="fit-content">
       <Container pt={130} textAlign="center">
-        <Text as="b" fontSize="5xl" color="brand.400">
+        <Text as="b" fontSize="3xl" color="brand.400">
           Experience
         </Text>
       </Container>
       <Center>
         <Box width="1800px">
           <Flex flexDirection={"row"} flexWrap="wrap" justifyContent="center">
-            {Exp.map((exp) => {
+            {Exp.map((exp, i) => {
               return (
                 <>
-                  <CardA
+                  <ExperienceCard
+                    key={i}
                     title={exp.title}
                     posloc={exp.posloc}
                     description={exp.description}

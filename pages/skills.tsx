@@ -7,32 +7,33 @@ const Skills: NextPage = () => {
   return (
     <Box color="brand.400" pt={130} id="skills" h="fit-content">
       <Box textAlign="center">
-        <Text as="b" fontSize="5xl">
+        <Text as="b" fontSize="3xl">
           Technical Skills
         </Text>
       </Box>
       <Center>
         <Box w="800px">
-          {sk.map((s) => {
+          {sk.map((s, i) => {
             return (
-              <>
-                <Text as="b" fontSize="3xl">
+              <div key={i}>
+                <Text as="b" fontSize="2xl">
                   {s.group}
                 </Text>
                 <Flex
+                  key={i}
                   flexWrap="wrap"
                   flexDirection="row"
                   justifyContent="start"
                 >
-                  {s.list.map((l) => {
+                  {s.list.map((l, idx) => {
                     return (
                       <>
-                        <Badge name={l.name} icon={l.icon} />
+                        <Badge key={idx} name={l.name} icon={l.icon} />
                       </>
                     );
                   })}
                 </Flex>
-              </>
+              </div>
             );
           })}
         </Box>
