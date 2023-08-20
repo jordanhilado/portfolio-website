@@ -1,48 +1,48 @@
 [
-    {
-        "clubName": "University Honors Program",
-        "description": "Currently conducting research.",
-        "position": "Honors Student",
-        "date": "2020-2023"
-    },
-    {
-        "clubName": "Association for Computing Machinery",
-        "description": "Responsible for building the computer engineering and computer science community.", 
-        "position": "Vice President",
-        "date": "October 2020 - Present",
-        "link": "https://csulb.acm.org/"
-    },
-    {
-        "clubName": "Google Developer Student Club",
-        "description": "Building a community of aspiring developers.",
-        "position": "Outreach Lead",
-        "date": "August 2022 - Present",
-        "link": "https://gdsc.community.dev/california-state-university-long-beach/"
-    },
-    {
-        "clubName": "Associated Engineering Student Body",
-        "description": "Building the College of Engineering community.",
-        "position": "Webmaster",
-        "date": "August 2021 - Present",
-        "link": "https://aesb.org/officers"
-    },
-    {
-        "clubName": "CSULB ICPC Programming Team",
-        "description": "Competed at the 2021 Southern California ICPC Regionals.",
-        "position": "ICPC Contestant",
-        "date": "August 2021 - May 2022"
-    },
-    {
-        "clubName": "STEM Advantage Scholar",
-        "description": "Building my professional network.",
-        "position": "Scholarship Recipient",
-        "date": "January 2022 - Present"
-    },
-    {
-        "clubName": "The Aerospace Corporation - Dean's Leadership Academy",
-        "description": "Building leadership skills.",
-        "position": "Scholarship Recipient",
-        "date": "September 2022 - Present",
-        "link": "https://www.csulb.edu/college-of-engineering/the-aerospace-corporation-deans-leadership-academy"
-    }
+  {
+    "clubName": "Association for Computing Machinery",
+    "description": "Empowered the computer science and engineering community through organizing workshops, socials, and hackathons",
+    "position": "Co-Vice President, Vice President, Sponsorship Director",
+    "date": "October 2020 - May 2023",
+    "link": "https://csulb.acm.org/#officers"
+  },
+  {
+    "clubName": "Associated Engineering Student Body",
+    "description": "Facilitated online outreach through social media and website",
+    "position": "Webmaster",
+    "date": "August 2021 - May 2023",
+    "link": "https://aesb.org/officers"
+  },
+  {
+    "clubName": "Google Developer Student Club",
+    "description": "Responsible for outreach to aspiring developers",
+    "position": "Outreach Lead",
+    "date": "August 2022 - May 2023",
+    "link": "https://gdsc.community.dev/california-state-university-long-beach/"
+  },
+  {
+    "clubName": "The Aerospace Corporation - Dean's Leadership Academy",
+    "description": "Selected into a cohort of 30 students for networking and leadership building with industry speakers",
+    "position": "Scholarship Recipient",
+    "date": "September 2022 - May 2023",
+    "link": "https://www.csulb.edu/college-of-engineering/aerospace-corporation-leadership-academy"
+  },
+  {
+    "clubName": "University Honors Program",
+    "description": "Undergraduate researcher under Dr. Ju Cheol Moon focusing on generative deep learning",
+    "position": "Engineering Honors Track II",
+    "date": "August 2021 - Present"
+  },
+  {
+    "clubName": "CSULB ICPC Programming Team",
+    "description": "Competed at the 2021 Southern California ICPC Regionals",
+    "position": "ICPC Contestant",
+    "date": "August 2021 - May 2022"
+  },
+  {
+    "clubName": "STEM Advantage Scholar",
+    "description": "",
+    "position": "Scholarship Recipient",
+    "date": "January 2022 - Present"
+  }
 ]

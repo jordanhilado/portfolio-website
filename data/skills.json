@@ -1,146 +1,158 @@
 [
-    {
-        "group": "Languages",
-        "list": [
-            {
-                "name": "Python",
-                "icon": "python.png"
-            },
-            {
-                "name": "JavaScript",
-                "icon": "js.png"
-            },
-            {
-                "name": "TypeScript",
-                "icon": "ts.png"
-            },
-            {
-                "name": "HTML",
-                "icon": "html.png"
-            },
-            {
-                "name": "CSS",
-                "icon": "css.png"
-            },
-            {
-                "name": "C++",
-                "icon": "cpp.svg"
-            },
-            {
-                "name": "Java",
-                "icon": "java.svg"
-            },
-            {
-                "name": "Ruby",
-                "icon": "ruby.png"
-            },
-            {
-                "name": "SQL",
-                "icon": "sql.png"
-            },
-            {
-                "name": "GraphQL",
-                "icon": "gql.png"
-            }
-        ]
-    },
-    {
-        "group": "Frameworks",
-        "list": [
-            {
-                "name": "React",
-                "icon": "react.png"
-            },
-            {
-                "name": "React Native",
-                "icon": "react.png"
-            },
-            {
-                "name": "Django",
-                "icon": "django.png"
-            },
-            {
-                "name": "Flask",
-                "icon": "flask.jpeg"
-            },
-            {
-                "name": "Express",
-                "icon": "express.png"
-            },
-            {
-                "name": "Next",
-                "icon": "next.png"
-            }
-        ]
-    },
-    {
-        "group": "Databases",
-        "list": [
-            {
-                "name": "MySQL",
-                "icon": "mysql.png"
-            },
-            {
-                "name": "SQLite",
-                "icon": "sqlite.png"
-            },
-            {
-                "name": "PostgreSQL",
-                "icon": "postgre.png"
-            }
-        ]
-    },
-    {
-        "group": "Software and Tools",
-        "list": [
-            {
-                "name": "Git",
-                "icon": "git.png"
-            },
-            {
-                "name": "Node",
-                "icon": "node.png"
-            },
-            {
-                "name": "Docker",
-                "icon": "docker.webp"
-            },
-            {
-                "name": "Linux",
-                "icon": "linux.png"
-            },
-            {
-                "name": "Cypress",
-                "icon": "cypress.webp"
-            },
-            {
-                "name": "DBVisualizer",
-                "icon": "dbvis.png"
-            },
-            {
-                "name": "Firebase",
-                "icon": "firebase.svg"
-            },
-            {
-                "name": "Jenkins",
-                "icon": "jenkins.png"
-            },
-            {
-                "name": "Postman",
-                "icon": "postman.png"
-            },
-            {
-                "name": "Android",
-                "icon": "android.png"
-            },
-            {
-                "name": "XCode",
-                "icon": "xcode.png"
-            },
-            {
-                "name": "Neovim",
-                "icon": "neovim.png"
-            }
-        ]
-    }
+  {
+    "group": "Languages",
+    "list": [
+      {
+        "name": "Python",
+        "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+      },
+      {
+        "name": "JavaScript",
+        "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
+      },
+      {
+        "name": "TypeScript",
+        "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
+      },
+      {
+        "name": "HTML",
+        "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"
+      },
+      {
+        "name": "CSS",
+        "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"
+      },
+      {
+        "name": "GraphQL",
+        "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg"
+      },
+      {
+        "name": "SQL",
+        "icon": "sql.png"
+      },
+      {
+        "name": "Java",
+        "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"
+      },
+      {
+        "name": "C++",
+        "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg"
+      },
+      {
+        "name": "Ruby",
+        "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ruby/ruby-original.svg"
+      }
+    ]
+  },
+  {
+    "group": "Frameworks",
+    "list": [
+      {
+        "name": "React",
+        "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+      },
+      {
+        "name": "React Native",
+        "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+      },
+      {
+        "name": "Express",
+        "icon": "express.png"
+      },
+      {
+        "name": "Next.js",
+        "icon": "next.png"
+      },
+      {
+        "name": "Django",
+        "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg"
+      },
+      {
+        "name": "FastAPI",
+        "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg"
+      },
+      {
+        "name": "Flask",
+        "icon": "flask.jpeg"
+      },
+      {
+        "name": "Expo",
+        "icon": "expo.png"
+      },
+      {
+        "name": "Ruby on Rails",
+        "icon": "rails.png"
+      }
+    ]
+  },
+  {
+    "group": "Databases",
+    "list": [
+      {
+        "name": "PostgreSQL",
+        "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg"
+      },
+      {
+        "name": "MySQL",
+        "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"
+      },
+      {
+        "name": "MongoDB",
+        "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg"
+      },
+      {
+        "name": "Firebase",
+        "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg"
+      },
+      {
+        "name": "SQLite",
+        "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg"
+      },
+      {
+        "name": "Amazon DynamoDB",
+        "icon": "dynamo.png"
+      }
+    ]
+  },
+  {
+    "group": "Software and Tools",
+    "list": [
+      {
+        "name": "Git",
+        "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg"
+      },
+      {
+        "name": "Node.js",
+        "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"
+      },
+      {
+        "name": "Jenkins",
+        "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg"
+      },
+      {
+        "name": "Postman",
+        "icon": "postman.png"
+      },
+      {
+        "name": "Docker",
+        "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg"
+      },
+      {
+        "name": "Apollo GraphQL",
+        "icon": "apollo.png"
+      },
+      {
+        "name": "Snowflake",
+        "icon": "snowflake.png"
+      },
+      {
+        "name": "Google Cloud Platform",
+        "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg"
+      },
+      {
+        "name": "AWS",
+        "icon": "aws.png"
+      }
+    ]
+  }
 ]

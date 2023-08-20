@@ -1,26 +1,26 @@
 [
-    {
-        "title": "Walt Disney Animation Studios",
-        "posloc": "Software Engineer Intern",
-        "description": "Interned on the information services team, where I wrote production code for internal full-stack web applications.",
-        "date": "May 2022 - August 2022",
-        "image": "/disney.jpeg",
-        "link": "https://disneyanimation.com/interns-apprentices/"
-    },
-    {
-        "title": "Down Groups",
-        "posloc": "Frontend Developer",
-        "description": "Developed the frontend architecture of the Down mobile application using React Native and TypeScript.",
-        "date": "June 2021 - January 2022",
-        "image": "/down.jpeg",
-        "link": "https://apps.apple.com/us/app/down-groups-new-friends-irl/id1632533300"
-    },
-    {
-        "title": "Major League Hacking",
-        "posloc": "Fellow",
-        "description": "Built an NPM package that simplifies the command line git workflow using React, Express, and Linode.",
-        "date": "June 2021 - August 2021",
-        "image": "/mlh.jpeg",
-        "link": "https://devpost.com/software/central-cli"
-    }
+  {
+    "title": "Walt Disney Animation Studios",
+    "posloc": "Software Engineer Intern",
+    "description": "Second internship with the Information Services team where I built a full-stack web application for production management",
+    "date": "May 2023 - August 2023",
+    "image": "/disney2023.jpg",
+    "link": "https://disneyanimation.com/interns-apprentices/"
+  },
+  {
+    "title": "Handle Delivery",
+    "posloc": "Software Engineer",
+    "description": "One of three full-stack engineers on the engineering team, maintaining applications serving over 13,000 students across 6 universities",
+    "date": "March 2023 - May 2023",
+    "image": "/handle.jpg",
+    "link": "https://www.handledelivery.com/"
+  },
+  {
+    "title": "Walt Disney Animation Studios",
+    "posloc": "Software Engineer Intern",
+    "description": "Interned on the Information Services team, where I made bug fixes and added features to internal full-stack web applications",
+    "date": "May 2022 - August 2022",
+    "image": "/disney2022.jpg",
+    "link": "https://disneyanimation.com/interns-apprentices/"
+  }
 ]
