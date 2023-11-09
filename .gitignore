@@ -15,6 +15,14 @@
 # production
 /build
 
+# latex resume files
+/data/resume/Jordan_Ali_Hilado_2023.aux
+/data/resume/Jordan_Ali_Hilado_2023.fdb_latexmk
+/data/resume/Jordan_Ali_Hilado_2023.fls
+/data/resume/Jordan_Ali_Hilado_2023.log
+/data/resume/Jordan_Ali_Hilado_2023.out
+/data/resume/Jordan_Ali_Hilado_2023.synctex.gz
+
 # misc
 .DS_Store
 *.pem

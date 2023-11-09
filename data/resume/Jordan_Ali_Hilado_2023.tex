@@ -1,0 +1,101 @@
+% Document class and font size
+\documentclass[a4paper,10pt]{extarticle}
+
+% Packages
+\usepackage[utf8]{inputenc} % For input encoding
+\usepackage{geometry} % For page margins
+\geometry{a4paper, margin=0.50in} % Set paper size and margins
+\usepackage{titlesec} % For section title formatting
+\usepackage{enumitem} % For itemized list formatting
+\usepackage{hyperref} % For hyperlinks
+
+% Formatting
+\setlist{noitemsep} % Removes item separation
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}[\titlerule] % Section title format
+\titlespacing*{\section}{0pt}{\baselineskip}{\baselineskip} % Section title spacing
+
+% Begin document
+\begin{document}
+
+% Disable page numbers
+\pagestyle{empty}
+
+% Header
+\begin{center}
+\textbf{\Large Jordan Ali Hilado}\\[2pt] % Name
+\href{mailto:jordanalihilado@gmail.com}{jordanalihilado@gmail.com} | (562) 500-9124 | \href{https://www.linkedin.com/in/jordanhilado}{linkedin.com/in/jordanhilado} | \href{https://jordanhilado.com/}{jordanhilado.com} % Contact info
+\end{center}
+
+% Education Section
+\section*{EDUCATION}
+\noindent
+\textbf{California State University - Long Beach}, Long Beach, CA \hfill Expected Grad: December 2023\\ % University name and location
+B.S. Computer Science \hfill GPA: 3.77\\ % Degree and GPA
+Associated Engineering Student Body, Association for Computing Machinery, CSULB Programming Team, \href{https://www.csulb.edu/college-of-engineering/aerospace-corporation-leadership-academy}{Dean’s Leadership Academy}, Engineering Honors Program, Google Developer Student Club, STEM Advantage Scholar % Affiliations
+
+% Skills Section
+\section*{TECHNICAL SKILLS}
+\begin{itemize}
+    \item \textbf{Languages:} Python, JavaScript/TypeScript, HTML/CSS, GraphQL, SQL, Java, C++, Ruby % Relevant coursework
+    \item \textbf{Frameworks:} React, Express, Next.js, Django, FastAPI, Flask, Ruby on Rails % Programming skills
+    \item \textbf{Database:} PostgreSQL, MySQL, MongoDB, Firebase, SQLite, DynamoDB % Software skills
+    \item \textbf{Software and Tools:} Git, Node.js, Jenkins, Postman, Apollo GraphQL, Google Cloud Platform, AWS, Snowflake % Communication skills
+\end{itemize}
+
+% Experience Section
+\section*{EXPERIENCE}
+\noindent
+\textbf{Walt Disney Animation Studios} \hfill Burbank, CA \\ % Company name and location
+\textit{Software Engineer Intern} \hfill May 2023 - Aug 2023 % Position and duration
+\begin{itemize}
+    \item Developed a full-stack web application that allows users to seamlessly add metadata to animated shots through Autodesk ShotGrid REST API by utilizing React, TypeScript, FastAPI, Python, and Ariadne GraphQL
+    \item Expanded data integration and integrity for the reconstruction of the studio’s production data pipeline flow by developing automated scripts using Python, Postman, AWS, Snowflake, Apache Airflow, and REST APIs
+    \item Successfully migrated and modernized a legacy Linux-native application to a web-based platform, resulting in an increase in user accessibility across all operating systems and devices % Job responsibilities and achievements
+\end{itemize}
+
+\noindent
+\textbf{Handle Delivery} \hfill Remote\\ % Company name and location
+\textit{Software Engineer (Part-time)} \hfill Mar 2023 - May 2023 % Position and duration
+\begin{itemize}
+    \item Constructed and maintained serverless cloud functions using TypeScript and Node.js to optimize performance, strengthen user experience, and visualize data on Google Cloud Platform
+    \item Supported four products within the infrastructure including the flagship mobile application and administrator dashboard utilizing React, React Native, TypeScript, and Firebase
+    \item Enhanced flagship application performance by redesigning the tech stack through extensive emulation, testing, and collaborative efforts with fellow engineers % Job responsibilities and achievements
+\end{itemize}
+
+\noindent
+\textbf{Walt Disney Animation Studios} \hfill Burbank, CA \\ % Company name and location
+\textit{Software Engineer Intern} \hfill May 2022 - Aug 2022 % Position and duration
+\begin{itemize}
+    \item Designed, tested, and implemented twelve fixes and features to internal production management tools leveraging tools such as React, Django, Cypress, and GraphQL
+    \item Utilized Apache Airflow, MySQL, Python, REST API, and Ruby on Rails to support diversity and inclusion efforts by constructing automated pronoun implementation into the employee records system
+    \item Improved type-efficiency in internal employee software by assisting in the transition from JavaScript to TypeScript and solutioned user-requested improvements to projects through Agile and CI/CD with product design team % Job responsibilities and achievements
+\end{itemize}
+
+\noindent
+\textbf{Major League Hacking} \hfill Remote\\ % Company name and location
+\textit{Software Engineer Intern} \hfill Jun 2021 - Aug 2021 % Position and duration
+\begin{itemize}
+    \item Developed an \href{https://devpost.com/software/central-cli}{NPM package} that simplifies command line git workflow and debugging using React, Express.js, Linode, and GitHub API, allowing for user authentication and in-terminal search querying among other features
+    \item Engaged in daily standups, weekly retrospectives, and frequent 1-on-1 meetings with teammates to discuss improvements to workflow, productivity management, and technical and non-technical blockers % Job responsibilities and achievements
+\end{itemize}
+
+
+% Projects Section
+\section*{PROJECTS}
+\noindent
+\textbf{Tweello} % Project name and location
+\textit{GitHub Repo:} \url{https://github.com/Dining-Philosophers-Tweello/tweello} \hfill Sep 2023 - Nov 2023 % Project link and duration
+\begin{itemize}
+    \item Using MongoDB, Express.js, React.js, and Node.js, I developed a responsive user interface and an efficient REST API that allows users to manage their own projects through task organization, interactive boards, and shareable workspaces through the web % Project description and contributions
+  \end{itemize}
+
+% Additional Project
+\noindent
+\textbf{Codebase} % Project name
+\textit{Project Demo:} \url{https://codebase-kappa.vercel.app/} \hfill Aug 2023 - Sep 2023 % Project link and duration
+\begin{itemize}
+    \item Codebase empowers users to better understand, enhance, and innovate existing code by utilizing OpenAI's ChatGPT API to answer any questions about user-uploaded code files through the web, built with React.js, Next.js, FastAPI, and TailwindCSS. % Project description and contributions
+  \end{itemize}
+
+% End document
+\end{document}
