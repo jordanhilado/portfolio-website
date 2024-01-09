@@ -50,7 +50,7 @@ export const NavBar: React.FC = ({}) => {
                 </Button>
               </Link>
               <a
-                href="https://nbviewer.org/github/jordanhilado/portfolio-website/blob/main/data/resume/Jordan_Ali_Hilado_2023.pdf?flush_cache=true"
+                href="https://nbviewer.org/github/jordanhilado/portfolio-website/blob/main/data/resume/Jordan_Ali_Hilado_2024.pdf?flush_cache=true"
                 target="_blank"
                 rel="noopener noreferrer"
               >
