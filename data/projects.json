@@ -1,37 +1,44 @@
 [
-    {
-        "title": "Anonversations",
-        "description": "Reddit-like forum discussions web app.",
-        "date": "January 2022 - August 2022",
-        "stack": "react,typescript,graphql,postgresql,chakra ui,node.js,urql,apollo,docker,typeorm",
-        "link": "https://github.com/jordanhilado/Anonversations"
-    },
-    {
-        "title": "Camptaneous",
-        "description": "Mobile application that queries nearby national park service campsites.",
-        "date": "June 2021",
-        "stack": "react native,javascript,expo",
-        "link": "https://github.com/jordanhilado"
-    },
-    {
-        "title": "COVID Screener",
-        "description": "Questionnaire screening tool website - won first place at the 2020 Jumpstart EdTech hackathon.",
-        "date": "August 2020",
-        "stack": "python,flask,bootstrap",
-        "link": "https://devpost.com/software/covid-screener"
-    },
-    {
-        "title": "Dayly",
-        "description": "Note-taking and time-management full-stack web app.",
-        "date": "August 2020",
-        "stack": "python,flask,bootstrap,sqlite",
-        "link": "https://github.com/jordanhilado/Dayly"
-    },
-    {
-        "title": "Central CLI",
-        "description": "NPM package that simplifies command line git workflow",
-        "date": "June 2021 - August 2021",
-        "stack": "react,express.js",
-        "link": "https://devpost.com/software/central-cli"
-    }
+  {
+    "title": "Anonversations",
+    "description": "Reddit-like forum discussions web app.",
+    "date": "January 2022 - August 2022",
+    "stack": "react,typescript,graphql,postgresql,chakra ui,node.js,urql,apollo,docker,typeorm",
+    "link": "https://github.com/jordanhilado/Anonversations"
+  },
+  {
+    "title": "Camptaneous",
+    "description": "Mobile application that queries nearby national park service campsites.",
+    "date": "June 2021",
+    "stack": "react native,javascript,expo",
+    "link": "https://github.com/jordanhilado"
+  },
+  {
+    "title": "Comparative Study of Text-to-Image Models: A Focus on Subject-Specific Training for Improved Generation",
+    "description": "This comparative study investigates the potential of text-to-image generative models to produce subject-driven content, focusing on Stable Diffusion 1.1.",
+    "date": "January 2023 - December 2023",
+    "stack": "python,diffusers,pytorch,hugging face",
+    "link": "https://github.com/csulb-datascience/Fine-Tuning-on-Stable-Diffusion"
+  },
+  {
+    "title": "COVID Screener",
+    "description": "Questionnaire screening tool website - won first place at the 2020 Jumpstart EdTech hackathon.",
+    "date": "August 2020",
+    "stack": "python,flask,bootstrap",
+    "link": "https://devpost.com/software/covid-screener"
+  },
+  {
+    "title": "Dayly",
+    "description": "Note-taking and time-management full-stack web app.",
+    "date": "August 2020",
+    "stack": "python,flask,bootstrap,sqlite",
+    "link": "https://github.com/jordanhilado/Dayly"
+  },
+  {
+    "title": "Central CLI",
+    "description": "NPM package that simplifies command line git workflow",
+    "date": "June 2021 - August 2021",
+    "stack": "react,express.js",
+    "link": "https://devpost.com/software/central-cli"
+  }
 ]

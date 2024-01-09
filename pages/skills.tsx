@@ -5,7 +5,7 @@ import sk from "../data/skills.json";
 
 const Skills: NextPage = () => {
   return (
-    <Box color="brand.400" pt={130} id="skills" h="fit-content">
+    <Box color="brand.400" pt={130} id="skills" h="fit-content" mb={100}>
       <Box textAlign="center">
         <Text as="b" fontSize="3xl">
           Technical Skills

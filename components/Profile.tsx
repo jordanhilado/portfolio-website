@@ -34,7 +34,7 @@ export default function Profile() {
         >
           <Text color="brand.400" px={3}>
             {
-              "Hello, I'm Jordan! I enjoy building full-stack web and mobile applications. Some of my hobbies include basketball, golf, hiking, thrifting, and 3D printing."
+              "Hello, I'm Jordan! I am recent C/O 2023 B.S. Computer Science graduate from Cal State Long Beach. I enjoy building full-stack web and mobile applications."
             }
           </Text>
           <Link
