@@ -133,7 +133,7 @@ export const NavBar: React.FC = ({}) => {
                 </Button>
               </Link>
               <a
-                href="https://tinyurl.com/hiladojordan2023"
+                href="https://nbviewer.org/github/jordanhilado/portfolio-website/blob/main/data/resume/Jordan_Ali_Hilado_2024.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
               >
