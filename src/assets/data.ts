@@ -5,14 +5,17 @@ export const data = {
   location: "Los Angeles, CA",
   contact: [
     {
+      name: "Email",
       icon: MailOutlined,
       link: "mailto:jordanalihilado@gmail.com",
     },
     {
+      name: "GitHub",
       icon: GithubFilled,
       link: "https://github.com/jordanhilado",
     },
     {
+      name: "LinkedIn",
       icon: LinkedinFilled,
       link: "https://www.linkedin.com/in/jordanhilado/",
     },

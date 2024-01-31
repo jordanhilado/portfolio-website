@@ -37,6 +37,7 @@ export default function Home() {
             <div className="flex flex-row gap-1 flex-wrap">
               {data.contact.map((contact) => (
                 <Link
+                  key={contact.name}
                   href={contact.link}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -172,7 +173,12 @@ export default function Home() {
       </div>
       <div className="flex flex-col gap-y-2">
         {data.projects.map((project) => (
-          <Link href={project.link} target="_blank" rel="noopener noreferrer">
+          <Link
+            key={project.title}
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <div className="border border-gray-200 rounded-xl p-3 pl-4 dark:border-gray-800 pb-4 hover:bg-gray-200 dark:hover:bg-gray-800 transition-all	duration-500">
               <div className="text-lg font-bold tracking-tight">
                 {project.title}
@@ -184,7 +190,7 @@ export default function Home() {
               </div>
               <div className="flex flex-row flex-wrap gap-y-1 gap-x-1">
                 {project.tags.map((tag) => (
-                  <Badge className="rounded-md">
+                  <Badge key={tag} className="rounded-md">
                     <code>{tag}</code>
                   </Badge>
                 ))}
@@ -203,7 +209,7 @@ export default function Home() {
       </div>
       <div className="flex flex-row flex-wrap gap-x-1 gap-y-1">
         {data.skills.map((skill) => (
-          <Badge className="rounded-md">
+          <Badge key={skill} className="rounded-md">
             <code>{skill}</code>
           </Badge>
         ))}
