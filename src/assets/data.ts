@@ -41,7 +41,7 @@ export const data = {
     {
       title: "Software Engineer",
       company: "Handle Delivery",
-      date: "Mar 23 - May 23",
+      date: "Mar 2023 - May 2023",
       description:
         "One of three full-stack engineers on the engineering team, maintaining applications serving over 13,000 students across 6 universities",
     },
@@ -66,13 +66,13 @@ export const data = {
       title: "Codebase",
       description:
         "A full-stack web application that allows users to create, share, and collaborate on code snippets",
-      link: "https://google.com/",
+      link: "https://codebase-kappa.vercel.app/",
       tags: ["React", "Next.js", "TypeScript", "Python", "LangChain"],
     },
     {
       title: "Anonversations",
       description: "Small Reddit clone",
-      link: "https://google.com/",
+      link: "https://github.com/jordanhilado/Anonversations",
       tags: ["React", "TypeScript", "PostgreSQL", "GraphQL"],
     },
   ],
