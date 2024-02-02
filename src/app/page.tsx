@@ -69,7 +69,7 @@ export default function Home() {
 
   const about = (
     <div className="flex flex-col">
-      <div className="text-3xl font-songmyung tracking-tight font-bold underline">
+      <div className="text-3xl font-songmyung tracking-tight font-bold">
         About
       </div>
       <code className="text-sm text-gray-500 dark:text-gray-300">
@@ -80,7 +80,7 @@ export default function Home() {
 
   const education = (
     <div className="flex flex-col">
-      <div className="text-3xl font-songmyung tracking-tight font-bold underline">
+      <div className="text-3xl font-songmyung tracking-tight font-bold">
         Education
       </div>
       <div className="flex flex-col gap-y-4">
@@ -118,7 +118,7 @@ export default function Home() {
 
   const experience = (
     <div className="flex flex-col">
-      <div className="text-3xl font-songmyung tracking-tight font-bold underline">
+      <div className="text-3xl font-songmyung tracking-tight font-bold">
         Work Experience
       </div>
       <div className="flex flex-col gap-y-4">
@@ -170,7 +170,7 @@ export default function Home() {
 
   const projects = (
     <div className="flex flex-col">
-      <div className="text-3xl font-songmyung tracking-tight font-bold mb-2 underline">
+      <div className="text-3xl font-songmyung tracking-tight font-bold mb-2">
         Projects
       </div>
       <div className="flex flex-col gap-y-2">
@@ -206,7 +206,7 @@ export default function Home() {
 
   const skills = (
     <div className="flex flex-col">
-      <div className="text-3xl font-songmyung tracking-tight font-bold mb-2 underline">
+      <div className="text-3xl font-songmyung tracking-tight font-bold mb-2">
         Technical Skills
       </div>
       <div className="flex flex-row flex-wrap gap-x-1 gap-y-1">
