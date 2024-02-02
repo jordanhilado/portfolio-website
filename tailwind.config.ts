@@ -25,6 +25,9 @@ const config = {
       "2xl": "1536px",
     },
     extend: {
+      fontFamily: {
+        songmyung: ["Song Myung", "serif"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

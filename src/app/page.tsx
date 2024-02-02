@@ -1,65 +1,57 @@
 import { ModeToggle } from "@/components/mode-toggle";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  GithubFilled,
-  GlobalOutlined,
-  LinkedinFilled,
-  MailOutlined,
-} from "@ant-design/icons";
-import Image from "next/image";
-import headshot from "../assets/headshot-main.png";
-import { data } from "../assets/data";
-import Link from "next/link";
 import { Globe } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { data } from "../assets/data";
+import headshot from "../assets/headshot-main.png";
 
 export default function Home() {
   const profile = (
     <div>
       <div className="flex flex-row justify-between items-center">
-        <div className="scroll-m-20 text-3xl font-bold tracking-tight">
+        <div className="text-4xl font-songmyung tracking-tight font-bold">
           Jordan Ali Hilado
         </div>
         <ModeToggle />
       </div>
       <div className="flex flex-row justify-between">
-        <div className="flex flex-col justify-between">
-          <code className="text-sm text-gray-500 dark:text-gray-300 max-w-96">
+        <div className="flex flex-col justify-between gap-y-3">
+          <code className="text-sm text-gray-500 dark:text-gray-300 max-w-96 mt-3">
             {data.bio}
           </code>
-          <div className="flex flex-col gap-y-2 justify-between">
-            <div className="flex flex-row items-center gap-x-2">
-              <Globe className="text-gray-500 dark:text-gray-300" size={15} />
-              <code className="text-sm text-gray-500 dark:text-gray-300">
-                {data.location}
-              </code>
-            </div>
-            <div className="flex flex-row gap-1 flex-wrap">
-              {data.contact.map((contact) => (
-                <Link
-                  key={contact.name}
-                  href={contact.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Button variant="outline" size="icon">
-                    <contact.icon className="text-xl pb-1 text-gray-500 dark:text-gray-300" />
-                  </Button>
-                </Link>
-              ))}
+          <div className="flex flex-row items-center gap-x-2">
+            <Globe className="text-gray-500 dark:text-gray-300" size={15} />
+            <code className="text-sm text-gray-500 dark:text-gray-300">
+              {data.location}
+            </code>
+          </div>
+          <div className="flex flex-row gap-1 flex-wrap">
+            {data.contact.map((contact) => (
               <Link
-                href={data.resume_link}
+                key={contact.name}
+                href={contact.link}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Button
-                  variant="outline"
-                  className="text-gray-500 dark:text-gray-300"
-                >
-                  Resume
+                <Button variant="outline" size="icon">
+                  <contact.icon className="text-xl pb-1 text-gray-500 dark:text-gray-300" />
                 </Button>
               </Link>
-            </div>
+            ))}
+            <Link
+              href={data.resume_link}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button
+                variant="outline"
+                className="text-gray-500 dark:text-gray-300 hover:text-gray-500"
+              >
+                Resume
+              </Button>
+            </Link>
           </div>
         </div>
         <div className="min-h-40 min-w-40">
@@ -77,7 +69,9 @@ export default function Home() {
 
   const about = (
     <div className="flex flex-col">
-      <div className="text-2xl font-bold tracking-tight">About</div>
+      <div className="text-3xl font-songmyung tracking-tight font-bold underline">
+        About
+      </div>
       <code className="text-sm text-gray-500 dark:text-gray-300">
         {data.about}
       </code>
@@ -86,7 +80,7 @@ export default function Home() {
 
   const education = (
     <div className="flex flex-col">
-      <div className="scroll-m-20 text-2xl font-bold tracking-tight">
+      <div className="text-3xl font-songmyung tracking-tight font-bold underline">
         Education
       </div>
       <div className="flex flex-col gap-y-4">
@@ -124,7 +118,9 @@ export default function Home() {
 
   const experience = (
     <div className="flex flex-col">
-      <div className="text-2xl font-bold tracking-tight">Work Experience</div>
+      <div className="text-3xl font-songmyung tracking-tight font-bold underline">
+        Work Experience
+      </div>
       <div className="flex flex-col gap-y-4">
         {data.experience.map((exp) => (
           <>
@@ -134,7 +130,10 @@ export default function Home() {
                 <div className="text-lg font-semibold tracking-tight">
                   {exp.company}
                 </div>
-                <Badge className="rounded-md w-fit">
+                <Badge
+                  className="rounded-md w-fit bg-gray-200 dark:bg-gray-800"
+                  variant="secondary"
+                >
                   <code>{exp.title}</code>
                 </Badge>
                 <div className="text-sm text-gray-500">{exp.date}</div>
@@ -152,7 +151,10 @@ export default function Home() {
                   </div>
                   <div className="text-sm text-gray-500">{exp.date}</div>
                 </div>
-                <Badge className="rounded-md w-fit">
+                <Badge
+                  className="rounded-md w-fit bg-gray-200 dark:bg-gray-800"
+                  variant="secondary"
+                >
                   <code>{exp.title}</code>
                 </Badge>
                 <code className="text-sm text-gray-500 dark:text-gray-300">
@@ -168,7 +170,7 @@ export default function Home() {
 
   const projects = (
     <div className="flex flex-col">
-      <div className="scroll-m-20 text-2xl font-bold tracking-tight mb-2">
+      <div className="text-3xl font-songmyung tracking-tight font-bold mb-2 underline">
         Projects
       </div>
       <div className="flex flex-col gap-y-2">
@@ -180,7 +182,7 @@ export default function Home() {
             rel="noopener noreferrer"
           >
             <div className="border border-gray-200 rounded-xl p-3 pl-4 dark:border-gray-800 pb-4 hover:bg-gray-200 dark:hover:bg-gray-800 transition-all	duration-500">
-              <div className="text-lg font-bold tracking-tight">
+              <div className="text-lg font-semibold tracking-tight">
                 {project.title}
               </div>
               <div className="leading-tight pb-2">
@@ -204,7 +206,7 @@ export default function Home() {
 
   const skills = (
     <div className="flex flex-col">
-      <div className="text-2xl font-bold tracking-tight mb-2">
+      <div className="text-3xl font-songmyung tracking-tight font-bold mb-2 underline">
         Technical Skills
       </div>
       <div className="flex flex-row flex-wrap gap-x-1 gap-y-1">
@@ -219,7 +221,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
-      <div className="flex flex-col gap-y-8 max-w-[700px] border-green-500 p-5">
+      <div className="flex flex-col gap-y-8 max-w-[800px] p-5">
         {profile}
         {about}
         {education}

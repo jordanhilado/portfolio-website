@@ -1,6 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "Song Myung";
+  src: url("/fonts/SongMyung-Regular.ttf");
+}
  
 @layer base {
   :root {
