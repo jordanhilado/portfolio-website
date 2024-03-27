@@ -16,12 +16,15 @@
 /build
 
 # latex resume files
-/data/resume/Jordan_Ali_Hilado_2023.aux
-/data/resume/Jordan_Ali_Hilado_2023.fdb_latexmk
-/data/resume/Jordan_Ali_Hilado_2023.fls
-/data/resume/Jordan_Ali_Hilado_2023.log
-/data/resume/Jordan_Ali_Hilado_2023.out
-/data/resume/Jordan_Ali_Hilado_2023.synctex.gz
+/src/assets/resume/Jordan_Ali_Hilado_2023.aux
+/src/assets/resume/Jordan_Ali_Hilado_2023.fdb_latexmk
+/src/assets/resume/Jordan_Ali_Hilado_2023.fls
+/src/assets/resume/Jordan_Ali_Hilado_2023.log
+/src/assets/resume/Jordan_Ali_Hilado_2023.out
+/src/assets/resume/Jordan_Ali_Hilado_2023.synctex.gz
+
+# mock resume
+/src/assets/resume/mock/
 
 # misc
 .DS_Store

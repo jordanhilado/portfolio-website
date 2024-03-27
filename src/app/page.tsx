@@ -223,7 +223,7 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between">
       <div className="flex flex-col gap-y-8 max-w-[800px] p-5">
         {profile}
-        {about}
+        {/* {about} */}
         {education}
         {experience}
         {projects}

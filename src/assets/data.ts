@@ -22,15 +22,22 @@ export const data = {
   ],
   resume_link:
     "https://nbviewer.org/github/jordanhilado/portfolio-website/blob/main/src/assets/resume/Jordan_Ali_Hilado_2024.pdf",
-  about: "Currently seeking full-time software engineer opportunities.",
+  about: "",
   education: [
     {
       title: "California State University, Long Beach",
       subtitle: "B.S. Computer Science, University Honors Program",
-      date: "2020 - 2023",
+      date: "Aug 2020 - Dec 2023",
     },
   ],
   experience: [
+    {
+      title: "Software Engineer (Incoming)",
+      company: "Microsoft",
+      date: "2024",
+      description:
+        "Incoming full-time Software Engineer at Microsoft",
+    },
     {
       title: "Software Engineer Intern",
       company: "Walt Disney Animation Studios",
