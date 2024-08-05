@@ -1,8 +1,8 @@
 import { GithubFilled, LinkedinFilled, MailOutlined } from "@ant-design/icons";
 
 export const data = {
-  bio: "Software Engineer with experience building and maintaining full-stack web and mobile applications in startup and F500 atmospheres",
-  location: "Los Angeles, CA",
+  bio: "Software engineer with experience in full-stack software development, distributed systems, and ML ops in both startup and big tech environments",
+  location: "San Francisco Bay Area",
   contact: [
     {
       name: "Email",
@@ -32,25 +32,25 @@ export const data = {
   ],
   experience: [
     {
-      title: "Software Engineer (Incoming)",
+      title: "Software Engineer",
       company: "Microsoft",
-      date: "2024",
+      date: "June 2024 - Present",
       description:
-        "Incoming full-time Software Engineer at Microsoft",
+        "Engineering distributed microservices under Cloud + AI, Azure Resource Graph",
     },
     {
       title: "Software Engineer Intern",
       company: "Walt Disney Animation Studios",
       date: "May 2023 - Aug 2023",
       description:
-        "Rewrote outdated linux-native internal drafting tool into React, TypeScript, GraphQL web application used for editing animated shot sequence metadata from Autodesk ShotGrid",
+        "Developed production management software for animated feature films",
     },
     {
       title: "Software Engineer",
       company: "Handle Delivery",
       date: "Mar 2023 - May 2023",
       description:
-        "One of three full-stack engineers on the engineering team, maintaining applications serving over 13,000 students across 6 universities",
+        "One of three engineers maintaining internal and customer-facing applications serving over 13,000 students across 6 universities",
     },
     {
       title: "Software Engineer Intern",
