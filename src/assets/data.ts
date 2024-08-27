@@ -1,7 +1,7 @@
 import { GithubFilled, LinkedinFilled, MailOutlined } from "@ant-design/icons";
 
 export const data = {
-  bio: "Software engineer with experience in full-stack software development, distributed systems, and ML ops in both startup and big tech environments",
+  bio: "Software engineer with experience in full-stack software development, distributed systems, and MLOps both in startup and big tech atmospheres",
   location: "San Francisco Bay Area",
   contact: [
     {
@@ -25,6 +25,11 @@ export const data = {
   about: "",
   education: [
     {
+      title: "Georgia Institute of Technology",
+      subtitle: "M.S. Computer Science, Specialization in Machine Learning",
+      date: "Aug 2024 - Present",
+    },
+    {
       title: "California State University, Long Beach",
       subtitle: "B.S. Computer Science, University Honors Program",
       date: "Aug 2020 - Dec 2023",
@@ -46,7 +51,7 @@ export const data = {
         "Developed production management software for animated feature films",
     },
     {
-      title: "Software Engineer",
+      title: "Software Engineer (contract)",
       company: "Handle Delivery",
       date: "Mar 2023 - May 2023",
       description:

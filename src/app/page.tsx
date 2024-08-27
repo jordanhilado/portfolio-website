@@ -227,7 +227,7 @@ export default function Home() {
         {education}
         {experience}
         {projects}
-        {skills}
+        {/* {skills} */}
       </div>
     </main>
   );
