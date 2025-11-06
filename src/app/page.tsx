@@ -237,7 +237,7 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center px-14 py-8 md:py-0 tracking-tighter border-yellow-500">
+    <main className="flex min-h-screen items-center justify-center px-10 py-8 md:py-0 tracking-tighter border-yellow-500">
       <div className="flex flex-col max-w-2xl gap-y-4 border-green-500">
         {/* Zion Image */}
         <div className="w-full">
@@ -252,7 +252,7 @@ export default function Home() {
         {/* Navigation and Content */}
         <div className="flex flex-col md:flex-row md:justify-between gap-y-8 md:gap-y-0 md:gap-x-16 border-blue-500">
           {/* Left Sidebar / Top Navigation on Mobile */}
-          <nav className="flex flex-row md:flex-col justify-between md:gap-x-0 gap-y-1 flex-wrap md:flex-nowrap md:justify-start items-center md:items-start border-purple-500">
+          <nav className="flex flex-row md:flex-col justify-between md:gap-x-0 gap-x-2 gap-y-1 flex-wrap md:flex-nowrap md:justify-start items-center md:items-start border-purple-500">
             {sections.map((section) => (
               <button
                 key={section}
