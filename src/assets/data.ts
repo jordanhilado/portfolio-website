@@ -21,7 +21,7 @@ export const data = {
     },
   ],
   resume_link:
-    "https://nbviewer.org/github/jordanhilado/portfolio-website/blob/main/src/assets/resume/Jordan_Ali_Hilado_2024.pdf",
+    "https://nbviewer.org/github/jordanhilado/portfolio-website/blob/main/src/assets/resume/Jordan_Ali_Hilado_2025.pdf",
   about: "",
   education: [
     {

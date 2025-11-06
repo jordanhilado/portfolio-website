@@ -26,25 +26,24 @@
 \textbf{Microsoft} \hfill San Francisco, CA \\
 \textit{Software Engineer} \hfill Jun 2024 - Present
 \begin{itemize}
-    \item Scaled distributed ingestion systems for Azure Resource Graph to handle 10B+ resource events daily, by driving Event Hub scale-outs and VMSS-based autoscaling across 41 service clusters in 5 global regions, resulting in 2x higher throughput and a 40\% reduction in production outages.
-    \item Enhanced ingestion reliability by shipping newline-delimited JSON processing, improved blob deserialization resiliency, and deterministic fallback logic in C\#/.NET microservices on Service Fabric, enabling ARG to handle growing customer scope and evolving compliance requirements.
-    \item Supported EU data boundary isolation for over 20 enterprise and government tenants by migrating 300+ global Event Grids to EU-isolated endpoints via fault-tolerant, idempotent deployment pipelines, ensuring data sovereignty and compliance while maintaining uptime.
-    \item Improved incident response time by automating infrastructure denylisting using Kusto/KQL and Azure Monitor, cutting mitigation for government and F500 customers and streamlining on-call operations across ARG's global fleet.
-    \item Led CPU profiling analysis and optimization efforts to reduce unexpected high CPU usage in critical microservices, improving overall system stability and customer satisfaction.
+    \item Scaled globally distributed ingestion systems for Azure Resource Graph (ARG) to handle 7B+ resource events daily by driving Event Hub scale-outs and VMSS autoscaling across 41 service clusters in 5 regions each, doubling throughput and reducing production outages by 40\%
+    \item Enhanced ingestion reliability by shipping newline-delimited JSON processing, improved blob deserialization, and deterministic fallback logic for dynamic payloads in C\#/.NET microservices on Service Fabric, enabling ARG to handle rapidly growing customer scope and evolving compliance requirements
+    \item Strengthened data durability and isolation by implementing EU data boundary migration for over 20 enterprise tenants and 300+ Azure Event Grid endpoints, ensuring data sovereignty and compliance while ensuring zero downtime
+    \item Streamlined incident response time by automating infrastructure denylisting using Kusto/KQL and Azure Monitor, cutting mitigation times from minutes to seconds for government, F500, and internal customers
 \end{itemize}
 
 \noindent
 \textbf{Walt Disney Animation Studios} \hfill Burbank, CA \\
 \textit{Software Engineer Intern} \hfill May 2023 - Aug 2023
 \begin{itemize}
-    \item Developed and re-engineered a legacy Linux-native application into a React and FastAPI web platform integrating the Autodesk ShotGrid REST API, enabling 100+ production managers to dynamically manage animated shot metadata for feature films with improved accessibility, scalability, and maintainability.
-    \item Enhanced data integration and integrity across the studio's production pipeline by developing automation workflows using Python, Postman, AWS, Snowflake, Apache Airflow, and REST APIs improving overall data reliability.
+    \item Built a production-scale data platform using React and FastAPI integrating the Autodesk ShotGrid REST API, enabling 100+ production managers to seamlessly manage animated shot metadata with improved accessibility, scalability, and maintainability|now powering every Disney Animation film production since 2024
+    \item Optimized cross-system data reliability and integrity for the studio's film production pipeline by automating ingestion workflows for terabytes of data from multiple departments using Python, AWS, Snowflake, and Apache Airflow
 \end{itemize}
 
 \noindent
 \textit{Software Engineer Intern} \hfill May 2022 - Aug 2022
 \begin{itemize}
-    \item Designed, tested, and implemented 12+ fixes and features for internal production and employee management tools using React, Django, GraphQL, and Cypress while improving type efficiency through a JavaScript-to-TypeScript transition and delivering user-requested enhancements via Agile and CI/CD collaboration with product design teams.
+    \item Designed, tested, and deployed 12 hotfixes and features for internal film production and employee management tools using React, Django, GraphQL, and Cypress while improving type efficiency through a transition from JavaScript to TypeScript via Agile and CI/CD collaboration with product design teams and stakeholders
     \item Automated employee profile metadata synchronization using Apache Airflow, MySQL, Python, REST APIs, and Ruby on Rails, increasing cross-system sync volume and reliability within the employee records system
 \end{itemize}
 
@@ -52,16 +51,16 @@
 \textbf{Handle Delivery} \hfill Remote\\
 \textit{Software Engineer (contract)} \hfill Mar 2023 - May 2023
 \begin{itemize}
-    \item Scaled cloud infrastructure and mobile platform to support over 13,000 students across 6 universities by optimizing serverless cloud functions using TypeScript and Node.js, strengthening overall user retention and service reliability.
-    \item Supported 4 applications within the platform including the flagship mobile application and admin dashboard utilizing React, React Native, TypeScript, and Firebase
+    \item Scaled cloud infrastructure and mobile platform to serve over 13k students across 6 universities by optimizing serverless functions using TypeScript and Node.js, strengthening overall user retention and service reliability
+    \item Supported the development of 4 internal and consumer-facing applications including iOS and Android mobile applications and real-time admin dashboard utilizing React, React Native, TypeScript, and Firebase
 \end{itemize}
 
 \section*{TECHNICAL SKILLS}
 \begin{itemize}
     \item \textbf{Languages:} Python, JavaScript/TypeScript, C\#, HTML/CSS, SQL/KQL, Java, C++, GraphQL, PowerShell, Ruby
     \item \textbf{Frameworks:} React, .NET, FastAPI, Express, Next.js, Django, Flask, Ruby on Rails
-    \item \textbf{Database:} PostgreSQL, DynamoDB, Cosmos DB, Redis, MySQL, MongoDB, Firebase, SQLite
-    \item \textbf{Software and Tools:} Azure, AWS, Git, Node.js, Service Fabric, Profiling analysis, Postman, GCP, Snowflake
+    \item \textbf{Data \& Storage:} PostgreSQL, DynamoDB, Cosmos DB, Redis, MySQL, MongoDB, Firebase, SQLite
+    \item \textbf{Software \& Tools:} Azure, AWS, Git, Node.js, Service Fabric, Profiling analysis, Postman, GCP, Snowflake
 \end{itemize}
 
 \section*{EDUCATION}
@@ -69,21 +68,21 @@
 \noindent
 \textbf{California State University, Long Beach} \hfill Aug 2020 - Dec 2023\\
 B.S. Computer Science \hfill GPA: 3.80\\
-\textit{Associated Engineering Student Body, Association for Computing Machinery, CSULB Programming Team, Dean's Leadership Academy, Engineering Honors Program, Google Developer Student Club, STEM Advantage Scholar}
+\textit{Affiliations:} Associated Engineering Student Body, Association for Computing Machinery, BeachHacks Organizing Committee, Computer Engineering/Science Student Advisory Board, ICPC Programming Team, The Aerospace Corporation's Dean's Leadership Academy, Engineering Honors Program, Google Developer Student Club, STEM Advantage Scholarhip
 
 \section*{PROJECTS AND PUBLICATIONS}
 \noindent
 \textbf{Heaptree}
-\textit{Website:} \url{https://heaptree.com/} \hfill Jan 2025 - Present
+(\textit{Website:} \url{https://heaptree.com/}) \hfill Jan 2025 - Present
 \begin{itemize}
-    \item Heaptree's web platform and SDK enables instant, one-line of code headless VM provisioning using React/Next.js, TypeScript, Python, and AWS (EC2, DynamoDB, Lambda) for asynchronous code execution, testing, and more.
+    \item Heaptree's web platform and SDK enables instant, one-line of code headless VM provisioning for asynchronous code execution, testing, and more, built with React/Next.js, TypeScript, Python, and AWS (EC2, DynamoDB, Lambda) 
 \end{itemize}
 
 \noindent
 \textbf{Comparative Study of Text-to-Image Models: A Focus on Subject-Specific Training for Improved Generation}
-\textit{Publication:} \url{https://scholarworks.calstate.edu/concern/projects/pz50h376p} \hfill Jan 2023 - Dec 2023
+(\textit{Publication:} \url{https://scholarworks.calstate.edu/concern/projects/pz50h376p}) \hfill Jan 2023 - Dec 2023
 \begin{itemize}
-    \item Advised by Dr. Ju Cheol Moon at CSU Long Beach, this comparative study investigates the potential of text-to-image generative models to produce subject-driven content, focusing on Stable Diffusion 1.1.
+    \item Advised by Dr. Ju Cheol Moon at CSU Long Beach, I investigated the potential of fine-tuning text-to-image generative models to produce subject-driven content, focusing on Stable Diffusion 1.1 under Low-Rank Adaptation (LoRA)
 \end{itemize}
 
 \end{document}
