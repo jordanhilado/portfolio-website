@@ -3,11 +3,37 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { MoonIcon, SunIcon } from "@heroicons/react/24/solid";
 import { useTheme } from "next-themes";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { data } from "../assets/data";
 import zionImage from "../assets/zion.jpg";
+
+// Custom SVG icons
+const SunIcon = ({ className }: { className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className={className}
+  >
+    <path d="M12 2.25a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM7.5 12a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM18.894 6.166a.75.75 0 0 0-1.06-1.06l-1.591 1.59a.75.75 0 1 0 1.06 1.061l1.591-1.59ZM21.75 12a.75.75 0 0 1-.75.75h-2.25a.75.75 0 0 1 0-1.5H21a.75.75 0 0 1 .75.75ZM17.834 18.894a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 1 0-1.061 1.06l1.59 1.591ZM12 18a.75.75 0 0 1 .75.75V21a.75.75 0 0 1-1.5 0v-2.25A.75.75 0 0 1 12 18ZM7.758 17.303a.75.75 0 0 0-1.061-1.06l-1.591 1.59a.75.75 0 0 0 1.06 1.061l1.591-1.59ZM6 12a.75.75 0 0 1-.75.75H3a.75.75 0 0 1 0-1.5h2.25A.75.75 0 0 1 6 12ZM6.697 7.757a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 0 0-1.061 1.06l1.59 1.591Z" />
+  </svg>
+);
+
+const MoonIcon = ({ className }: { className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className={className}
+  >
+    <path
+      fillRule="evenodd"
+      d="M9.528 1.718a.75.75 0 0 1 .162.819A8.97 8.97 0 0 0 9 6a9 9 0 0 0 9 9 8.97 8.97 0 0 0 3.463-.69.75.75 0 0 1 .981.98 10.503 10.503 0 0 1-9.694 6.46c-5.799 0-10.5-4.7-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 0 1 .818.162Z"
+      clipRule="evenodd"
+    />
+  </svg>
+);
 
 type Section = "About" | "Projects" | "Blogs" | "Hobbies" | "Contact";
 
@@ -31,12 +57,26 @@ const slugToSection = (slug: string): Section | null => {
 };
 
 export default function Home() {
-  const [activeSection, setActiveSection] = useState<Section>("About");
+  const pathname = usePathname();
+
+  // Initialize activeSection based on the current pathname
+  const getInitialSection = (): Section => {
+    const currentSlug = pathname.replace("/", "");
+    if (currentSlug) {
+      const section = slugToSection(currentSlug);
+      if (section) {
+        return section;
+      }
+    }
+    return "About";
+  };
+
+  const [activeSection, setActiveSection] = useState<Section>(
+    getInitialSection()
+  );
   const [isTransitioning, setIsTransitioning] = useState(false);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const router = useRouter();
-  const pathname = usePathname();
 
   const sections: Section[] = [
     "About",
@@ -46,17 +86,27 @@ export default function Home() {
     "Contact",
   ];
 
-  // useEffect to set mounted state after hydration and read URL
+  // useEffect to set mounted state after hydration and sync with URL changes
   useEffect(() => {
     setMounted(true);
 
-    // Read the current URL path and set the section accordingly
+    // Handle browser back/forward buttons
+    const handlePopState = () => {
+      const currentPath = window.location.pathname.replace("/", "");
+      const section = slugToSection(currentPath) || "About";
+      setActiveSection(section);
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  // Sync activeSection when pathname changes (e.g., direct navigation)
+  useEffect(() => {
     const currentSlug = pathname.replace("/", "");
-    if (currentSlug) {
-      const section = slugToSection(currentSlug);
-      if (section) {
-        setActiveSection(section);
-      }
+    const section = slugToSection(currentSlug) || "About";
+    if (section !== activeSection) {
+      setActiveSection(section);
     }
   }, [pathname]);
 
@@ -65,14 +115,14 @@ export default function Home() {
 
     setIsTransitioning(true);
 
-    // Update URL
+    // Update URL using History API to avoid page navigation
     const slug = sectionToSlug(section);
-    router.push(`/${slug}`, { scroll: false });
+    window.history.pushState({}, "", `/${slug}`);
 
     setTimeout(() => {
       setActiveSection(section);
       setIsTransitioning(false);
-    }, 100);
+    }, 75);
   };
 
   const toggleTheme = () => {
@@ -83,7 +133,7 @@ export default function Home() {
     switch (activeSection) {
       case "About":
         return (
-          <div className="flex flex-col gap-y-3 font-light text-base leading-normal">
+          <div className="flex flex-col gap-y-3 font-light text-sm md:text-base leading-normal">
             <p>
               Jordan is currently a software engineer at Microsoft. Previously,
               he worked on software engineering for Disney Animation and Handle
@@ -102,7 +152,7 @@ export default function Home() {
 
       case "Projects":
         return (
-          <div className="flex flex-col gap-y-5 font-light text-base">
+          <div className="flex flex-col gap-y-5 font-light text-sm md:text-base">
             {data.projects.map((project, index) => (
               <div key={index} className="flex flex-col gap-y-1.5">
                 <Link
@@ -121,14 +171,14 @@ export default function Home() {
 
       case "Blogs":
         return (
-          <div className="flex flex-col gap-y-3 font-light text-base leading-normal">
+          <div className="flex flex-col gap-y-3 font-light text-sm md:text-base leading-normal">
             <p>Coming soon...</p>
           </div>
         );
 
       case "Hobbies":
         return (
-          <div className="flex flex-col gap-y-3 font-light text-base leading-normal">
+          <div className="flex flex-col gap-y-3 font-light text-sm md:text-base leading-normal">
             <p>
               Running, reading, building side projects, and exploring new
               technologies.
@@ -138,7 +188,7 @@ export default function Home() {
 
       case "Contact":
         return (
-          <div className="flex flex-col gap-y-3 font-light text-base leading-normal">
+          <div className="flex flex-col gap-y-3 font-light text-sm md:text-base leading-normal">
             <p>
               Connect with me on{" "}
               <Link
