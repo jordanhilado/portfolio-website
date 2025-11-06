@@ -133,7 +133,7 @@ export default function Home() {
     switch (activeSection) {
       case "About":
         return (
-          <div className="flex flex-col gap-y-3 font-light text-sm md:text-base leading-snug">
+          <div className="flex flex-col gap-y-3 font-light text-xs md:text-base leading-snug">
             <p>
               Jordan is currently a software engineer at Microsoft. Previously,
               he worked on software engineering for Disney Animation and Handle
@@ -152,7 +152,7 @@ export default function Home() {
 
       case "Projects":
         return (
-          <div className="flex flex-col gap-y-5 font-light text-sm md:text-base">
+          <div className="flex flex-col gap-y-5 font-light text-xs md:text-base">
             {data.projects.map((project, index) => (
               <div key={index} className="flex flex-col gap-y-1.5">
                 <Link
@@ -171,14 +171,14 @@ export default function Home() {
 
       case "Blogs":
         return (
-          <div className="flex flex-col gap-y-3 font-light text-sm md:text-base leading-snug">
+          <div className="flex flex-col gap-y-3 font-light text-xs md:text-base leading-snug">
             <p>Coming soon...</p>
           </div>
         );
 
       case "Hobbies":
         return (
-          <div className="flex flex-col gap-y-3 font-light text-sm md:text-base leading-snug">
+          <div className="flex flex-col gap-y-3 font-light text-xs md:text-base leading-snug">
             <p>
               Running, reading, building side projects, and exploring new
               technologies.
@@ -188,7 +188,7 @@ export default function Home() {
 
       case "Contact":
         return (
-          <div className="flex flex-col gap-y-3 font-light text-sm md:text-base leading-snug">
+          <div className="flex flex-col gap-y-3 font-light text-xs md:text-base leading-snug">
             <p>
               Connect with me on{" "}
               <Link
@@ -257,7 +257,7 @@ export default function Home() {
               <button
                 key={section}
                 onClick={() => handleSectionClick(section)}
-                className={`text-left font-songmyung tracking-tight font-bold transition-all whitespace-nowrap hover:underline hover:underline-offset-2 w-fit ${
+                className={`text-left text-sm md:text-base font-songmyung tracking-tight font-bold transition-all whitespace-nowrap hover:underline hover:underline-offset-2 w-fit ${
                   activeSection === section
                     ? "underline underline-offset-2"
                     : ""
