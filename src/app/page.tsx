@@ -133,7 +133,7 @@ export default function Home() {
     switch (activeSection) {
       case "About":
         return (
-          <div className="flex flex-col gap-y-3 font-light text-sm md:text-base leading-normal">
+          <div className="flex flex-col gap-y-3 font-light text-sm md:text-base leading-snug">
             <p>
               Jordan is currently a software engineer at Microsoft. Previously,
               he worked on software engineering for Disney Animation and Handle
@@ -163,7 +163,7 @@ export default function Home() {
                 >
                   <div className="font-normal">{project.title}</div>
                 </Link>
-                <div className="leading-normal">{project.description}</div>
+                <div className="leading-snug">{project.description}</div>
               </div>
             ))}
           </div>
@@ -171,14 +171,14 @@ export default function Home() {
 
       case "Blogs":
         return (
-          <div className="flex flex-col gap-y-3 font-light text-sm md:text-base leading-normal">
+          <div className="flex flex-col gap-y-3 font-light text-sm md:text-base leading-snug">
             <p>Coming soon...</p>
           </div>
         );
 
       case "Hobbies":
         return (
-          <div className="flex flex-col gap-y-3 font-light text-sm md:text-base leading-normal">
+          <div className="flex flex-col gap-y-3 font-light text-sm md:text-base leading-snug">
             <p>
               Running, reading, building side projects, and exploring new
               technologies.
@@ -188,7 +188,7 @@ export default function Home() {
 
       case "Contact":
         return (
-          <div className="flex flex-col gap-y-3 font-light text-sm md:text-base leading-normal">
+          <div className="flex flex-col gap-y-3 font-light text-sm md:text-base leading-snug">
             <p>
               Connect with me on{" "}
               <Link
@@ -237,7 +237,7 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center px-5 py-8 md:py-0 tracking-tighter border-yellow-500">
+    <main className="flex min-h-screen items-center justify-center px-14 py-8 md:py-0 tracking-tighter border-yellow-500">
       <div className="flex flex-col max-w-2xl gap-y-4 border-green-500">
         {/* Zion Image */}
         <div className="w-full">
