@@ -19,10 +19,14 @@ export const data = {
       icon: LinkedinFilled,
       link: "https://www.linkedin.com/in/jordanhilado/",
     },
+    {
+      name: "X",
+      icon: MailOutlined,
+      link: "https://x.com/jordanhilado",
+    },
   ],
   resume_link:
     "https://nbviewer.org/github/jordanhilado/portfolio-website/blob/main/src/assets/resume/Jordan_Ali_Hilado_2025.pdf",
-  about: "",
   education: [
     {
       title: "Georgia Institute of Technology",
@@ -87,20 +91,5 @@ export const data = {
       link: "https://github.com/jordanhilado/Anonversations",
       tags: ["React", "TypeScript", "PostgreSQL", "GraphQL"],
     },
-  ],
-  skills: [
-    "React",
-    "TypeScript",
-    "GraphQL",
-    "SQL",
-    "Java",
-    "C++",
-    "Ruby",
-    "MongoDB",
-    "PostgreSQL",
-    "MySQL",
-    "Django",
-    "FastAPI",
-    "Next.js",
   ],
 };
