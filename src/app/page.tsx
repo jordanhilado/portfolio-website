@@ -216,7 +216,7 @@ export default function Home() {
               <button
                 key={section}
                 onClick={() => handleSectionClick(section)}
-                className={`text-left font-songmyung font-bold transition-all whitespace-nowrap hover:text-neutral-900 dark:hover:text-neutral-100 hover:underline hover:underline-offset-2 w-fit ${
+                className={`text-left tracking-tight font-songmyung font-bold transition-all whitespace-nowrap hover:text-neutral-900 dark:hover:text-neutral-100 hover:underline hover:underline-offset-2 w-fit ${
                   activeSection === section
                     ? "text-neutral-900 dark:text-neutral-100 underline underline-offset-2"
                     : "text-neutral-600 dark:text-neutral-400"
@@ -256,7 +256,7 @@ export default function Home() {
               isTransitioning ? "opacity-0" : "opacity-100"
             }`}
           >
-            <div className="text-base/5 font-light text-neutral-500 dark:text-neutral-400">
+            <div className="text-base/5 text-neutral-500 dark:text-neutral-400">
               {renderContent()}
             </div>
           </div>
