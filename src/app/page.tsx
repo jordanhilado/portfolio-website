@@ -196,8 +196,8 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center px-10 py-8 md:py-0 tracking-tight border-yellow-500">
-      <div className="flex flex-col max-w-2xl gap-y-4 border-green-500">
+    <main className="flex min-h-screen items-start justify-center px-10 py-8 md:py-0 tracking-tight border-yellow-500">
+      <div className="flex flex-col max-w-2xl gap-y-4 border-green-500 pt-10">
         {/* Zion Image */}
         <div className="w-full">
           <Image
@@ -216,10 +216,10 @@ export default function Home() {
               <button
                 key={section}
                 onClick={() => handleSectionClick(section)}
-                className={`text-left tracking-tight font-songmyung font-bold transition-all whitespace-nowrap hover:text-neutral-900 dark:hover:text-neutral-100 hover:underline hover:underline-offset-2 w-fit ${
+                className={`text-left text-base/5 tracking-tight font-songmyung font-bold transition-all whitespace-nowrap hover:text-neutral-900 dark:hover:text-neutral-100 w-fit ${
                   activeSection === section
-                    ? "text-neutral-900 dark:text-neutral-100 underline underline-offset-2"
-                    : "text-neutral-600 dark:text-neutral-400"
+                    ? "text-neutral-900 dark:text-neutral-100"
+                    : "text-neutral-500 dark:text-neutral-400"
                 }`}
               >
                 {section}
@@ -252,7 +252,7 @@ export default function Home() {
 
           {/* Content Area */}
           <div
-            className={`w-full md:w-[700px] min-h-[400px] transition-opacity duration-100 border-red-500 ${
+            className={`w-full transition-opacity duration-100 border-red-500 ${
               isTransitioning ? "opacity-0" : "opacity-100"
             }`}
           >

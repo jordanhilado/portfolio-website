@@ -8,9 +8,12 @@ export const data = {
   ],
   about: {
     paragraphs: [
-      "Jordan is currently a software engineer at Microsoft. Previously, he worked on software engineering for Disney Animation and Handle Delivery.",
-      "In his free time, he works on building Heaptree, training for marathons, or reading about technology (history, startups, emerging research).",
-      "He grew up in Los Angeles and is currently based in San Francisco.",
+      "Hi, I'm Jordan. I'm a 23-year-old software engineer passionate about designing distributed cloud infrastructure to scale AI and machine learning systems.",
+      "Currently, I'm at Microsoft working on Azure Resource Graph, the world's largest cloud inventory management platform.",
+      "Previously, I built film production software for Disney Animation, which helped produce Wish, Moana 2, Zootopia 2, and more.", 
+      "Before that, I optimized mobile payment systems for Handle Delivery, a startup that served thousands of students across six universities.",
+      "In my free time, I enjoy long-distance running, snowboarding, and reading about technology (history, startups, emerging research).",
+      "I grew up in Los Angeles and currently live in San Francisco.",
     ],
   },
   hobbies:
