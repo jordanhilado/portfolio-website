@@ -1,74 +1,24 @@
-import { GithubFilled, LinkedinFilled, MailOutlined } from "@ant-design/icons";
-
 export const data = {
-  bio: "Software engineer with experience in full-stack software development, distributed systems, and MLOps both in startup and big tech atmospheres",
-  location: "San Francisco Bay Area",
+  sections: ["About", "Projects", "Blogs", "Hobbies"] as const,
   contact: [
-    {
-      name: "Email",
-      icon: MailOutlined,
-      link: "mailto:jordanalihilado@gmail.com",
-    },
-    {
-      name: "GitHub",
-      icon: GithubFilled,
-      link: "https://github.com/jordanhilado",
-    },
-    {
-      name: "LinkedIn",
-      icon: LinkedinFilled,
-      link: "https://www.linkedin.com/in/jordanhilado/",
-    },
-    {
-      name: "X",
-      icon: MailOutlined,
-      link: "https://x.com/jordanhilado",
-    },
+    { name: "GitHub", link: "https://github.com/jordanhilado" },
+    { name: "LinkedIn", link: "https://www.linkedin.com/in/jordanhilado/" },
+    { name: "X", link: "https://x.com/jordanhilado" },
+    { name: "Email", link: "jordanalihilado at gmail dot com" },
   ],
+  about: {
+    paragraphs: [
+      "Jordan is currently a software engineer at Microsoft. Previously, he worked on software engineering for Disney Animation and Handle Delivery.",
+      "In his free time, he works on building Heaptree, training for marathons, or reading about technology (history, startups, emerging research).",
+      "He grew up in Los Angeles and is currently based in San Francisco.",
+    ],
+  },
+  hobbies:
+    "Running, reading, building side projects, and exploring new technologies.",
+  blogsPlaceholder: "...",
+  heroAlt: "Zion National Park",
   resume_link:
     "https://nbviewer.org/github/jordanhilado/portfolio-website/blob/main/src/assets/resume/Jordan_Ali_Hilado_2025.pdf",
-  education: [
-    {
-      title: "Georgia Institute of Technology",
-      subtitle: "M.S. Computer Science, Specialization in Machine Learning",
-      date: "Aug 2024 - Present",
-    },
-    {
-      title: "California State University, Long Beach",
-      subtitle: "B.S. Computer Science, University Honors Program",
-      date: "Aug 2020 - Dec 2023",
-    },
-  ],
-  experience: [
-    {
-      title: "Software Engineer",
-      company: "Microsoft",
-      date: "June 2024 - Present",
-      description:
-        "Engineering distributed microservices under Cloud + AI, Azure Resource Graph",
-    },
-    {
-      title: "Software Engineer Intern",
-      company: "Walt Disney Animation Studios",
-      date: "May 2023 - Aug 2023",
-      description:
-        "Developed production management software for animated feature films",
-    },
-    {
-      title: "Software Engineer (contract)",
-      company: "Handle Delivery",
-      date: "Mar 2023 - May 2023",
-      description:
-        "One of three engineers maintaining internal and customer-facing applications serving over 13,000 students across 6 universities",
-    },
-    {
-      title: "Software Engineer Intern",
-      company: "Walt Disney Animation Studios",
-      date: "May 2022 - Aug 2022",
-      description:
-        "Maintained and improved internal business applications used by hundreds of artists, engineers, and production management staff",
-    },
-  ],
   projects: [
     {
       title:
