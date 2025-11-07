@@ -75,7 +75,7 @@ export default function Home() {
     getInitialSection()
   );
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   const sections: Section[] = [
@@ -133,7 +133,7 @@ export default function Home() {
     switch (activeSection) {
       case "About":
         return (
-          <div className="flex flex-col gap-y-3 font-light text-xs md:text-base leading-snug">
+          <div className="flex flex-col gap-y-3 font-light text-xs md:text-base leading-snug text-neutral-500 dark:text-neutral-400">
             <p>
               Jordan is currently a software engineer at Microsoft. Previously,
               he worked on software engineering for Disney Animation and Handle
@@ -152,18 +152,20 @@ export default function Home() {
 
       case "Projects":
         return (
-          <div className="flex flex-col gap-y-5 font-light text-xs md:text-base">
+          <div className="flex flex-col gap-y-5 font-light text-xs md:text-base text-neutral-500 dark:text-neutral-400">
             {data.projects.map((project, index) => (
               <div key={index} className="flex flex-col gap-y-1.5">
                 <Link
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-green-700 hover:text-green-800 hover:underline active:underline"
+                  className="text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300 hover:underline active:underline"
                 >
                   <div className="font-normal">{project.title}</div>
                 </Link>
-                <div className="leading-snug">{project.description}</div>
+                <div className="leading-snug text-neutral-500 dark:text-neutral-400">
+                  {project.description}
+                </div>
               </div>
             ))}
           </div>
@@ -171,14 +173,14 @@ export default function Home() {
 
       case "Blogs":
         return (
-          <div className="flex flex-col gap-y-3 font-light text-xs md:text-base leading-snug">
+          <div className="flex flex-col gap-y-3 font-light text-xs md:text-base leading-snug text-neutral-500 dark:text-neutral-400">
             <p>Coming soon...</p>
           </div>
         );
 
       case "Hobbies":
         return (
-          <div className="flex flex-col gap-y-3 font-light text-xs md:text-base leading-snug">
+          <div className="flex flex-col gap-y-3 font-light text-xs md:text-base leading-snug text-neutral-500 dark:text-neutral-400">
             <p>
               Running, reading, building side projects, and exploring new
               technologies.
@@ -188,14 +190,14 @@ export default function Home() {
 
       case "Contact":
         return (
-          <div className="flex flex-col gap-y-3 font-light text-xs md:text-base leading-snug">
+          <div className="flex flex-col gap-y-3 font-light text-xs md:text-base leading-snug text-neutral-500 dark:text-neutral-400">
             <p>
               Connect with me on{" "}
               <Link
                 href="https://github.com/jordanhilado"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-green-700 hover:text-green-800 hover:underline active:underline"
+                className="text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300 hover:underline active:underline"
               >
                 GitHub
               </Link>
@@ -204,7 +206,7 @@ export default function Home() {
                 href="https://www.linkedin.com/in/jordanhilado/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-green-700 hover:text-green-800 hover:underline active:underline"
+                className="text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300 hover:underline active:underline"
               >
                 LinkedIn
               </Link>
@@ -213,7 +215,7 @@ export default function Home() {
                 href="https://x.com/jordanhilado"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-green-700 hover:text-green-800 hover:underline active:underline"
+                className="text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300 hover:underline active:underline"
               >
                 X
               </Link>
@@ -222,7 +224,7 @@ export default function Home() {
                 href={data.resume_link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-green-700 hover:text-green-800 hover:underline active:underline"
+                className="text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300 hover:underline active:underline"
               >
                 here
               </Link>
@@ -257,10 +259,10 @@ export default function Home() {
               <button
                 key={section}
                 onClick={() => handleSectionClick(section)}
-                className={`text-left text-sm md:text-base font-songmyung tracking-tight font-bold transition-all whitespace-nowrap hover:underline hover:underline-offset-2 w-fit ${
+                className={`text-left text-sm md:text-base font-songmyung tracking-tight font-bold transition-all whitespace-nowrap hover:text-neutral-900 dark:hover:text-neutral-100 hover:underline hover:underline-offset-2 w-fit ${
                   activeSection === section
-                    ? "underline underline-offset-2"
-                    : ""
+                    ? "text-neutral-900 dark:text-neutral-100 underline underline-offset-2"
+                    : "text-neutral-600 dark:text-neutral-400"
                 }`}
               >
                 {section}
@@ -282,7 +284,7 @@ export default function Home() {
                   }
                 }}
               >
-                {theme === "dark" ? (
+                {resolvedTheme === "dark" ? (
                   <SunIcon className="h-4 w-4" />
                 ) : (
                   <MoonIcon className="h-4 w-4" />
