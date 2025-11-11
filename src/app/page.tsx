@@ -178,9 +178,7 @@ export default function Home() {
 
       case "Blogs":
         return (
-          <div className="flex flex-col gap-y-3">
-            <p>{data.blogsPlaceholder}</p>
-          </div>
+          <BlogsList />
         );
 
       case "Hobbies":
@@ -263,5 +261,67 @@ export default function Home() {
         </div>
       </div>
     </main>
+  );
+}
+
+type ListPost = {
+  id: string;
+  slug: string;
+  title: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+function BlogsList() {
+  const [posts, setPosts] = useState<ListPost[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const res = await fetch("/api/posts?published=true&take=10", { cache: "no-store" as any });
+        if (!res.ok) throw new Error("Failed to load posts");
+        const j = await res.json();
+        setPosts(j.posts);
+      } catch (e: any) {
+        setError(e.message || "Failed to load posts");
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
+  }, []);
+
+  if (loading) return <div>Loading posts...</div>;
+  if (error) return <div className="text-red-600">{error}</div>;
+
+  return (
+    <div className="flex flex-col gap-y-5">
+      {posts.map((p) => (
+        <div key={p.id} className="flex flex-col gap-y-1.5">
+          <Link
+            href={`/blog/${p.slug}`}
+            className="text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300 hover:underline active:underline"
+          >
+            <div className="font-normal">{p.title}</div>
+          </Link>
+          <div className="leading-snug text-neutral-500 dark:text-neutral-400 text-xs">
+            Posted {new Date(p.createdAt).toLocaleDateString()} • Updated {new Date(p.updatedAt).toLocaleDateString()}
+          </div>
+        </div>
+      ))}
+      <div>
+        <Link
+          href="/blog"
+          className="text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300 hover:underline active:underline"
+        >
+          View all posts →
+        </Link>
+      </div>
+      {posts.length === 0 && (
+        <div className="text-neutral-500 dark:text-neutral-400">No posts yet.</div>
+      )}
+    </div>
   );
 }
