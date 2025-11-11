@@ -3,6 +3,15 @@ import Link from "next/link";
 
 export const revalidate = 0;
 
+type PostListItem = {
+  id: string;
+  slug: string;
+  title: string;
+  createdAt: Date;
+  updatedAt: Date;
+  coverImage: string | null;
+};
+
 export default async function BlogIndexPage() {
   const posts = await prisma.post.findMany({
     where: { published: true },
@@ -22,7 +31,7 @@ export default async function BlogIndexPage() {
       <div className="w-full max-w-3xl">
         <h1 className="text-2xl font-semibold mb-6">Blog</h1>
         <div className="space-y-6">
-          {posts.map((p) => (
+          {posts.map((p: PostListItem) => (
             <div key={p.id} className="border rounded-md p-4">
               <Link
                 href={`/blog/${p.slug}`}
@@ -31,18 +40,18 @@ export default async function BlogIndexPage() {
                 {p.title}
               </Link>
               <div className="text-xs text-neutral-500">
-                Posted {new Date(p.createdAt).toLocaleDateString()} • Last updated{" "}
-                {new Date(p.updatedAt).toLocaleDateString()}
+                Posted {new Date(p.createdAt).toLocaleDateString()} • Last
+                updated {new Date(p.updatedAt).toLocaleDateString()}
               </div>
             </div>
           ))}
           {posts.length === 0 && (
-            <div className="text-sm text-neutral-500">No posts published yet.</div>
+            <div className="text-sm text-neutral-500">
+              No posts published yet.
+            </div>
           )}
         </div>
       </div>
     </main>
   );
 }
-
-
