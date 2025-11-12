@@ -154,6 +154,19 @@
   }
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 150ms ease-in;
+}
+
 .blog-end-marker {
   display: inline-block;
   width: 0.5rem;

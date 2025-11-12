@@ -108,7 +108,7 @@ export default function HomeClient({ posts }: { posts: ListPost[] }) {
   const router = useRouter();
   const { theme, setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
 
   // Derive activeSection from pathname instead of storing in state
   const getActiveSection = (): Section => {
@@ -128,17 +128,17 @@ export default function HomeClient({ posts }: { posts: ListPost[] }) {
     setMounted(true);
   }, []);
 
+  // Reset navigation state when pathname changes
+  useEffect(() => {
+    setIsNavigating(false);
+  }, [pathname]);
+
   const handleSectionClick = (section: Section) => {
-    if (section === activeSection) return;
+    if (section === activeSection || isNavigating) return;
 
-    setIsTransitioning(true);
-
+    setIsNavigating(true);
     const slug = sectionToSlug(section);
     router.push(`/${slug}`, { scroll: false });
-
-    setTimeout(() => {
-      setIsTransitioning(false);
-    }, 75);
   };
 
   const toggleTheme = () => {
@@ -282,12 +282,11 @@ export default function HomeClient({ posts }: { posts: ListPost[] }) {
           </nav>
 
           {/* Content Area */}
-          <div
-            className={`w-full transition-opacity duration-100 border-red-500 ${
-              isTransitioning ? "opacity-0" : "opacity-100"
-            }`}
-          >
-            <div className="text-base/5 text-neutral-500 dark:text-neutral-400">
+          <div className="w-full border-red-500">
+            <div 
+              key={activeSection}
+              className="text-base/5 text-neutral-500 dark:text-neutral-400 animate-fadeIn"
+            >
               {renderContent()}
             </div>
           </div>
