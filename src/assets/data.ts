@@ -8,7 +8,7 @@ export const data = {
   ],
   about: {
     paragraphs: [
-      "Hi, I'm Jordan. I'm a 23-year-old software engineer passionate about designing distributed cloud infrastructure to scale AI and machine learning systems.",
+      "Hi, I'm Jordan. I'm a 23 y/o software engineer interested in building innovative distributed cloud systems to scale AI and machine learning operations.",
       "Currently, I'm at Microsoft working on Azure Resource Graph, the world's largest cloud inventory management platform.",
       "Previously, I built film production software for Disney Animation, which helped produce Wish, Moana 2, Zootopia 2, and more.", 
       "Before that, I optimized mobile payment systems for Handle Delivery, a startup that served thousands of students across six universities.",

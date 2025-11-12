@@ -9,7 +9,7 @@ const UpdatePostSchema = z.object({
   title: z.string().min(3).max(200).optional(),
   content: z.string().min(1).optional(),
   published: z.boolean().optional(),
-  coverImage: z.string().url().optional().or(z.literal("").transform(() => undefined)),
+  coverImage: z.string().url().optional().or(z.literal("").transform(() => null)),
 });
 
 export async function GET(_: Request, { params }: { params: { id: string } }) {

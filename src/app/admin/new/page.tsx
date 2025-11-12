@@ -56,7 +56,9 @@ export default function NewPostPage() {
             />
           </div>
           <div className="space-y-1">
-            <label className="text-sm font-medium">Cover Image URL (optional)</label>
+            <label className="text-sm font-medium">
+              Cover Image URL (optional)
+            </label>
             <input
               type="url"
               className="w-full border rounded p-2"
@@ -111,5 +113,3 @@ export default function NewPostPage() {
     </main>
   );
 }
-
-

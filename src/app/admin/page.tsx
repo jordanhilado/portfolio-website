@@ -67,17 +67,8 @@ export default async function AdminDashboard() {
                   >
                     Edit
                   </Link>
-                  <form
-                    action={`/api/posts/${post.id}`}
-                    method="post"
-                    onSubmit={(e) => {
-                      // no-op on server component; handled by client on page
-                    }}
-                  >
-                    {/* We will do deletion via client on edit page */}
-                  </form>
                   <Link
-                    href={`/blog/${post.slug}`}
+                    href={`/blogs/${post.slug}`}
                     className="px-2 py-1 rounded border"
                   >
                     View

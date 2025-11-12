@@ -7,6 +7,20 @@
   src: url("/fonts/SongMyung-Regular.ttf");
 }
 
+@font-face {
+  font-family: "SF Pro";
+  src: url("/fonts/SF-Pro.ttf");
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SF Mono";
+  src: url("/fonts/SF-Mono-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
 @layer base {
   :root {
     --background: oklch(0.9821 0 0);
@@ -125,8 +139,31 @@
     /* Always show scrollbar gutter to prevent layout shifts */
     overflow-y: scroll;
     scrollbar-gutter: stable;
+    /* Smooth scrolling for anchor links */
+    scroll-behavior: smooth;
   }
   body {
     @apply bg-background text-foreground;
   }
+  code, pre, pre code {
+    font-family: "SF Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 0.95em;
+  }
+  pre code {
+    font-size: 0.875rem;
+  }
+}
+
+.blog-end-marker {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-left: 0.25rem;
+  vertical-align: baseline;
+  transform: translateY(-0.15rem);
+  background-color: rgb(147 51 234); /* purple-600 */
+}
+
+.dark .blog-end-marker {
+  background-color: rgb(192 132 252); /* purple-400 */
 }

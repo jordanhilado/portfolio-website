@@ -177,9 +177,7 @@ export default function Home() {
         );
 
       case "Blogs":
-        return (
-          <BlogsList />
-        );
+        return <BlogsList />;
 
       case "Hobbies":
         return (
@@ -280,7 +278,9 @@ function BlogsList() {
   useEffect(() => {
     const load = async () => {
       try {
-        const res = await fetch("/api/posts?published=true&take=10", { cache: "no-store" as any });
+        const res = await fetch("/api/posts?published=true", {
+          cache: "no-store" as any,
+        });
         if (!res.ok) throw new Error("Failed to load posts");
         const j = await res.json();
         setPosts(j.posts);
@@ -293,7 +293,29 @@ function BlogsList() {
     load();
   }, []);
 
-  if (loading) return <div>Loading posts...</div>;
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const monthNames = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    const month = monthNames[date.getMonth()];
+    const day = date.getDate();
+    const year = date.getFullYear();
+    return `${month} ${day}, ${year}`;
+  };
+
+  if (loading) return <div>...</div>;
   if (error) return <div className="text-red-600">{error}</div>;
 
   return (
@@ -301,26 +323,18 @@ function BlogsList() {
       {posts.map((p) => (
         <div key={p.id} className="flex flex-col gap-y-1.5">
           <Link
-            href={`/blog/${p.slug}`}
+            href={`/blogs/${p.slug}`}
             className="text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300 hover:underline active:underline"
           >
             <div className="font-normal">{p.title}</div>
           </Link>
-          <div className="leading-snug text-neutral-500 dark:text-neutral-400 text-xs">
-            Posted {new Date(p.createdAt).toLocaleDateString()} • Updated {new Date(p.updatedAt).toLocaleDateString()}
+          <div className="leading-snug text-neutral-500 dark:text-neutral-400 text-sm">
+            {formatDate(p.createdAt)}
           </div>
         </div>
       ))}
-      <div>
-        <Link
-          href="/blog"
-          className="text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300 hover:underline active:underline"
-        >
-          View all posts →
-        </Link>
-      </div>
       {posts.length === 0 && (
-        <div className="text-neutral-500 dark:text-neutral-400">No posts yet.</div>
+        <div className="text-neutral-500 dark:text-neutral-400">...</div>
       )}
     </div>
   );

@@ -10,20 +10,12 @@ export default function AdminSignIn() {
         <p className="text-sm text-neutral-500 mb-6">
           Sign in with your approved account to manage blog posts.
         </p>
-        <div className="flex flex-col gap-3">
-          <button
-            className="px-4 py-2 rounded-md bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900"
-            onClick={() => signIn("github", { callbackUrl: "/admin" })}
-          >
-            Continue with GitHub
-          </button>
-          <button
-            className="px-4 py-2 rounded-md border"
-            onClick={() => signIn("google", { callbackUrl: "/admin" })}
-          >
-            Continue with Google
-          </button>
-        </div>
+        <button
+          className="px-4 py-2 rounded-md bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900"
+          onClick={() => signIn("google", { callbackUrl: "/admin" })}
+        >
+          Continue with Google
+        </button>
       </div>
     </main>
   );

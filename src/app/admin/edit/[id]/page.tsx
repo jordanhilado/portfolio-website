@@ -92,7 +92,7 @@ export default function EditPostPage() {
   if (loading) {
     return (
       <main className="flex min-h-screen items-center justify-center">
-        <div>Loading...</div>
+        <div>...</div>
       </main>
     );
   }

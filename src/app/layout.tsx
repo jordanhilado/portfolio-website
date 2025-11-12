@@ -1,10 +1,13 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/theme-provider";
 import Script from "next/script";
 
-const inter = Inter({ subsets: ["latin"] });
+const sfPro = localFont({
+  src: "../../public/fonts/SF-Pro.ttf",
+  variable: "--font-sf-pro",
+});
 
 export const metadata: Metadata = {
   title: "Jordan Hilado",
@@ -32,7 +35,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className={inter.className}>
+      <body className={sfPro.className}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

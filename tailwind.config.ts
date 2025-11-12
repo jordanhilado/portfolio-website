@@ -27,6 +27,8 @@ const config = {
     extend: {
       fontFamily: {
         songmyung: ["Song Myung", "serif"],
+        sfpro: ["var(--font-sf-pro)", "SF Pro", "system-ui", "sans-serif"],
+        sfmono: ["SF Mono", "ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", "monospace"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -84,7 +86,7 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 } satisfies Config;
 
 export default config;
