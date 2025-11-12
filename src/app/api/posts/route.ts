@@ -13,32 +13,43 @@ const CreatePostSchema = z.object({
 });
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const publishedParam = searchParams.get("published");
-  const takeParam = searchParams.get("take");
+  try {
+    const { searchParams } = new URL(request.url);
+    const publishedParam = searchParams.get("published");
+    const takeParam = searchParams.get("take");
 
-  const where =
-    publishedParam === null
-      ? {}
-      : { published: publishedParam === "true" ? true : publishedParam === "false" ? false : undefined };
+    const where =
+      publishedParam === null
+        ? {}
+        : { published: publishedParam === "true" ? true : publishedParam === "false" ? false : undefined };
 
-  const take = takeParam ? Math.min(parseInt(takeParam, 10) || 20, 100) : undefined;
+    const take = takeParam ? Math.min(parseInt(takeParam, 10) || 20, 100) : undefined;
 
-  const posts = await prisma.post.findMany({
-    where,
-    orderBy: { createdAt: "desc" },
-    select: {
-      id: true,
-      slug: true,
-      title: true,
-      createdAt: true,
-      updatedAt: true,
-      published: true,
-      coverImage: true,
-    },
-    take,
-  });
-  return NextResponse.json({ posts });
+    const posts = await prisma.post.findMany({
+      where,
+      orderBy: { createdAt: "desc" },
+      select: {
+        id: true,
+        slug: true,
+        title: true,
+        createdAt: true,
+        updatedAt: true,
+        published: true,
+        coverImage: true,
+      },
+      take,
+    });
+    return NextResponse.json({ posts });
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+    return NextResponse.json(
+      { 
+        error: "Failed to fetch posts",
+        details: error instanceof Error ? error.message : "Unknown error"
+      },
+      { status: 500 }
+    );
+  }
 }
 
 export async function POST(request: Request) {
