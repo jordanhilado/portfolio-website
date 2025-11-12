@@ -37,7 +37,7 @@ export default async function AdminDashboard() {
   });
 
   return (
-    <main className="flex min-h-screen px-6 py-10 justify-center">
+    <main className="flex min-h-screen px-6 sm:px-10 md:px-16 py-10 justify-center">
       <div className="w-full max-w-3xl">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-semibold">Admin • Posts</h1>

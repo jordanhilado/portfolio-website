@@ -69,14 +69,14 @@ export function BlogPostClient({
   };
 
   return (
-    <main className="flex min-h-screen items-start justify-center px-10 py-8 md:py-0 tracking-tight">
-      <div className="flex flex-col max-w-2xl gap-y-4 pt-10">
+    <main className="flex min-h-screen items-start justify-center px-6 sm:px-10 md:px-16 py-8 md:py-10 tracking-tight">
+      <div className="flex flex-col w-full max-w-2xl gap-y-4 pt-6 md:pt-10">
         {/* Zion Image */}
         <div className="w-full">
           <Image
             src={zionImage}
             alt={data.heroAlt}
-            className="w-full max-w-fit h-auto"
+            className="w-full h-auto object-contain"
             priority
           />
         </div>
@@ -119,12 +119,12 @@ export function BlogPostClient({
         <article className="w-full text-base/5 text-neutral-500 dark:text-neutral-400">
           <header className="mb-6">
             <h1
-              className="text-2xl font-semibold mb-2 text-neutral-900 dark:text-neutral-100"
+              className="text-xl sm:text-2xl font-semibold mb-2 text-neutral-900 dark:text-neutral-100"
               style={{ fontFamily: "Song Myung" }}
             >
               {post.title}
             </h1>
-            <div className="text-base/5 text-neutral-500 dark:text-neutral-400">
+            <div className="text-sm sm:text-base text-neutral-500 dark:text-neutral-400">
               {formattedDate} • {readingTime} min read
             </div>
           </header>
@@ -133,7 +133,7 @@ export function BlogPostClient({
             <img
               src={post.coverImage}
               alt={post.title}
-              className="w-full h-auto rounded mb-6"
+              className="w-full h-auto rounded mb-4 sm:mb-6"
             />
           )}
           <MarkdownWithTOC content={post.content} />

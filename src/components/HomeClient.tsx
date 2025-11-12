@@ -227,14 +227,14 @@ export default function HomeClient({ posts }: { posts: ListPost[] }) {
   };
 
   return (
-    <main className="flex min-h-screen items-start justify-center px-10 py-8 md:py-0 tracking-tight border-yellow-500">
-      <div className="flex flex-col max-w-2xl gap-y-4 border-green-500 pt-10">
+    <main className="flex min-h-screen items-start justify-center px-6 sm:px-10 md:px-16 py-8 md:py-10 tracking-tight border-yellow-500">
+      <div className="flex flex-col w-full max-w-2xl gap-y-4 border-green-500 pt-6 md:pt-10">
         {/* Zion Image */}
         <div className="w-full">
           <Image
             src={zionImage}
             alt={data.heroAlt}
-            className="w-full max-w-fit h-auto"
+            className="w-full h-auto object-contain"
             priority
           />
         </div>

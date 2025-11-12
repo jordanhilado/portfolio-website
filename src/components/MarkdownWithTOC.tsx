@@ -56,7 +56,7 @@ export function MarkdownWithTOC({ content }: { content: string }) {
   const components: Components = {
     h1: ({ children, ...props }) => (
       <h1
-        className="text-2xl font-bold mt-6 mb-1 text-neutral-900 dark:text-neutral-100 [&>a]:no-underline"
+        className="text-xl sm:text-2xl font-bold mt-6 mb-1 text-neutral-900 dark:text-neutral-100 [&>a]:no-underline"
         style={{ fontFamily: "Song Myung" }}
         {...props}
       >
@@ -65,7 +65,7 @@ export function MarkdownWithTOC({ content }: { content: string }) {
     ),
     h2: ({ children, ...props }) => (
       <h2
-        className="text-xl font-bold mt-4 mb-1 text-neutral-900 dark:text-neutral-100 [&>a]:no-underline"
+        className="text-lg sm:text-xl font-bold mt-4 mb-1 text-neutral-900 dark:text-neutral-100 [&>a]:no-underline"
         style={{ fontFamily: "Song Myung" }}
         {...props}
       >
@@ -74,7 +74,7 @@ export function MarkdownWithTOC({ content }: { content: string }) {
     ),
     h3: ({ children, ...props }) => (
       <h3
-        className="text-lg font-bold mt-3 mb-0.5 text-neutral-900 dark:text-neutral-100 [&>a]:no-underline"
+        className="text-base sm:text-lg font-bold mt-3 mb-0.5 text-neutral-900 dark:text-neutral-100 [&>a]:no-underline"
         style={{ fontFamily: "Song Myung" }}
         {...props}
       >
@@ -176,31 +176,33 @@ export function MarkdownWithTOC({ content }: { content: string }) {
       }
 
       return (
-        <SyntaxHighlighter
-          style={isDark ? oneDark : oneLight}
-          language={language || "text"}
-          PreTag="div"
-          className="!my-4 !rounded !text-[0.875rem]"
-          customStyle={{
-            margin: 0,
-            padding: "1rem",
-            background: isDark ? "rgb(23 23 23)" : "rgb(245 245 245)",
-            borderRadius: "0.375rem",
-          }}
-          codeTagProps={{
-            style: {
-              background: "transparent",
-              fontFamily: "SF Mono, monospace",
-              fontSize: "0.875rem",
-            },
-          }}
-          lineProps={{
-            style: { background: "transparent" },
-          }}
-          {...props}
-        >
-          {String(children).replace(/\n$/, "")}
-        </SyntaxHighlighter>
+        <div className="overflow-x-auto -mx-6 sm:mx-0 my-4">
+          <SyntaxHighlighter
+            style={isDark ? oneDark : oneLight}
+            language={language || "text"}
+            PreTag="div"
+            className="!m-0 !rounded-none sm:!rounded !text-[0.875rem]"
+            customStyle={{
+              margin: 0,
+              padding: "1rem",
+              background: isDark ? "rgb(23 23 23)" : "rgb(245 245 245)",
+              borderRadius: "0.375rem",
+            }}
+            codeTagProps={{
+              style: {
+                background: "transparent",
+                fontFamily: "SF Mono, monospace",
+                fontSize: "0.875rem",
+              },
+            }}
+            lineProps={{
+              style: { background: "transparent" },
+            }}
+            {...props}
+          >
+            {String(children).replace(/\n$/, "")}
+          </SyntaxHighlighter>
+        </div>
       );
     },
     pre: ({ children }) => {
@@ -216,18 +218,18 @@ export function MarkdownWithTOC({ content }: { content: string }) {
   };
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4 sm:gap-6">
       {chapters.length > 0 && (
-        <div className="border border-neutral-300 dark:border-neutral-700 rounded-md p-4 bg-neutral-50 dark:bg-neutral-900">
-          <div className="font-medium mb-2 text-neutral-900 dark:text-neutral-100">
+        <div className="border border-neutral-300 dark:border-neutral-700 rounded-md p-3 sm:p-4 bg-neutral-50 dark:bg-neutral-900">
+          <div className="font-medium mb-2 text-sm sm:text-base text-neutral-900 dark:text-neutral-100">
             Chapters
           </div>
-          <ul className="space-y-1">
+          <ul className="space-y-1 text-sm sm:text-base">
             {chapters.map((c) => (
-              <li key={c.id} style={{ marginLeft: `${c.indent * 16}px` }}>
+              <li key={c.id} style={{ marginLeft: `${c.indent * 12}px` }}>
                 <a
                   href={`#${c.id}`}
-                  className="text-purple-600 hover:underline dark:text-purple-400"
+                  className="text-purple-600 hover:underline dark:text-purple-400 break-words"
                 >
                   {c.text}
                 </a>
@@ -236,7 +238,7 @@ export function MarkdownWithTOC({ content }: { content: string }) {
           </ul>
         </div>
       )}
-      <div className="markdown-body prose dark:prose-invert max-w-none">
+      <div className="markdown-body prose dark:prose-invert max-w-none overflow-hidden">
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
           rehypePlugins={[

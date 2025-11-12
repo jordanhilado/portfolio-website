@@ -4,7 +4,7 @@ import { signIn } from "next-auth/react";
 
 export default function AdminSignIn() {
   return (
-    <main className="flex min-h-screen items-center justify-center px-6 py-10">
+    <main className="flex min-h-screen items-center justify-center px-6 sm:px-10 md:px-16 py-10">
       <div className="max-w-md w-full border rounded-lg p-6">
         <h1 className="text-xl font-semibold mb-4">Admin Sign In</h1>
         <p className="text-sm text-neutral-500 mb-6">
