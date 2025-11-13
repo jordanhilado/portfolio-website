@@ -121,18 +121,24 @@ export function MarkdownWithTOC({ content }: { content: string }) {
       </a>
     ),
     ul: ({ children, ...props }) => (
-      <ul className="list-disc mb-4 space-y-0 pl-5" {...props}>
+      <ul
+        className="list-disc mb-4 pl-5 [&_p]:mb-0 [&>li]:my-0.5 [&>li:first-child]:mt-0 [&>li:last-child]:mb-0"
+        {...props}
+      >
         {children}
       </ul>
     ),
     ol: ({ children, ...props }) => (
-      <ol className="list-decimal mb-4 space-y-0 pl-5" {...props}>
+      <ol
+        className="list-decimal mb-4 pl-5 [&_p]:mb-0 [&>li]:my-0.5 [&>li:first-child]:mt-0 [&>li:last-child]:mb-0"
+        {...props}
+      >
         {children}
       </ol>
     ),
     li: ({ children, ...props }) => (
       <li
-        className="leading-normal text-neutral-500 dark:text-neutral-400"
+        className="leading-normal text-neutral-500 dark:text-neutral-400 [&>p]:m-0"
         {...props}
       >
         {children}
@@ -238,7 +244,7 @@ export function MarkdownWithTOC({ content }: { content: string }) {
           </ul>
         </div>
       )}
-      <div className="markdown-body prose dark:prose-invert max-w-none overflow-hidden">
+      <div className="markdown-body prose dark:prose-invert max-w-none overflow-hidden [&_ul>li:first-child]:!mt-0 [&_ol>li:first-child]:!mt-0 [&_ul>li>p]:!m-0 [&_ol>li>p]:!m-0">
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
           rehypePlugins={[

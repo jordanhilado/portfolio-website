@@ -145,32 +145,8 @@ export default function LayoutWrapper({
             <div className="w-full">{children}</div>
           </div>
         ) : (
-          /* Blog Post Layout - No Navigation, Just Header and Content */
-          <div className="flex flex-col gap-y-4">
-            {/* Header with Theme Toggle */}
-            <div className="flex justify-end items-center">
-              <div
-                onClick={toggleTheme}
-                className="cursor-pointer transition-colors text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100"
-                aria-label="Toggle theme"
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    toggleTheme();
-                  }
-                }}
-                style={{ minWidth: "16px", minHeight: "16px" }}
-              >
-                {/* Render both icons, CSS controls visibility based on theme */}
-                <SunIcon className="h-4 w-4 block dark:hidden" />
-                <MoonIcon className="h-4 w-4 hidden dark:block" />
-              </div>
-            </div>
-            {/* Content */}
-            <div className="w-full">{children}</div>
-          </div>
+          /* Blog Post Layout - No Navigation */
+          <div className="w-full">{children}</div>
         )}
       </div>
     </main>
