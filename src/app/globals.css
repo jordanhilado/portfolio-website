@@ -5,6 +5,9 @@
 @font-face {
   font-family: "Song Myung";
   src: url("/fonts/SongMyung-Regular.ttf");
+  font-display: optional;
+  font-weight: 400;
+  font-style: normal;
 }
 
 @font-face {
@@ -12,14 +15,9 @@
   src: url("/fonts/SF-Pro.ttf");
   font-weight: 100 900;
   font-style: normal;
+  font-display: optional;
 }
 
-@font-face {
-  font-family: "SF Mono";
-  src: url("/fonts/SF-Mono-Regular.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-}
 
 @layer base {
   :root {
@@ -146,7 +144,7 @@
     @apply bg-background text-foreground;
   }
   code, pre, pre code {
-    font-family: "SF Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-family: var(--font-sf-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     font-size: 0.95em;
   }
   pre code {

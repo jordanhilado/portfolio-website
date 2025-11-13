@@ -3,10 +3,17 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/theme-provider";
 import Script from "next/script";
+import LayoutWrapper from "@/components/LayoutWrapper";
 
 const sfPro = localFont({
   src: "../../public/fonts/SF-Pro.ttf",
   variable: "--font-sf-pro",
+});
+
+const sfMono = localFont({
+  src: "../../public/fonts/SF-Mono-Regular.otf",
+  variable: "--font-sf-mono",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -22,6 +29,27 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link
+          rel="preload"
+          href="/fonts/SongMyung-Regular.ttf"
+          as="font"
+          type="font/ttf"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/SF-Pro.ttf"
+          as="font"
+          type="font/ttf"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/SF-Mono-Regular.otf"
+          as="font"
+          type="font/opentype"
+          crossOrigin="anonymous"
+        />
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-WGVKJ26WL1"
@@ -35,14 +63,14 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className={sfPro.className}>
+      <body className={`${sfPro.className} ${sfMono.variable}`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <LayoutWrapper>{children}</LayoutWrapper>
         </ThemeProvider>
       </body>
     </html>

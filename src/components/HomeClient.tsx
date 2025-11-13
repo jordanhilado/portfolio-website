@@ -1,38 +1,9 @@
 "use client";
 
-import { useState, useEffect, Fragment } from "react";
+import { Fragment } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { useTheme } from "next-themes";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { data } from "../assets/data";
-import zionImage from "../assets/zion.jpg";
-
-const SunIcon = ({ className }: { className?: string }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    className={className}
-  >
-    <path d="M12 2.25a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM7.5 12a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM18.894 6.166a.75.75 0 0 0-1.06-1.06l-1.591 1.59a.75.75 0 1 0 1.06 1.061l1.591-1.59ZM21.75 12a.75.75 0 0 1-.75.75h-2.25a.75.75 0 0 1 0-1.5H21a.75.75 0 0 1 .75.75ZM17.834 18.894a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 1 0-1.061 1.06l1.59 1.591ZM12 18a.75.75 0 0 1 .75.75V21a.75.75 0 0 1-1.5 0v-2.25A.75.75 0 0 1 12 18ZM7.758 17.303a.75.75 0 0 0-1.061-1.06l-1.591 1.59a.75.75 0 0 0 1.06 1.061l1.591-1.59ZM6 12a.75.75 0 0 1-.75.75H3a.75.75 0 0 1 0-1.5h2.25A.75.75 0 0 1 6 12ZM6.697 7.757a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 0 0-1.061 1.06l1.59 1.591Z" />
-  </svg>
-);
-
-const MoonIcon = ({ className }: { className?: string }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    className={className}
-  >
-    <path
-      fillRule="evenodd"
-      d="M9.528 1.718a.75.75 0 0 1 .162.819A8.97 8.97 0 0 0 9 6a9 9 0 0 0 9 9 8.97 8.97 0 0 0 3.463-.69.75.75 0 0 1 .981.98 10.503 10.503 0 0 1-9.694 6.46c-5.799 0-10.5-4.7-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 0 1 .818.162Z"
-      clipRule="evenodd"
-    />
-  </svg>
-);
 
 type Section = (typeof data.sections)[number];
 
@@ -105,12 +76,8 @@ function BlogsListClient({ posts }: { posts: ListPost[] }) {
 
 export default function HomeClient({ posts }: { posts: ListPost[] }) {
   const pathname = usePathname();
-  const router = useRouter();
-  const { theme, setTheme, resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  const [isNavigating, setIsNavigating] = useState(false);
 
-  // Derive activeSection from pathname instead of storing in state
+  // Derive activeSection from pathname
   const getActiveSection = (): Section => {
     const currentSlug = pathname.replace("/", "");
     if (currentSlug) {
@@ -123,27 +90,6 @@ export default function HomeClient({ posts }: { posts: ListPost[] }) {
   };
 
   const activeSection = getActiveSection();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // Reset navigation state when pathname changes
-  useEffect(() => {
-    setIsNavigating(false);
-  }, [pathname]);
-
-  const handleSectionClick = (section: Section) => {
-    if (section === activeSection || isNavigating) return;
-
-    setIsNavigating(true);
-    const slug = sectionToSlug(section);
-    router.push(`/${slug}`, { scroll: false });
-  };
-
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
 
   const renderContent = () => {
     switch (activeSection) {
@@ -227,71 +173,11 @@ export default function HomeClient({ posts }: { posts: ListPost[] }) {
   };
 
   return (
-    <main className="flex min-h-screen items-start justify-center px-6 sm:px-10 md:px-16 py-8 md:py-10 tracking-tight border-yellow-500">
-      <div className="flex flex-col w-full max-w-2xl gap-y-4 border-green-500 pt-6 md:pt-10">
-        {/* Zion Image */}
-        <div className="w-full">
-          <Image
-            src={zionImage}
-            alt={data.heroAlt}
-            className="w-full h-auto object-contain"
-            priority
-          />
-        </div>
-
-        {/* Navigation and Content */}
-        <div className="flex flex-col md:flex-row md:justify-between gap-y-8 md:gap-y-0 md:gap-x-16 border-blue-500">
-          {/* Left Sidebar / Top Navigation on Mobile */}
-          <nav className="flex flex-row md:flex-col justify-between md:gap-x-0 gap-x-2 gap-y-1 flex-wrap md:flex-nowrap md:justify-start items-center md:items-start border-purple-500">
-            {data.sections.map((section) => (
-              <button
-                key={section}
-                onClick={() => handleSectionClick(section)}
-                className={`text-left text-base/5 tracking-tight font-songmyung font-bold transition-all whitespace-nowrap hover:text-neutral-900 dark:hover:text-neutral-100 w-fit ${
-                  activeSection === section
-                    ? "text-neutral-900 dark:text-neutral-100"
-                    : "text-neutral-500 dark:text-neutral-400"
-                }`}
-              >
-                {section}
-              </button>
-            ))}
-
-            {/* Theme Toggle Icon */}
-            {mounted && (
-              <div
-                onClick={toggleTheme}
-                className="md:mt-2 cursor-pointer transition-colors w-fit text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100"
-                aria-label="Toggle theme"
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    toggleTheme();
-                  }
-                }}
-              >
-                {resolvedTheme === "dark" ? (
-                  <SunIcon className="h-4 w-4" />
-                ) : (
-                  <MoonIcon className="h-4 w-4" />
-                )}
-              </div>
-            )}
-          </nav>
-
-          {/* Content Area */}
-          <div className="w-full border-red-500">
-            <div 
-              key={activeSection}
-              className="text-base/5 text-neutral-500 dark:text-neutral-400 animate-fadeIn"
-            >
-              {renderContent()}
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
+    <div 
+      key={activeSection}
+      className="text-base/5 text-neutral-500 dark:text-neutral-400 animate-fadeIn"
+    >
+      {renderContent()}
+    </div>
   );
 }
