@@ -172,9 +172,9 @@
   margin-left: 0.25rem;
   vertical-align: baseline;
   transform: translateY(-0.15rem);
-  background-color: rgb(147 51 234); /* purple-600 */
+  background-color: rgb(2 132 199); /* sky-600 */
 }
 
 .dark .blog-end-marker {
-  background-color: rgb(192 132 252); /* purple-400 */
+  background-color: rgb(56 189 248); /* sky-400 */
 }

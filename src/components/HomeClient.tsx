@@ -58,7 +58,8 @@ function BlogsListClient({ posts }: { posts: ListPost[] }) {
         <div key={p.id} className="flex flex-col gap-y-1.5">
           <Link
             href={`/blogs/${p.slug}`}
-            className="text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300 hover:underline active:underline"
+            className="text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300"
+            style={{ fontFamily: "Song Myung" }}
           >
             <div className="font-normal">{p.title}</div>
           </Link>
@@ -110,7 +111,8 @@ export default function HomeClient({ posts }: { posts: ListPost[] }) {
                       href={c.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300 hover:underline active:underline"
+                      className="text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300"
+                      style={{ fontFamily: "Song Myung" }}
                     >
                       {c.name}
                     </Link>
@@ -127,7 +129,8 @@ export default function HomeClient({ posts }: { posts: ListPost[] }) {
                 href={data.resume_link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300 hover:underline active:underline"
+                className="text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300"
+                style={{ fontFamily: "Song Myung" }}
               >
                 here
               </Link>
@@ -145,7 +148,8 @@ export default function HomeClient({ posts }: { posts: ListPost[] }) {
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300 hover:underline active:underline"
+                  className="text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300"
+                  style={{ fontFamily: "Song Myung" }}
                 >
                   <div className="font-normal">{project.title}</div>
                 </Link>

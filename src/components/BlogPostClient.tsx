@@ -65,7 +65,8 @@ export function BlogPostClient({
       <div className="flex justify-between items-center">
         <Link
           href="/blogs"
-          className="flex items-center gap-2 text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300"
+          className="flex items-center gap-2 text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300"
+          style={{ fontFamily: "Song Myung" }}
         >
           <ArrowLeft className="w-4 h-4" />
           <span className="text-base/5">Back</span>
@@ -93,7 +94,7 @@ export function BlogPostClient({
       <article className="w-full text-base/5 text-neutral-500 dark:text-neutral-400">
         <header className="mb-6">
           <h1
-            className="text-xl sm:text-2xl font-semibold mb-2 text-neutral-900 dark:text-neutral-100"
+            className="text-xl sm:text-2xl font-semibold mb-2 text-sky-600 dark:text-sky-400"
             style={{ fontFamily: "Song Myung" }}
           >
             {post.title}
