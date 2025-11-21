@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { MarkdownWithTOC } from "@/components/MarkdownWithTOC";
 import { BlogPostClient } from "@/components/BlogPostClient";
 import { notFound } from "next/navigation";
+import { formatBlogDate } from "@/lib/date";
 
 type Post = {
   id: string;
@@ -65,29 +66,7 @@ export default async function BlogPostPage({
 
   const readingTime = calculateReadingTime(post.content);
 
-  // Format date to match the format used in the blog listing
-  const formatDate = (date: Date) => {
-    const monthNames = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-    const month = monthNames[date.getMonth()];
-    const day = date.getDate();
-    const year = date.getFullYear();
-    return `${month} ${day}, ${year}`;
-  };
-
-  const formattedDate = formatDate(new Date(post.createdAt));
+  const formattedDate = formatBlogDate(post.createdAt);
 
   return (
     <BlogPostClient

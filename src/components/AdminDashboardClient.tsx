@@ -54,6 +54,12 @@ export default function AdminDashboardClient({
   );
   const [isSavingAbout, setIsSavingAbout] = useState(false);
   const [aboutSaveMessage, setAboutSaveMessage] = useState("");
+  const [hasOrderChanges, setHasOrderChanges] = useState(false);
+  const [isSavingOrder, setIsSavingOrder] = useState(false);
+  const [orderFeedback, setOrderFeedback] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
 
   // New project form state
   const [newProject, setNewProject] = useState({
@@ -137,7 +143,9 @@ export default function AdminDashboardClient({
       if (!response.ok) throw new Error("Failed to add project");
 
       const addedProject = await response.json();
-      setProjects([...projects, addedProject]);
+      setProjects((prev) =>
+        [...prev, addedProject].sort((a, b) => a.order - b.order)
+      );
       setNewProject({ title: "", description: "", link: "" });
     } catch (error) {
       alert("Error adding project");
@@ -156,9 +164,63 @@ export default function AdminDashboardClient({
 
       if (!response.ok) throw new Error("Failed to delete project");
 
-      setProjects(projects.filter((p) => p.id !== id));
+      setProjects((prev) => prev.filter((p) => p.id !== id));
     } catch (error) {
       alert("Error deleting project");
+    }
+  };
+
+  const handleMoveProject = (index: number, direction: "up" | "down") => {
+    setProjects((prev) => {
+      const targetIndex = direction === "up" ? index - 1 : index + 1;
+      if (targetIndex < 0 || targetIndex >= prev.length) {
+        return prev;
+      }
+
+      const updated = [...prev];
+      [updated[index], updated[targetIndex]] = [
+        updated[targetIndex],
+        updated[index],
+      ];
+
+      const normalized = updated.map((project, idx) => ({
+        ...project,
+        order: idx,
+      }));
+
+      setHasOrderChanges(true);
+      setOrderFeedback(null);
+
+      return normalized;
+    });
+  };
+
+  const handleSaveProjectOrder = async () => {
+    if (!hasOrderChanges || isSavingOrder) return;
+
+    setIsSavingOrder(true);
+    setOrderFeedback(null);
+
+    try {
+      const response = await fetch("/api/projects/reorder", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ orderedIds: projects.map((p) => p.id) }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to save order");
+      }
+
+      setHasOrderChanges(false);
+      setOrderFeedback({ type: "success", text: "Project order updated." });
+    } catch (error) {
+      setOrderFeedback({
+        type: "error",
+        text: "Failed to save order. Please try again.",
+      });
+    } finally {
+      setIsSavingOrder(false);
     }
   };
 
@@ -383,7 +445,34 @@ export default function AdminDashboardClient({
 
             {/* Existing Projects */}
             <div className="space-y-4">
-              {projects.map((project) => (
+              {projects.length > 0 && (
+                <div className="flex items-center justify-between text-sm mb-2">
+                  <p className="text-neutral-500">
+                    Use the arrows to rearrange projects. Save when done.
+                  </p>
+                  <div className="flex items-center gap-3">
+                    {orderFeedback && (
+                      <span
+                        className={
+                          orderFeedback.type === "success"
+                            ? "text-green-600"
+                            : "text-red-600"
+                        }
+                      >
+                        {orderFeedback.text}
+                      </span>
+                    )}
+                    <button
+                      onClick={handleSaveProjectOrder}
+                      disabled={!hasOrderChanges || isSavingOrder}
+                      className="px-3 py-1.5 rounded-md border text-sm disabled:opacity-50"
+                    >
+                      {isSavingOrder ? "Saving..." : "Save Order"}
+                    </button>
+                  </div>
+                </div>
+              )}
+              {projects.map((project, index) => (
                 <div key={project.id} className="border rounded-md p-4">
                   <div className="flex justify-between items-start mb-2">
                     <div className="flex-1">
@@ -400,12 +489,30 @@ export default function AdminDashboardClient({
                         {project.link}
                       </a>
                     </div>
-                    <button
-                      onClick={() => handleDeleteProject(project.id)}
-                      className="px-3 py-1 border rounded-md text-red-600 hover:bg-red-50 dark:hover:bg-red-950"
-                    >
-                      Delete
-                    </button>
+                    <div className="flex flex-col gap-2 items-end">
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => handleMoveProject(index, "up")}
+                          disabled={index === 0}
+                          className="px-2 py-1 border rounded-md text-sm disabled:opacity-40"
+                        >
+                          ↑
+                        </button>
+                        <button
+                          onClick={() => handleMoveProject(index, "down")}
+                          disabled={index === projects.length - 1}
+                          className="px-2 py-1 border rounded-md text-sm disabled:opacity-40"
+                        >
+                          ↓
+                        </button>
+                      </div>
+                      <button
+                        onClick={() => handleDeleteProject(project.id)}
+                        className="px-3 py-1 border rounded-md text-red-600 hover:bg-red-50 dark:hover:bg-red-950"
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}

@@ -4,6 +4,7 @@ import { Fragment } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { DEFAULT_HOBBIES } from "@/constants/site";
+import { formatBlogDate } from "@/lib/date";
 
 type Section = "About" | "Projects" | "Blogs" | "Hobbies";
 
@@ -69,28 +70,6 @@ type Project = {
   order: number;
 };
 
-const formatDate = (dateString: string) => {
-  const date = new Date(dateString);
-  const monthNames = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-  const month = monthNames[date.getMonth()];
-  const day = date.getDate();
-  const year = date.getFullYear();
-  return `${month} ${day}, ${year}`;
-};
-
 function BlogsListClient({ posts }: { posts: ListPost[] }) {
   return (
     <div className="flex flex-col gap-y-5">
@@ -104,7 +83,7 @@ function BlogsListClient({ posts }: { posts: ListPost[] }) {
             <div className="font-normal leading-tight">{p.title}</div>
           </Link>
           <div className="leading-snug text-neutral-500 dark:text-neutral-400 text-sm">
-            {formatDate(p.createdAt)}
+            {formatBlogDate(p.createdAt)}
           </div>
         </div>
       ))}
