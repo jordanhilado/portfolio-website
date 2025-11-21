@@ -9,15 +9,30 @@ datasource db {
 }
 
 model Post {
-  id          String   @id @default(cuid())
-  slug        String   @unique
-  title       String
-  content     String   // markdown content
-  published   Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id         String   @id @default(cuid())
+  slug       String   @unique
+  title      String
+  content    String // markdown content
+  published  Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
   // Optional metadata for future features
-  coverImage  String?  // URL to image
+  coverImage String? // URL to image
 }
 
+model AboutContent {
+  id           String   @id @default(cuid())
+  content      String // JSON array of paragraphs
+  contactLinks String? // JSON array of markdown-style links: ["[Link Title](url)", ...]
+  updatedAt    DateTime @updatedAt
+}
 
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  link        String
+  order       Int      @default(0) // For custom ordering
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

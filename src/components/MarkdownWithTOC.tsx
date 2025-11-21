@@ -56,7 +56,7 @@ export function MarkdownWithTOC({ content }: { content: string }) {
   const components: Components = {
     h1: ({ children, ...props }) => (
       <h1
-        className="text-xl sm:text-2xl font-bold mt-6 mb-1 text-neutral-900 dark:text-neutral-100 [&>a]:no-underline"
+        className="text-2xl sm:text-3xl font-bold mt-6 mb-1 text-neutral-900 dark:text-neutral-100 [&>a]:no-underline [&>a]:text-neutral-900 [&>a]:dark:text-neutral-100 [&>a:hover]:text-neutral-600 [&>a:hover]:dark:text-neutral-400"
         style={{ fontFamily: "Song Myung" }}
         {...props}
       >
@@ -65,7 +65,7 @@ export function MarkdownWithTOC({ content }: { content: string }) {
     ),
     h2: ({ children, ...props }) => (
       <h2
-        className="text-lg sm:text-xl font-bold mt-4 mb-1 text-neutral-900 dark:text-neutral-100 [&>a]:no-underline"
+        className="text-xl sm:text-2xl font-bold mt-4 mb-1 text-neutral-900 dark:text-neutral-100 [&>a]:no-underline [&>a]:text-neutral-900 [&>a]:dark:text-neutral-100 [&>a:hover]:text-neutral-600 [&>a:hover]:dark:text-neutral-400"
         style={{ fontFamily: "Song Myung" }}
         {...props}
       >
@@ -74,7 +74,7 @@ export function MarkdownWithTOC({ content }: { content: string }) {
     ),
     h3: ({ children, ...props }) => (
       <h3
-        className="text-base sm:text-lg font-bold mt-3 mb-0.5 text-neutral-900 dark:text-neutral-100 [&>a]:no-underline"
+        className="text-lg sm:text-xl font-bold mt-3 mb-0.5 text-neutral-900 dark:text-neutral-100 [&>a]:no-underline [&>a]:text-neutral-900 [&>a]:dark:text-neutral-100 [&>a:hover]:text-neutral-600 [&>a:hover]:dark:text-neutral-400"
         style={{ fontFamily: "Song Myung" }}
         {...props}
       >
@@ -83,7 +83,7 @@ export function MarkdownWithTOC({ content }: { content: string }) {
     ),
     h4: ({ children, ...props }) => (
       <h4
-        className="text-base font-bold mt-2 mb-0.5 text-neutral-900 dark:text-neutral-100 [&>a]:no-underline"
+        className="text-base sm:text-lg font-bold mt-2 mb-0.5 text-neutral-900 dark:text-neutral-100 [&>a]:no-underline [&>a]:text-neutral-900 [&>a]:dark:text-neutral-100 [&>a:hover]:text-neutral-600 [&>a:hover]:dark:text-neutral-400"
         style={{ fontFamily: "Song Myung" }}
         {...props}
       >
@@ -114,7 +114,7 @@ export function MarkdownWithTOC({ content }: { content: string }) {
     a: ({ children, href, ...props }) => (
       <a
         href={href}
-        className="text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300 underline"
+        className="text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300 underline"
         {...props}
       >
         {children}
@@ -159,7 +159,7 @@ export function MarkdownWithTOC({ content }: { content: string }) {
       if (inline) {
         return (
           <code
-            className="bg-neutral-100 dark:bg-neutral-800 px-1.5 py-0.5 rounded text-[0.95em] text-purple-700 dark:text-purple-300"
+            className="bg-neutral-100 dark:bg-neutral-800 px-1.5 py-0.5 rounded text-[0.95em] text-sky-700 dark:text-sky-300"
             {...props}
             style={{ fontFamily: "SF Mono, monospace" }}
           >
@@ -226,16 +226,16 @@ export function MarkdownWithTOC({ content }: { content: string }) {
   return (
     <div className="flex flex-col gap-4 sm:gap-6">
       {chapters.length > 0 && (
-        <div className="border border-neutral-300 dark:border-neutral-700 rounded-md p-3 sm:p-4 bg-neutral-50 dark:bg-neutral-900">
-          <div className="font-medium mb-2 text-sm sm:text-base text-neutral-900 dark:text-neutral-100">
-            Chapters
+        <div className="p-3 sm:p-4 bg-neutral-50 dark:bg-neutral-900">
+          <div className="mb-1 text-xs sm:text-sm text-neutral-900 dark:text-neutral-100">
+            Content
           </div>
-          <ul className="space-y-1 text-sm sm:text-base">
+          <ul className="space-y-1 text-xs sm:text-sm">
             {chapters.map((c) => (
-              <li key={c.id} style={{ marginLeft: `${c.indent * 12}px` }}>
+              <li key={c.id}>
                 <a
                   href={`#${c.id}`}
-                  className="text-purple-600 hover:underline dark:text-purple-400 break-words"
+                  className="text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 break-words"
                 >
                   {c.text}
                 </a>

@@ -167,12 +167,12 @@
 
 .blog-end-marker {
   display: inline-block;
-  width: 0.5rem;
-  height: 0.5rem;
+  width: 0.875rem;
+  height: 0.875rem;
   margin-left: 0.25rem;
-  vertical-align: baseline;
-  transform: translateY(-0.15rem);
+  vertical-align: 0rem;
   background-color: rgb(2 132 199); /* sky-600 */
+  border-radius: 0;
 }
 
 .dark .blog-end-marker {

@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { useTheme } from "next-themes";
 import { usePathname } from "next/navigation";
-import { data } from "@/assets/data";
 import zionImage from "@/assets/zion.jpg";
 
 const SunIcon = ({ className }: { className?: string }) => (
@@ -33,7 +32,7 @@ const MoonIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-type Section = (typeof data.sections)[number];
+type Section = "About" | "Projects" | "Blogs" | "Hobbies";
 
 const sectionToSlug = (section: Section): string => {
   return section
@@ -42,17 +41,21 @@ const sectionToSlug = (section: Section): string => {
     .replace(/\s+/g, "-");
 };
 
-const slugToSection = (slug: string): Section | null => {
+const slugToSection = (slug: string, sections: Section[]): Section | null => {
   const sectionMap: Record<string, Section> = Object.fromEntries(
-    data.sections.map((section) => [sectionToSlug(section), section as Section])
+    sections.map((section) => [sectionToSlug(section), section as Section])
   );
   return sectionMap[slug] || null;
 };
 
 export default function LayoutWrapper({
   children,
+  sections,
+  heroAlt,
 }: {
   children: React.ReactNode;
+  sections: Section[];
+  heroAlt: string;
 }) {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
@@ -73,7 +76,7 @@ export default function LayoutWrapper({
   const getActiveSection = (): Section => {
     const currentSlug = pathname.replace("/", "");
     if (currentSlug) {
-      const section = slugToSection(currentSlug);
+      const section = slugToSection(currentSlug, sections);
       if (section) {
         return section;
       }
@@ -90,7 +93,7 @@ export default function LayoutWrapper({
         <div className="w-full">
           <Image
             src={zionImage}
-            alt={data.heroAlt}
+            alt={heroAlt}
             className="w-full h-auto object-contain"
             priority
           />
@@ -101,7 +104,7 @@ export default function LayoutWrapper({
           <div className="flex flex-col md:flex-row md:justify-between gap-y-8 md:gap-y-0 md:gap-x-16">
             {/* Left Sidebar / Top Navigation on Mobile */}
             <nav className="flex flex-row md:flex-col justify-between md:gap-x-0 gap-x-2 gap-y-1 flex-wrap md:flex-nowrap md:justify-start items-center md:items-start">
-              {data.sections.map((section) => {
+              {sections.map((section) => {
                 const href =
                   section === "About" ? "/" : `/${sectionToSlug(section)}`;
                 return (
@@ -109,7 +112,7 @@ export default function LayoutWrapper({
                     key={section}
                     href={href}
                     prefetch={true}
-                    className={`text-left text-base/5 tracking-tight font-songmyung font-bold transition-all whitespace-nowrap hover:text-neutral-900 dark:hover:text-neutral-100 w-fit ${
+                    className={`text-left text-lg/5 md:text-base/5 tracking-tight font-songmyung font-bold transition-all whitespace-nowrap hover:text-neutral-900 dark:hover:text-neutral-100 w-fit ${
                       activeSection === section
                         ? "text-neutral-900 dark:text-neutral-100"
                         : "text-neutral-500 dark:text-neutral-400"

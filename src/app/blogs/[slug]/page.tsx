@@ -64,19 +64,29 @@ export default async function BlogPostPage({
   };
 
   const readingTime = calculateReadingTime(post.content);
-  
+
   // Format date to match the format used in the blog listing
   const formatDate = (date: Date) => {
     const monthNames = [
-      "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
     ];
     const month = monthNames[date.getMonth()];
     const day = date.getDate();
     const year = date.getFullYear();
     return `${month} ${day}, ${year}`;
   };
-  
+
   const formattedDate = formatDate(new Date(post.createdAt));
 
   return (

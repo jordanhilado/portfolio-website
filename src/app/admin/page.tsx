@@ -1,13 +1,31 @@
 import { prisma } from "@/lib/prisma";
-import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import AdminDashboardClient from "@/components/AdminDashboardClient";
+
 type AdminListPost = {
   id: string;
   slug: string;
   title: string;
   published: boolean;
   createdAt: Date;
+  updatedAt: Date;
+};
+
+type Project = {
+  id: string;
+  title: string;
+  description: string;
+  link: string;
+  order: number;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+type AboutContent = {
+  id: string;
+  content: string;
+  contactLinks?: string | null;
   updatedAt: Date;
 };
 
@@ -24,6 +42,7 @@ export default async function AdminDashboard() {
     );
   }
 
+  // Fetch posts
   const posts = await prisma.post.findMany({
     orderBy: { createdAt: "desc" },
     select: {
@@ -36,52 +55,51 @@ export default async function AdminDashboard() {
     },
   });
 
+  // Fetch projects
+  let projects: Project[] = [];
+  try {
+    projects = await prisma.project.findMany({
+      orderBy: { order: "asc" },
+    });
+  } catch (error) {
+    console.error("Error fetching projects:", error);
+  }
+
+  // Fetch about content
+  let aboutContent: AboutContent | null = null;
+  try {
+    aboutContent = await prisma.aboutContent.findFirst();
+  } catch (error) {
+    console.error("Error fetching about content:", error);
+  }
+
+  // Convert dates to strings for client component
+  const postsData = posts.map((post) => ({
+    ...post,
+    createdAt: post.createdAt.toISOString(),
+    updatedAt: post.updatedAt.toISOString(),
+  }));
+
+  const projectsData = projects.map((project) => ({
+    ...project,
+    createdAt: project.createdAt.toISOString(),
+    updatedAt: project.updatedAt.toISOString(),
+  }));
+
+  const aboutData = aboutContent
+    ? {
+        ...aboutContent,
+        updatedAt: aboutContent.updatedAt.toISOString(),
+        paragraphs: JSON.parse(aboutContent.content),
+        contactLinks: aboutContent.contactLinks ? JSON.parse(aboutContent.contactLinks) : [],
+      }
+    : null;
+
   return (
-    <main className="flex min-h-screen px-6 sm:px-10 md:px-16 py-10 justify-center">
-      <div className="w-full max-w-3xl">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-semibold">Admin • Posts</h1>
-          <Link
-            href="/admin/new"
-            className="px-3 py-1.5 rounded-md bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900"
-          >
-            New Post
-          </Link>
-        </div>
-        <div className="space-y-4">
-          {posts.map((post: AdminListPost) => (
-            <div key={post.id} className="border rounded-md p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <div className="font-medium">{post.title}</div>
-                  <div className="text-xs text-neutral-500">
-                    {post.published ? "Published" : "Draft"} • Created{" "}
-                    {new Date(post.createdAt).toLocaleDateString()} • Updated{" "}
-                    {new Date(post.updatedAt).toLocaleDateString()}
-                  </div>
-                </div>
-                <div className="flex gap-2">
-                  <Link
-                    href={`/admin/edit/${post.id}`}
-                    className="px-2 py-1 rounded border"
-                  >
-                    Edit
-                  </Link>
-                  <Link
-                    href={`/blogs/${post.slug}`}
-                    className="px-2 py-1 rounded border"
-                  >
-                    View
-                  </Link>
-                </div>
-              </div>
-            </div>
-          ))}
-          {posts.length === 0 && (
-            <div className="text-sm text-neutral-500">No posts yet.</div>
-          )}
-        </div>
-      </div>
-    </main>
+    <AdminDashboardClient
+      posts={postsData}
+      projects={projectsData}
+      aboutContent={aboutData}
+    />
   );
 }

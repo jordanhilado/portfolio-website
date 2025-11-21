@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/theme-provider";
 import Script from "next/script";
 import LayoutWrapper from "@/components/LayoutWrapper";
+import { DEFAULT_HERO_ALT, DEFAULT_SECTIONS } from "@/constants/site";
 
 const sfPro = localFont({
   src: "../../public/fonts/SF-Pro.ttf",
@@ -21,11 +22,14 @@ export const metadata: Metadata = {
   description: "Jordan Hilado's personal website",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const sections = [...DEFAULT_SECTIONS];
+  const heroAlt = DEFAULT_HERO_ALT;
+
   return (
     <html lang="en">
       <head>
@@ -70,7 +74,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <LayoutWrapper>{children}</LayoutWrapper>
+          <LayoutWrapper
+            sections={
+              sections as ("About" | "Projects" | "Blogs" | "Hobbies")[]
+            }
+            heroAlt={heroAlt}
+          >
+            {children}
+          </LayoutWrapper>
         </ThemeProvider>
       </body>
     </html>
