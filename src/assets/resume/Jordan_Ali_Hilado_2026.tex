@@ -1,0 +1,90 @@
+\documentclass[a4paper,10pt]{extarticle}
+
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{a4paper, margin=0.35in}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\setlist[itemize]{itemsep=1pt, topsep=2pt, parsep=0pt, partopsep=0pt, leftmargin=*}
+\titleformat{\section}{\normalsize\bfseries}{\thesection}{1em}{}[\titlerule]
+\titlespacing*{\section}{0pt}{0.85\baselineskip}{0.6\baselineskip}
+\renewcommand{\baselinestretch}{1.03}
+
+\begin{document}
+\normalsize
+
+\pagestyle{empty}
+
+\begin{center}
+\textbf{\Large Jordan Ali Hilado}\\[2pt]
+\href{mailto:jordanalihilado@gmail.com}{jordanalihilado@gmail.com} | 562-500-9124 | \href{https://www.linkedin.com/in/jordanhilado}{linkedin.com/in/jordanhilado} | \href{https://jordanhilado.com/}{jordanhilado.com}
+\end{center}
+
+\section*{EXPERIENCE}
+
+\noindent
+\textbf{Microsoft} \hfill San Francisco, CA \\
+\textit{Software Engineer} \hfill Jun 2024 - Present
+\begin{itemize}
+    \item Architected and executed infrastructure scale-outs for Azure Resource Graph's (ARG) ingestion layer processing 8B+ events per day, by combining pub/sub pipeline expansion with CPU-driven VM autoscaling across 205 clusters using Bicep/YAML infrastructure-as-code workflows with Azure DevOps CI/CD pipelines, reducing SLA breaches by 40\%
+    \item Designed and implemented a high-throughput ingestion pipeline with C\#/.NET that consumes pre-aggregated NDJSON batches from Apache Spark, extending ingestion contracts and deserialization while enforcing deterministic, shard-aligned batching to prevent cross-partition writes and preserve storage and query accuracy at scale
+    \item Ideated and deployed a GitOps infrastructure control plane using TypeScript with React and C\# with Azure Functions/.NET that reconciles live production state against version-controlled configs, detects capacity drift, and generates PR-based updates via GitHub Copilot SDK and CLI to automate multi-day reviews into a one-click operation
+    \item Led on-call response for ARG's ingestion layer, root-causing and mitigating dozens of customer-impacting incidents for F500 enterprises and governments globally, while enhancing observability dashboards with Kusto/KQL, strengthening team incident response through retrospective analysis and documenting RCAs
+\end{itemize}
+
+\noindent
+\textbf{Walt Disney Animation Studios} \hfill Burbank, CA \\
+\textit{Software Engineer Intern} \hfill May 2023 - Aug 2023
+\begin{itemize}
+    \item Built and shipped a production-scale internal platform using React, FastAPI, and the Autodesk ShotGrid REST API, enabling 100+ production managers to seamlessly manage animated clip metadata with improved accessibility, scalability, and maintainability -- now powering every Disney Animation film production since 2024
+    \item Improved data pipeline reliability and integrity by automating ingestion workflows for terabytes of cross-department production data using Python, AWS, Snowflake, and Apache Airflow, with monitoring and backfill-safe operational patterns
+\end{itemize}
+
+\noindent
+\textit{Software Engineer Intern} \hfill May 2022 - Aug 2022
+\begin{itemize}
+    \item Shipped 12 hotfixes/features for internal production and employee management tools using React, Django, GraphQL, and Cypress, and refactored core services from JavaScript to TypeScript, improving maintainability and system reliability
+    \item Automated employee profile metadata synchronization using Apache Airflow, MySQL, Python, REST APIs, and Ruby on Rails, improving cross-system consistency and reliability for employee records
+\end{itemize}
+
+\noindent
+\textbf{Handle Delivery} \hfill Remote\\
+\textit{Software Engineer (contract)} \hfill Mar 2023 - May 2023
+\begin{itemize}
+    \item Scaled cloud infrastructure and mobile platform to serve 13k+ students across 6 universities by optimizing serverless functions in TypeScript/Node.js, improving reliability and performance during peak demand
+    \item Developed and maintained various internal and consumer-facing applications including iOS/Android mobile applications and real-time admin dashboard utilizing React, React Native, TypeScript, and Firebase
+\end{itemize}
+
+\section*{TECHNICAL SKILLS}
+\begin{itemize}
+    \item \textbf{Languages:} Python, C\#, JavaScript/TypeScript, HTML/CSS, SQL/KQL, Java, C++, GraphQL, PowerShell, Ruby
+    \item \textbf{Frameworks:} React, .NET, FastAPI, Express, Next.js, Django, Flask, Ruby on Rails
+    \item \textbf{Data \& Storage:} PostgreSQL, DynamoDB, Cosmos DB, Redis, MySQL, MongoDB, Firebase, SQLite, Supabase
+    \item \textbf{Software \& Tools:} Azure, AWS, Git, Docker, Kubernetes, CI/CD (GitHub Actions/Azure DevOps), Terraform, Node.js, Service Fabric, Azure Monitor, Profiling analysis, Postman, GCP
+\end{itemize}
+
+\section*{EDUCATION}
+
+\noindent
+\textbf{California State University, Long Beach} \hfill Aug 2020 - Dec 2023\\
+B.S. Computer Science \hfill GPA: 3.80\\
+\textit{Affiliations:} Associated Engineering Student Body, Association for Computing Machinery, BeachHacks Organizing Committee, Computer Engineering/Science Student Advisory Board, ICPC Programming Team, The Aerospace Corporation's Dean's Leadership Academy, Engineering Honors Program, Google Developer Student Club, STEM Advantage Scholarship
+
+\section*{PROJECTS AND PUBLICATIONS}
+\noindent
+\textbf{Heaptree}
+(\textit{Website:} \url{https://heaptree.com/}) \hfill Jan 2025 - Present
+\begin{itemize}
+    \item Built a developer platform (web + SDK) enabling one-line headless VM provisioning for ephemeral execution and testing; focused on reliability, isolation, and fast feedback loops using React/Next.js, TypeScript, Python, and AWS (EC2, DynamoDB, Lambda)
+\end{itemize}
+
+\noindent
+\textbf{Comparative Study of Text-to-Image Models: A Focus on Subject-Specific Training for Improved Generation}
+(\textit{Publication:} \url{https://scholarworks.calstate.edu/concern/projects/pz50h376p}) \hfill Jan 2023 - Dec 2023
+\begin{itemize}
+    \item Investigated subject-specific fine-tuning for text-to-image generation (Stable Diffusion 1.1 + LoRA), emphasizing evaluation methodology and comparative performance trade-offs for improved subject fidelity
+\end{itemize}
+
+\end{document}
