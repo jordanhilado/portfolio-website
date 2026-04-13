@@ -3,7 +3,9 @@
 import { Fragment } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { DEFAULT_HOBBIES, RESUME_URL } from "@/constants/site";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { RESUME_URL } from "@/constants/site";
 import { formatBlogDate } from "@/lib/date";
 
 type Section = "About" | "Projects" | "Blogs" | "Hobbies";
@@ -108,7 +110,7 @@ export default function HomeClient({
   projects,
   aboutParagraphs,
   contactLinks = [],
-  hobbies = DEFAULT_HOBBIES,
+  hobbies = "",
   sections,
 }: HomeClientProps) {
   const pathname = usePathname();
@@ -237,8 +239,10 @@ export default function HomeClient({
 
       case "Hobbies":
         return (
-          <div className="flex flex-col gap-y-3">
-            <p>{hobbies || "..."}</p>
+          <div className="prose dark:prose-invert prose-base max-w-none prose-p:text-neutral-500 dark:prose-p:text-neutral-400 prose-p:leading-5 prose-a:text-sky-600 dark:prose-a:text-sky-400">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {hobbies || "..."}
+            </ReactMarkdown>
           </div>
         );
 
