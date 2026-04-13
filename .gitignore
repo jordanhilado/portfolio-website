@@ -18,13 +18,13 @@
 # production
 /build
 
-# latex resume files
-/src/assets/resume/Jordan_Ali_Hilado_2024.aux
-/src/assets/resume/Jordan_Ali_Hilado_2024.fdb_latexmk
-/src/assets/resume/Jordan_Ali_Hilado_2024.fls
-/src/assets/resume/Jordan_Ali_Hilado_2024.log
-/src/assets/resume/Jordan_Ali_Hilado_2024.out
-/src/assets/resume/Jordan_Ali_Hilado_2024.*
+# latex resume artifacts (keep only .tex and .pdf)
+/src/assets/resume/*.aux
+/src/assets/resume/*.fdb_latexmk
+/src/assets/resume/*.fls
+/src/assets/resume/*.log
+/src/assets/resume/*.out
+/src/assets/resume/*.synctex.gz
 
 # mock resume
 /src/assets/resume/mock/
