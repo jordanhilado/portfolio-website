@@ -3,7 +3,7 @@
 import { Fragment } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { DEFAULT_HOBBIES } from "@/constants/site";
+import { DEFAULT_HOBBIES, RESUME_URL } from "@/constants/site";
 import { formatBlogDate } from "@/lib/date";
 
 type Section = "About" | "Projects" | "Blogs" | "Hobbies";
@@ -159,8 +159,18 @@ export default function HomeClient({
                 </p>
               );
             })}
-            {contactLinks.length > 0 && (
+            {(contactLinks.length > 0 || true) && (
               <p>
+                <a
+                  href={RESUME_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-lg text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300"
+                  style={{ fontFamily: "Song Myung" }}
+                >
+                  Resume
+                </a>
+                {contactLinks.length > 0 && " | "}
                 {contactLinks.map((link, idx) => {
                   const parsed = parseMarkdownLink(link);
                   const isLast = idx === contactLinks.length - 1;
