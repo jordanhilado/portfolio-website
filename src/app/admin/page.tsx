@@ -73,6 +73,15 @@ export default async function AdminDashboard() {
     console.error("Error fetching about content:", error);
   }
 
+  // Fetch hobbies content
+  let hobbiesContent = "";
+  try {
+    const hobbies = await prisma.hobbiesContent.findFirst();
+    if (hobbies) hobbiesContent = hobbies.content;
+  } catch (error) {
+    console.error("Error fetching hobbies:", error);
+  }
+
   // Convert dates to strings for client component
   const postsData = posts.map((post) => ({
     ...post,
@@ -100,6 +109,7 @@ export default async function AdminDashboard() {
       posts={postsData}
       projects={projectsData}
       aboutContent={aboutData}
+      hobbiesContent={hobbiesContent}
     />
   );
 }

@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import HomeClient from "@/components/HomeClient";
-import { DEFAULT_HOBBIES, DEFAULT_SECTIONS } from "@/constants/site";
+import { DEFAULT_SECTIONS } from "@/constants/site";
 
 type ListPost = {
   id: string;
@@ -24,7 +24,7 @@ export default async function SectionPage() {
   let projects: Project[] = [];
   let aboutParagraphs: string[] = [];
   let contactLinks: string[] = [];
-  const hobbies = DEFAULT_HOBBIES;
+  let hobbies = "";
   const sections = [...DEFAULT_SECTIONS];
 
   try {
@@ -78,6 +78,15 @@ export default async function SectionPage() {
     }
   } catch (error) {
     console.error("Failed to load about content:", error);
+  }
+
+  try {
+    const hobbiesContent = await prisma.hobbiesContent.findFirst();
+    if (hobbiesContent && hobbiesContent.content) {
+      hobbies = hobbiesContent.content;
+    }
+  } catch (error) {
+    console.error("Failed to load hobbies:", error);
   }
 
   return (

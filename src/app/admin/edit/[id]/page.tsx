@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import AdminMarkdownEditor from "@/components/AdminMarkdownEditor";
 
 type Post = {
   id: string;
@@ -92,7 +93,7 @@ export default function EditPostPage() {
   if (loading) {
     return (
       <main className="flex min-h-screen items-center justify-center">
-        <div>...</div>
+        <div className="text-sm text-neutral-500">Loading...</div>
       </main>
     );
   }
@@ -100,50 +101,51 @@ export default function EditPostPage() {
   if (!post) {
     return (
       <main className="flex min-h-screen items-center justify-center">
-        <div>Not found</div>
+        <div className="text-sm text-neutral-500">Not found</div>
       </main>
     );
   }
 
   return (
-    <main className="flex min-h-screen px-6 sm:px-10 md:px-16 py-10 justify-center">
+    <main className="flex min-h-screen px-6 sm:px-10 md:px-16 py-10 pb-20 justify-center">
       <div className="w-full max-w-3xl">
         <h1 className="text-2xl font-semibold mb-4">Edit Post</h1>
         <form className="space-y-4" onSubmit={submit}>
           <div className="space-y-1">
-            <label className="text-sm font-medium">Title</label>
+            <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+              Title
+            </label>
             <input
               type="text"
-              className="w-full border rounded p-2"
+              className="w-full rounded-lg bg-neutral-100 dark:bg-neutral-800 px-3 py-2 text-sm placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900/10 dark:focus:ring-neutral-100/10 transition-shadow"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
             />
           </div>
           <div className="space-y-1">
-            <label className="text-sm font-medium">Cover Image URL (optional)</label>
+            <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+              Cover Image URL (optional)
+            </label>
             <input
               type="url"
-              className="w-full border rounded p-2"
+              className="w-full rounded-lg bg-neutral-100 dark:bg-neutral-800 px-3 py-2 text-sm placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900/10 dark:focus:ring-neutral-100/10 transition-shadow"
               value={coverImage}
               onChange={(e) => setCoverImage(e.target.value)}
               placeholder="https://..."
             />
           </div>
           <div className="space-y-1">
-            <label className="text-sm font-medium">Content (Markdown)</label>
-            <textarea
-              className="w-full border rounded p-2 min-h-[300px]"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              required
-            />
+            <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+              Content (Markdown)
+            </label>
+            <AdminMarkdownEditor value={content} onChange={setContent} />
           </div>
           <div className="flex items-center gap-2">
             <input
               id="published"
               type="checkbox"
-              className="h-4 w-4"
+              className="h-4 w-4 rounded accent-neutral-900 dark:accent-neutral-100"
               checked={published}
               onChange={(e) => setPublished(e.target.checked)}
             />
@@ -156,20 +158,20 @@ export default function EditPostPage() {
             <button
               type="submit"
               disabled={saving}
-              className="px-3 py-1.5 rounded-md bg-neutral-900 text-white disabled:opacity-50 dark:bg-neutral-100 dark:text-neutral-900"
+              className="px-3 py-1.5 rounded-lg bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900 text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
             >
               {saving ? "Saving..." : "Save Changes"}
             </button>
             <button
               type="button"
-              className="px-3 py-1.5 rounded-md border"
+              className="px-3 py-1.5 rounded-lg text-sm bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
               onClick={() => router.push("/admin")}
             >
               Cancel
             </button>
             <button
               type="button"
-              className="px-3 py-1.5 rounded-md border border-red-600 text-red-600"
+              className="px-3 py-1.5 rounded-lg text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950 hover:bg-red-100 dark:hover:bg-red-900 transition-colors"
               onClick={deletePost}
             >
               Delete
@@ -180,5 +182,3 @@ export default function EditPostPage() {
     </main>
   );
 }
-
-
