@@ -4,6 +4,7 @@ import { authOptions } from "@/lib/auth";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { slugify } from "@/lib/slugify";
+import { revalidatePost } from "@/lib/revalidate";
 
 const CreatePostSchema = z.object({
   title: z.string().min(3).max(200),
@@ -89,6 +90,8 @@ export async function POST(request: Request) {
       coverImage: coverImage || undefined,
     },
   });
+
+  revalidatePost(post.slug);
 
   return NextResponse.json({ post }, { status: 201 });
 }

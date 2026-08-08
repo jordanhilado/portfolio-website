@@ -1,115 +1,22 @@
-import { prisma } from "@/lib/prisma";
 import HomeClient from "@/components/HomeClient";
-import { DEFAULT_SECTIONS } from "@/constants/site";
+import { getSiteContent } from "@/lib/site-content";
+import { DEFAULT_SECTIONS, sectionToSlug } from "@/constants/site";
 
-type ListPost = {
-  id: string;
-  slug: string;
-  title: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
-type Project = {
-  id: string;
-  title: string;
-  description: string;
-  link: string;
-  order: number;
-};
-
-// Server Component that fetches data at build time
+// Server Component that fetches content at build time and on revalidation
 export default async function SectionPage() {
-  let posts: ListPost[] = [];
-  let projects: Project[] = [];
-  let aboutParagraphs: string[] = [];
-  let contactLinks: string[] = [];
-  let hobbies = "";
-  const sections = [...DEFAULT_SECTIONS];
+  const content = await getSiteContent();
 
-  try {
-    const fetchedPosts = await prisma.post.findMany({
-      where: { published: true },
-      orderBy: { createdAt: "desc" },
-      select: {
-        id: true,
-        slug: true,
-        title: true,
-        createdAt: true,
-        updatedAt: true,
-      },
-    });
-
-    // Convert dates to strings for client component
-    posts = fetchedPosts.map((post) => ({
-      ...post,
-      createdAt: post.createdAt.toISOString(),
-      updatedAt: post.updatedAt.toISOString(),
-    }));
-  } catch (error) {
-    console.error("Failed to load posts:", error);
-  }
-
-  try {
-    // Fetch projects
-    const fetchedProjects = await prisma.project.findMany({
-      orderBy: { order: "asc" },
-      select: {
-        id: true,
-        title: true,
-        description: true,
-        link: true,
-        order: true,
-      },
-    });
-    projects = fetchedProjects;
-  } catch (error) {
-    console.error("Failed to load projects:", error);
-  }
-
-  try {
-    // Fetch about content
-    const aboutContent = await prisma.aboutContent.findFirst();
-    if (aboutContent) {
-      aboutParagraphs = JSON.parse(aboutContent.content);
-      if (aboutContent.contactLinks) {
-        contactLinks = JSON.parse(aboutContent.contactLinks);
-      }
-    }
-  } catch (error) {
-    console.error("Failed to load about content:", error);
-  }
-
-  try {
-    const hobbiesContent = await prisma.hobbiesContent.findFirst();
-    if (hobbiesContent && hobbiesContent.content) {
-      hobbies = hobbiesContent.content;
-    }
-  } catch (error) {
-    console.error("Failed to load hobbies:", error);
-  }
-
-  return (
-    <HomeClient
-      posts={posts}
-      projects={projects}
-      aboutParagraphs={aboutParagraphs}
-      contactLinks={contactLinks}
-      hobbies={hobbies}
-      sections={sections as ("About" | "Projects" | "Blogs" | "Hobbies")[]}
-    />
-  );
+  return <HomeClient {...content} />;
 }
 
 // Generate static params for all sections
 export async function generateStaticParams() {
-  return [
-    { slug: "about" },
-    { slug: "projects" },
-    { slug: "blogs" },
-    { slug: "hobbies" },
-  ];
+  return DEFAULT_SECTIONS.map((section) => ({
+    slug: sectionToSlug(section),
+  }));
 }
 
-// Enable ISR (Incremental Static Regeneration) - revalidate every 60 seconds
-export const revalidate = 60;
+// Backstop only — content writes purge these pages on demand via
+// revalidateContent(), so this timer just bounds staleness if a write
+// path ever fails to invalidate.
+export const revalidate = 3600;

@@ -73,13 +73,13 @@ export default async function AdminDashboard() {
     console.error("Error fetching about content:", error);
   }
 
-  // Fetch hobbies content
-  let hobbiesContent = "";
+  // Fetch running content
+  let runningContent = "";
   try {
-    const hobbies = await prisma.hobbiesContent.findFirst();
-    if (hobbies) hobbiesContent = hobbies.content;
+    const running = await prisma.runningContent.findFirst();
+    if (running) runningContent = running.content;
   } catch (error) {
-    console.error("Error fetching hobbies:", error);
+    console.error("Error fetching running:", error);
   }
 
   // Convert dates to strings for client component
@@ -109,7 +109,7 @@ export default async function AdminDashboard() {
       posts={postsData}
       projects={projectsData}
       aboutContent={aboutData}
-      hobbiesContent={hobbiesContent}
+      runningContent={runningContent}
     />
   );
 }

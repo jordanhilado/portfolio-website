@@ -4,6 +4,7 @@ import { authOptions } from "@/lib/auth";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { slugify } from "@/lib/slugify";
+import { revalidatePost } from "@/lib/revalidate";
 
 const UpdatePostSchema = z.object({
   title: z.string().min(3).max(200).optional(),
@@ -73,6 +74,9 @@ export async function PATCH(request: Request, { params }: { params: { id: string
       },
     });
 
+    // Pass both slugs so a rename also purges the post's previous URL.
+    revalidatePost(current.slug, updated.slug);
+
     return NextResponse.json({ post: updated });
   } catch (error) {
     console.error("Error updating post:", error);
@@ -95,7 +99,10 @@ export async function DELETE(_: Request, { params }: { params: { id: string } })
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    await prisma.post.delete({ where: { id: params.id } });
+    const deleted = await prisma.post.delete({ where: { id: params.id } });
+
+    revalidatePost(deleted.slug);
+
     return NextResponse.json({ ok: true });
   } catch (error) {
     console.error("Error deleting post:", error);

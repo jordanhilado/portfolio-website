@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { revalidateContent } from "@/lib/revalidate";
 
 // GET /api/about - Get about content
 export async function GET() {
@@ -91,6 +92,8 @@ export async function PUT(request: Request) {
       });
     }
     
+    revalidateContent();
+
     return NextResponse.json({
       paragraphs: JSON.parse(aboutContent.content),
       contactLinks: aboutContent.contactLinks ? JSON.parse(aboutContent.contactLinks) : [],

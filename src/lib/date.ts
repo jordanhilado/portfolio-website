@@ -1,11 +1,11 @@
-const BLOG_DATE_FORMATTER = new Intl.DateTimeFormat("en-US", {
+const POST_DATE_FORMATTER = new Intl.DateTimeFormat("en-US", {
   month: "short",
   day: "numeric",
   year: "numeric",
   timeZone: "UTC",
 });
 
-export function formatBlogDate(dateInput: string | number | Date) {
+export function formatPostDate(dateInput: string | number | Date) {
   const date =
     typeof dateInput === "string" || typeof dateInput === "number"
       ? new Date(dateInput)
@@ -15,7 +15,7 @@ export function formatBlogDate(dateInput: string | number | Date) {
     return "";
   }
 
-  return BLOG_DATE_FORMATTER.format(date);
+  return POST_DATE_FORMATTER.format(date);
 }
 
 

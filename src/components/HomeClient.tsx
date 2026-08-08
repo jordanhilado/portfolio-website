@@ -5,17 +5,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { RESUME_URL } from "@/constants/site";
-import { formatBlogDate } from "@/lib/date";
+import {
+  RESUME_URL,
+  sectionToSlug,
+  type DefaultSection,
+} from "@/constants/site";
+import { formatPostDate } from "@/lib/date";
 
-type Section = "About" | "Projects" | "Blogs" | "Hobbies";
-
-const sectionToSlug = (section: Section): string => {
-  return section
-    .toLowerCase()
-    .replace(/\s+&\s+/g, "-")
-    .replace(/\s+/g, "-");
-};
+type Section = DefaultSection;
 
 const slugToSection = (slug: string, sections: Section[]): Section | null => {
   const sectionMap: Record<string, Section> = Object.fromEntries(
@@ -72,20 +69,19 @@ type Project = {
   order: number;
 };
 
-function BlogsListClient({ posts }: { posts: ListPost[] }) {
+function ThoughtsListClient({ posts }: { posts: ListPost[] }) {
   return (
     <div className="flex flex-col gap-y-5">
       {posts.map((p) => (
         <div key={p.id} className="flex flex-col gap-y-1.5">
           <Link
-            href={`/blogs/${p.slug}`}
-            className="text-lg text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300"
-            style={{ fontFamily: "Song Myung" }}
+            href={`/thoughts/${p.slug}`}
+            className="text-lg text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300 font-songmyung"
           >
             <div className="font-normal leading-tight">{p.title}</div>
           </Link>
           <div className="leading-snug text-neutral-500 dark:text-neutral-400 text-sm">
-            {formatBlogDate(p.createdAt)}
+            {formatPostDate(p.createdAt)}
           </div>
         </div>
       ))}
@@ -101,7 +97,7 @@ interface HomeClientProps {
   projects?: Project[];
   aboutParagraphs: string[];
   contactLinks?: string[];
-  hobbies?: string;
+  running?: string;
   sections: Section[];
 }
 
@@ -110,7 +106,7 @@ export default function HomeClient({
   projects,
   aboutParagraphs,
   contactLinks = [],
-  hobbies = "",
+  running = "",
   sections,
 }: HomeClientProps) {
   const pathname = usePathname();
@@ -150,8 +146,7 @@ export default function HomeClient({
                           href={part.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-lg text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300"
-                          style={{ fontFamily: "Song Myung" }}
+                          className="text-lg text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300 font-songmyung"
                         >
                           {part.text}
                         </Link>
@@ -167,8 +162,7 @@ export default function HomeClient({
                   href={RESUME_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-lg text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300"
-                  style={{ fontFamily: "Song Myung" }}
+                  className="text-lg text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300 font-songmyung"
                 >
                   Resume
                 </a>
@@ -189,8 +183,7 @@ export default function HomeClient({
                               href={part.url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-lg text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300"
-                              style={{ fontFamily: "Song Myung" }}
+                              className="text-lg text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300 font-songmyung"
                             >
                               {part.text}
                             </Link>
@@ -216,8 +209,7 @@ export default function HomeClient({
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-lg text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300"
-                    style={{ fontFamily: "Song Myung" }}
+                    className="text-lg text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300 font-songmyung"
                   >
                     <div className="font-normal leading-tight">
                       {project.title}
@@ -234,14 +226,17 @@ export default function HomeClient({
           </div>
         );
 
-      case "Blogs":
-        return <BlogsListClient posts={posts} />;
+      case "Thoughts":
+        return <ThoughtsListClient posts={posts} />;
 
-      case "Hobbies":
+      case "Taste":
+        return <div className="text-neutral-500 dark:text-neutral-400">...</div>;
+
+      case "Running":
         return (
           <div className="prose dark:prose-invert prose-base max-w-none prose-p:text-neutral-500 dark:prose-p:text-neutral-400 prose-p:leading-5 prose-a:text-sky-600 dark:prose-a:text-sky-400">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
-              {hobbies || "..."}
+              {running || "..."}
             </ReactMarkdown>
           </div>
         );

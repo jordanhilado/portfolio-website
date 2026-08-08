@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { revalidateContent } from "@/lib/revalidate";
 
 // PUT /api/projects/[id] - Update a project (admin only)
 export async function PUT(
@@ -32,6 +33,8 @@ export async function PUT(
       data: updateData,
     });
     
+    revalidateContent();
+
     return NextResponse.json(project);
   } catch (error) {
     console.error("Error updating project:", error);
@@ -61,6 +64,8 @@ export async function DELETE(
       where: { id: params.id },
     });
     
+    revalidateContent();
+
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Error deleting project:", error);

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useTheme } from "next-themes";
 import { usePathname } from "next/navigation";
 import zionImage from "@/assets/zion.jpg";
+import { sectionToSlug, type DefaultSection } from "@/constants/site";
 
 const SunIcon = ({ className }: { className?: string }) => (
   <svg
@@ -32,14 +33,7 @@ const MoonIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-type Section = "About" | "Projects" | "Blogs" | "Hobbies";
-
-const sectionToSlug = (section: Section): string => {
-  return section
-    .toLowerCase()
-    .replace(/\s+&\s+/g, "-")
-    .replace(/\s+/g, "-");
-};
+type Section = DefaultSection;
 
 const slugToSection = (slug: string, sections: Section[]): Section | null => {
   const sectionMap: Record<string, Section> = Object.fromEntries(
@@ -70,7 +64,7 @@ export default function LayoutWrapper({
   }
 
   // Determine if we should show navigation based on the route
-  const showNavigation = !pathname.startsWith("/blogs/");
+  const showNavigation = !pathname.startsWith("/thoughts/");
 
   // Derive activeSection from pathname
   const getActiveSection = (): Section => {
@@ -148,7 +142,7 @@ export default function LayoutWrapper({
             <div className="w-full">{children}</div>
           </div>
         ) : (
-          /* Blog Post Layout - No Navigation */
+          /* Thought Post Layout - No Navigation */
           <div className="w-full">{children}</div>
         )}
       </div>

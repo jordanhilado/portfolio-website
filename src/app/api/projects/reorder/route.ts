@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { revalidateContent } from "@/lib/revalidate";
 
 type ReorderPayload = {
   orderedIds: string[];
@@ -35,6 +36,8 @@ export async function PUT(request: Request) {
     );
 
     await prisma.$transaction(updates);
+
+    revalidateContent();
 
     return NextResponse.json({ success: true });
   } catch (error) {

@@ -8,6 +8,16 @@ const nextConfig = {
     optimizePackageImports: ['lucide-react'],
   },
 
+  // The Blogs and Hobbies sections were renamed to Thoughts and Running.
+  // Redirect the retired URLs so links already shared elsewhere keep resolving.
+  async redirects() {
+    return [
+      { source: '/blogs', destination: '/thoughts', permanent: true },
+      { source: '/blogs/:slug', destination: '/thoughts/:slug', permanent: true },
+      { source: '/hobbies', destination: '/running', permanent: true },
+    ];
+  },
+
   async headers() {
     return [
       {

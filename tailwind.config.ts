@@ -26,9 +26,9 @@ const config = {
     },
     extend: {
       fontFamily: {
-        songmyung: ["Song Myung", "serif"],
-        sfpro: ["var(--font-sf-pro)", "SF Pro", "system-ui", "sans-serif"],
-        sfmono: ["SF Mono", "ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", "monospace"],
+        songmyung: ["var(--font-song-myung)", "serif"],
+        sfpro: ["var(--font-sf-pro)", "system-ui", "sans-serif"],
+        sfmono: ["var(--font-sf-mono)", "ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", "monospace"],
       },
       colors: {
         border: "var(--border)",

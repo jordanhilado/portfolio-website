@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { revalidateContent } from "@/lib/revalidate";
 
 // GET /api/projects - Get all projects
 export async function GET() {
@@ -59,6 +60,8 @@ export async function POST(request: Request) {
       },
     });
     
+    revalidateContent();
+
     return NextResponse.json(project, { status: 201 });
   } catch (error) {
     console.error("Error creating project:", error);

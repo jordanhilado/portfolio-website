@@ -37,13 +37,13 @@ type ContactLink = {
   url: string;
 };
 
-type Tab = "posts" | "about" | "projects" | "hobbies";
+type Tab = "posts" | "about" | "projects" | "running";
 
 interface AdminDashboardClientProps {
   posts: AdminListPost[];
   projects: Project[];
   aboutContent: AboutContent;
-  hobbiesContent: string;
+  runningContent: string;
 }
 
 function parseContactLink(md: string): ContactLink {
@@ -61,7 +61,7 @@ export default function AdminDashboardClient({
   posts: initialPosts,
   projects: initialProjects,
   aboutContent: initialAboutContent,
-  hobbiesContent: initialHobbiesContent,
+  runningContent: initialRunningContent,
 }: AdminDashboardClientProps) {
   const { theme, setTheme } = useTheme();
   const [activeTab, setActiveTab] = useState<Tab>("posts");
@@ -104,31 +104,31 @@ export default function AdminDashboardClient({
   });
   const [isSavingProject, setIsSavingProject] = useState(false);
 
-  // Hobbies state
-  const [hobbiesText, setHobbiesText] = useState(initialHobbiesContent);
-  const [isSavingHobbies, setIsSavingHobbies] = useState(false);
-  const [hobbiesSaveMessage, setHobbiesSaveMessage] = useState("");
+  // Running state
+  const [runningText, setRunningText] = useState(initialRunningContent);
+  const [isSavingRunning, setIsSavingRunning] = useState(false);
+  const [runningSaveMessage, setRunningSaveMessage] = useState("");
 
-  // Handle Hobbies content save
-  const handleSaveHobbies = async () => {
-    setIsSavingHobbies(true);
-    setHobbiesSaveMessage("");
+  // Handle Running content save
+  const handleSaveRunning = async () => {
+    setIsSavingRunning(true);
+    setRunningSaveMessage("");
 
     try {
-      const response = await fetch("/api/hobbies", {
+      const response = await fetch("/api/running", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ content: hobbiesText }),
+        body: JSON.stringify({ content: runningText }),
       });
 
       if (!response.ok) throw new Error("Failed to save");
 
-      setHobbiesSaveMessage("Saved successfully!");
-      setTimeout(() => setHobbiesSaveMessage(""), 3000);
+      setRunningSaveMessage("Saved successfully!");
+      setTimeout(() => setRunningSaveMessage(""), 3000);
     } catch (error) {
-      setHobbiesSaveMessage("Error saving content");
+      setRunningSaveMessage("Error saving content");
     } finally {
-      setIsSavingHobbies(false);
+      setIsSavingRunning(false);
     }
   };
 
@@ -331,7 +331,7 @@ export default function AdminDashboardClient({
     { key: "posts", label: "Posts" },
     { key: "about", label: "About" },
     { key: "projects", label: "Projects" },
-    { key: "hobbies", label: "Hobbies" },
+    { key: "running", label: "Running" },
   ];
 
   return (
@@ -386,7 +386,7 @@ export default function AdminDashboardClient({
         {activeTab === "posts" && (
           <div>
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-medium">Blog Posts</h2>
+              <h2 className="text-xl font-medium">Thoughts</h2>
               <Link
                 href="/admin/new"
                 className="px-3 py-1.5 rounded-lg bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900 text-sm font-medium hover:opacity-90 transition-opacity"
@@ -425,7 +425,7 @@ export default function AdminDashboardClient({
                         Edit
                       </Link>
                       <Link
-                        href={`/blogs/${post.slug}`}
+                        href={`/thoughts/${post.slug}`}
                         className="px-3 py-1.5 rounded-lg text-sm bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
                       >
                         View
@@ -534,35 +534,35 @@ export default function AdminDashboardClient({
           </div>
         )}
 
-        {/* Hobbies Tab */}
-        {activeTab === "hobbies" && (
+        {/* Running Tab */}
+        {activeTab === "running" && (
           <div>
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-medium">Hobbies</h2>
+              <h2 className="text-xl font-medium">Running</h2>
               <div className="flex gap-2 items-center">
-                {hobbiesSaveMessage && (
+                {runningSaveMessage && (
                   <span
                     className={`text-sm ${
-                      hobbiesSaveMessage.includes("Error")
+                      runningSaveMessage.includes("Error")
                         ? "text-red-600"
                         : "text-green-600 dark:text-green-400"
                     }`}
                   >
-                    {hobbiesSaveMessage}
+                    {runningSaveMessage}
                   </span>
                 )}
                 <button
-                  onClick={handleSaveHobbies}
-                  disabled={isSavingHobbies}
+                  onClick={handleSaveRunning}
+                  disabled={isSavingRunning}
                   className="px-3 py-1.5 rounded-lg bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900 text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
                 >
-                  {isSavingHobbies ? "Saving..." : "Save"}
+                  {isSavingRunning ? "Saving..." : "Save"}
                 </button>
               </div>
             </div>
             <AdminMarkdownEditor
-              value={hobbiesText}
-              onChange={setHobbiesText}
+              value={runningText}
+              onChange={setRunningText}
               minHeight="250px"
             />
           </div>

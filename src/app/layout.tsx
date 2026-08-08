@@ -7,14 +7,23 @@ import LayoutWrapper from "@/components/LayoutWrapper";
 import { DEFAULT_HERO_ALT, DEFAULT_SECTIONS } from "@/constants/site";
 
 const sfPro = localFont({
-  src: "../../public/fonts/SF-Pro.ttf",
+  src: "../../public/fonts/SF-Pro.woff2",
   variable: "--font-sf-pro",
+  display: "swap",
+  weight: "400 700",
 });
 
 const sfMono = localFont({
-  src: "../../public/fonts/SF-Mono-Regular.otf",
+  src: "../../public/fonts/SF-Mono-Regular.woff2",
   variable: "--font-sf-mono",
   display: "swap",
+});
+
+const songMyung = localFont({
+  src: "../../public/fonts/SongMyung-Regular.woff2",
+  variable: "--font-song-myung",
+  display: "swap",
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -33,27 +42,6 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link
-          rel="preload"
-          href="/fonts/SongMyung-Regular.ttf"
-          as="font"
-          type="font/ttf"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/fonts/SF-Pro.ttf"
-          as="font"
-          type="font/ttf"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/fonts/SF-Mono-Regular.otf"
-          as="font"
-          type="font/opentype"
-          crossOrigin="anonymous"
-        />
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-WGVKJ26WL1"
@@ -67,19 +55,16 @@ export default async function RootLayout({
           `}
         </Script>
       </head>
-      <body className={`${sfPro.className} ${sfMono.variable}`}>
+      <body
+        className={`${sfPro.variable} ${sfMono.variable} ${songMyung.variable} font-sfpro`}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <LayoutWrapper
-            sections={
-              sections as ("About" | "Projects" | "Blogs" | "Hobbies")[]
-            }
-            heroAlt={heroAlt}
-          >
+          <LayoutWrapper sections={sections} heroAlt={heroAlt}>
             {children}
           </LayoutWrapper>
         </ThemeProvider>

@@ -23,7 +23,7 @@ export function MarkdownWithTOC({ content }: { content: string }) {
 
   // Append purple square marker inline with the content
   const contentWithMarker =
-    content.trim() + ' <span class="blog-end-marker"></span>';
+    content.trim() + ' <span class="post-end-marker"></span>';
 
   useEffect(() => {
     setMounted(true);
@@ -56,8 +56,7 @@ export function MarkdownWithTOC({ content }: { content: string }) {
   const components: Components = {
     h1: ({ children, ...props }) => (
       <h1
-        className="text-2xl sm:text-3xl font-bold mt-6 mb-1 text-neutral-900 dark:text-neutral-100 [&>a]:no-underline [&>a]:text-neutral-900 [&>a]:dark:text-neutral-100 [&>a:hover]:text-neutral-600 [&>a:hover]:dark:text-neutral-400"
-        style={{ fontFamily: "Song Myung" }}
+        className="text-2xl sm:text-3xl font-bold mt-6 mb-1 text-neutral-900 dark:text-neutral-100 [&>a]:no-underline [&>a]:text-neutral-900 [&>a]:dark:text-neutral-100 [&>a:hover]:text-neutral-600 [&>a:hover]:dark:text-neutral-400 font-songmyung"
         {...props}
       >
         {children}
@@ -65,8 +64,7 @@ export function MarkdownWithTOC({ content }: { content: string }) {
     ),
     h2: ({ children, ...props }) => (
       <h2
-        className="text-xl sm:text-2xl font-bold mt-4 mb-1 text-neutral-900 dark:text-neutral-100 [&>a]:no-underline [&>a]:text-neutral-900 [&>a]:dark:text-neutral-100 [&>a:hover]:text-neutral-600 [&>a:hover]:dark:text-neutral-400"
-        style={{ fontFamily: "Song Myung" }}
+        className="text-xl sm:text-2xl font-bold mt-4 mb-1 text-neutral-900 dark:text-neutral-100 [&>a]:no-underline [&>a]:text-neutral-900 [&>a]:dark:text-neutral-100 [&>a:hover]:text-neutral-600 [&>a:hover]:dark:text-neutral-400 font-songmyung"
         {...props}
       >
         {children}
@@ -74,8 +72,7 @@ export function MarkdownWithTOC({ content }: { content: string }) {
     ),
     h3: ({ children, ...props }) => (
       <h3
-        className="text-lg sm:text-xl font-bold mt-3 mb-0.5 text-neutral-900 dark:text-neutral-100 [&>a]:no-underline [&>a]:text-neutral-900 [&>a]:dark:text-neutral-100 [&>a:hover]:text-neutral-600 [&>a:hover]:dark:text-neutral-400"
-        style={{ fontFamily: "Song Myung" }}
+        className="text-lg sm:text-xl font-bold mt-3 mb-0.5 text-neutral-900 dark:text-neutral-100 [&>a]:no-underline [&>a]:text-neutral-900 [&>a]:dark:text-neutral-100 [&>a:hover]:text-neutral-600 [&>a:hover]:dark:text-neutral-400 font-songmyung"
         {...props}
       >
         {children}
@@ -83,8 +80,7 @@ export function MarkdownWithTOC({ content }: { content: string }) {
     ),
     h4: ({ children, ...props }) => (
       <h4
-        className="text-base sm:text-lg font-bold mt-2 mb-0.5 text-neutral-900 dark:text-neutral-100 [&>a]:no-underline [&>a]:text-neutral-900 [&>a]:dark:text-neutral-100 [&>a:hover]:text-neutral-600 [&>a:hover]:dark:text-neutral-400"
-        style={{ fontFamily: "Song Myung" }}
+        className="text-base sm:text-lg font-bold mt-2 mb-0.5 text-neutral-900 dark:text-neutral-100 [&>a]:no-underline [&>a]:text-neutral-900 [&>a]:dark:text-neutral-100 [&>a:hover]:text-neutral-600 [&>a:hover]:dark:text-neutral-400 font-songmyung"
         {...props}
       >
         {children}
@@ -159,9 +155,8 @@ export function MarkdownWithTOC({ content }: { content: string }) {
       if (inline) {
         return (
           <code
-            className="bg-neutral-100 dark:bg-neutral-800 px-1.5 py-0.5 rounded text-[0.95em] text-sky-700 dark:text-sky-300"
+            className="bg-neutral-100 dark:bg-neutral-800 px-1.5 py-0.5 rounded text-[0.95em] text-sky-700 dark:text-sky-300 font-sfmono"
             {...props}
-            style={{ fontFamily: "SF Mono, monospace" }}
           >
             {children}
           </code>
@@ -172,9 +167,8 @@ export function MarkdownWithTOC({ content }: { content: string }) {
       if (!mounted) {
         return (
           <code
-            className="block bg-neutral-100 dark:bg-neutral-800 p-4 rounded text-[0.875rem] overflow-x-auto"
+            className="block bg-neutral-100 dark:bg-neutral-800 p-4 rounded text-[0.875rem] overflow-x-auto font-sfmono"
             {...props}
-            style={{ fontFamily: "SF Mono, monospace" }}
           >
             {children}
           </code>
@@ -197,7 +191,8 @@ export function MarkdownWithTOC({ content }: { content: string }) {
             codeTagProps={{
               style: {
                 background: "transparent",
-                fontFamily: "SF Mono, monospace",
+                fontFamily:
+                  "var(--font-sf-mono), ui-monospace, SFMono-Regular, Menlo, monospace",
                 fontSize: "0.875rem",
               },
             }}

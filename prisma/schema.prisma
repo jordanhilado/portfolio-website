@@ -37,7 +37,7 @@ model Project {
   updatedAt   DateTime @updatedAt
 }
 
-model HobbiesContent {
+model RunningContent {
   id        String   @id @default(cuid())
   content   String // markdown content
   updatedAt DateTime @updatedAt

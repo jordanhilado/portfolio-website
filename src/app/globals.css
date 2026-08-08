@@ -2,22 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: "Song Myung";
-  src: url("/fonts/SongMyung-Regular.ttf");
-  font-display: optional;
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "SF Pro";
-  src: url("/fonts/SF-Pro.ttf");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: optional;
-}
-
+/* Fonts are loaded by next/font/local in src/app/layout.tsx, which self-hosts
+   them, emits the right preload links, and exposes --font-sf-pro,
+   --font-sf-mono and --font-song-myung. */
 
 @layer base {
   :root {
@@ -165,7 +152,7 @@
   animation: fadeIn 150ms ease-in;
 }
 
-.blog-end-marker {
+.post-end-marker {
   display: inline-block;
   width: 0.875rem;
   height: 0.875rem;
@@ -175,6 +162,6 @@
   border-radius: 0;
 }
 
-.dark .blog-end-marker {
+.dark .post-end-marker {
   background-color: rgb(56 189 248); /* sky-400 */
 }

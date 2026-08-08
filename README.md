@@ -33,9 +33,9 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-## Blog + Admin System (Setup)
+## Thoughts + Admin System (Setup)
 
-This project includes a secure blog system with an admin dashboard. You can create, edit, delete, and publish posts without redeploying.
+This project includes a secure writing system with an admin dashboard. You can create, edit, delete, and publish posts without redeploying.
 
 ### 1) Environment variables
 
@@ -87,7 +87,7 @@ pnpm dev
 
 - Visit `/admin/signin` to sign in; only `ADMIN_EMAIL` can proceed.
 - Visit `/admin` to manage posts.
-- Public blog lives at `/blog` and `/blog/[slug]`.
+- Public posts live at `/thoughts` and `/thoughts/[slug]`.
 
 ### 5) Images in posts
 
@@ -157,7 +157,7 @@ This creates the `Post` table in Supabase.
 7) Verify
 - Visit `/admin/signin`, sign in with the `ADMIN_EMAIL` account.
 - Create a post at `/admin`.
-- Confirm it appears at `/blog` and at `/blog/[slug]`.
+- Confirm it appears at `/thoughts` and at `/thoughts/[slug]`.
 
 Notes
 - Always use the “pooled” connection string for serverless environments to avoid connection exhaustion.
