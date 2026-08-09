@@ -8,6 +8,12 @@
 /.pnp
 .pnp.js
 
+# pnpm-lock.yaml is the only lockfile: Vercel detects it and installs with pnpm.
+# A stray `bun install` regenerates bun.lockb resolving a second, conflicting
+# copy of @types/react, which breaks the build with a type error in a file
+# nobody touched. Ignored so it cannot come back.
+bun.lockb
+
 # testing
 /coverage
 
