@@ -47,17 +47,23 @@ NEXTAUTH_URL="http://localhost:3000"
 NEXTAUTH_SECRET="replace-with-strong-random-string"
 ADMIN_EMAIL="you@example.com"
 
-# At least one provider:
-GITHUB_ID=""
-GITHUB_SECRET=""
+# Google is the only sign-in provider:
 GOOGLE_ID=""
 GOOGLE_SECRET=""
+
+# Strava run grid on /running (see "Strava run grid" below):
+STRAVA_CLIENT_ID=""
+STRAVA_CLIENT_SECRET=""
+STRAVA_REFRESH_TOKEN=""
+CRON_SECRET=""
 ```
 
 Notes:
 - Use a managed Postgres (Vercel Postgres, Supabase, Neon, etc.). Ensure SSL is enabled.
 - `ADMIN_EMAIL` is the only account that can access `/admin`.
 - Generate `NEXTAUTH_SECRET` with `openssl rand -base64 32`.
+- Generate `CRON_SECRET` with `openssl rand -hex 32`. Vercel sends it as a
+  bearer token on cron invocations of `/api/running/sync`.
 
 ### 2) Database
 
@@ -99,6 +105,53 @@ Use Markdown image syntax with fully-qualified URLs:
 
 You can set an optional cover image URL when creating or editing a post.
 
+### 5b) Strava run grid
+
+`/running` renders a grid of squares, one per outdoor run of `RUNS_YEAR`
+(`src/lib/runs.ts`), each showing that run's GPS trace and linking to Strava.
+
+Runs are mirrored into the `StravaRun` table rather than fetched live. Sync
+happens three ways: a daily Vercel cron (`vercel.json`), the "Sync from Strava"
+button in the admin Running tab, and `POST /api/running/sync` directly.
+
+**One-time OAuth setup.** Create an app at
+<https://www.strava.com/settings/api> with Authorization Callback Domain
+`localhost`, then note the Client ID and Secret. This requires an active paid
+Strava subscription — Strava began charging for Standard-tier API access on
+2026-06-30.
+
+> Do **not** use the "Your Refresh Token" value shown on that settings page. It
+> is scoped `read`, which refreshes fine but cannot read activities. The sync
+> route detects this and returns an explicit error.
+
+Authorize with the scope you actually need:
+
+```
+https://www.strava.com/oauth/authorize?client_id=CLIENT_ID&response_type=code&redirect_uri=http://localhost/exchange_token&approval_prompt=force&scope=activity:read_all
+```
+
+The redirect fails to load — that is expected. Copy `code` out of the URL bar
+and exchange it (single-use, expires in minutes):
+
+```bash
+curl -X POST https://www.strava.com/oauth/token \
+  -F client_id=CLIENT_ID -F client_secret=CLIENT_SECRET \
+  -F code=CODE -F grant_type=authorization_code
+```
+
+Put the resulting `refresh_token` in `STRAVA_REFRESH_TOKEN`. After the first
+refresh the `StravaToken` table becomes the source of truth, since Strava may
+rotate the refresh token on any exchange; a rejected token is cleared
+automatically so a corrected env var takes effect on the next sync.
+
+**Retuning the visuals.** The geometry constants live in
+`src/lib/strava/route-path.ts`. After changing them, `POST
+/api/running/backfill` recomputes every stored path without contacting Strava.
+
+**Changing years.** Bump `RUNS_YEAR` in `src/lib/runs.ts`. The sync route takes
+`?year=` and the table has no year constraint, so next year can be synced
+before the constant flips.
+
 ### 6) Production
 
 Set the same env vars on Vercel (Project Settings → Environment Variables). Make sure:
@@ -130,11 +183,10 @@ Copy this as your `DATABASE_URL`.
   - `NEXTAUTH_URL` = your production URL (e.g., `https://your-app.vercel.app`)
   - `NEXTAUTH_SECRET` = strong random string (e.g., `openssl rand -base64 32`)
   - `ADMIN_EMAIL` = your email that should have admin access
-  - OAuth provider keys: `GITHUB_ID`, `GITHUB_SECRET` and/or `GOOGLE_ID`, `GOOGLE_SECRET`
+  - OAuth provider keys: `GOOGLE_ID`, `GOOGLE_SECRET`
 - Set each in “Production”; optionally also in “Preview” and “Development”.
 
 4) Configure OAuth providers for production
-- For GitHub: set callback to `https://your-app.vercel.app/api/auth/callback/github`
 - For Google: set authorized redirect URI to `https://your-app.vercel.app/api/auth/callback/google`
 - Paste client id/secret into Vercel env vars.
 

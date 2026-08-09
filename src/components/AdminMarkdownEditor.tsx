@@ -8,12 +8,15 @@ interface AdminMarkdownEditorProps {
   value: string;
   onChange: (value: string) => void;
   minHeight?: string;
+  /** Show the helper caption below the editor / preview. */
+  showHint?: boolean;
 }
 
 export default function AdminMarkdownEditor({
   value,
   onChange,
   minHeight = "300px",
+  showHint = true,
 }: AdminMarkdownEditorProps) {
   const [mode, setMode] = useState<"edit" | "preview">("edit");
 
@@ -69,12 +72,12 @@ export default function AdminMarkdownEditor({
         </div>
       )}
 
-      {mode === "edit" && (
+      {showHint && mode === "edit" && (
         <p className="text-xs text-neutral-400 dark:text-neutral-500 mt-1.5">
           Supports Markdown with GFM (tables, strikethrough, links, images).
         </p>
       )}
-      {mode === "preview" && (
+      {showHint && mode === "preview" && (
         <p className="text-xs text-neutral-400 dark:text-neutral-500 mt-1.5">
           Preview is approximate. Visit the published post for full rendering.
         </p>

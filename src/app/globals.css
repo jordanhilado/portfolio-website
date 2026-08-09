@@ -124,8 +124,13 @@
     /* Always show scrollbar gutter to prevent layout shifts */
     overflow-y: scroll;
     scrollbar-gutter: stable;
-    /* Smooth scrolling for anchor links */
+    /* Smooth scrolling for the section anchors in the sidebar nav */
     scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
   }
   body {
     @apply bg-background text-foreground;

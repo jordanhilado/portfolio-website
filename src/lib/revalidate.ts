@@ -1,16 +1,13 @@
 import { revalidatePath } from "next/cache";
-import { DEFAULT_SECTIONS, sectionToSlug } from "@/constants/site";
 
 /**
  * Every path that renders shared site content.
  *
- * `/` and each `/[slug]` section page render the same HomeClient with the
- * same props, so a change to any content type invalidates all of them.
+ * All sections render together on the landing page, so that single route is
+ * the only thing a content write can stale. The old per-section routes are
+ * redirects handled in next.config.js and hold no cache entry of their own.
  */
-const CONTENT_PATHS = [
-  "/",
-  ...DEFAULT_SECTIONS.map((section) => `/${sectionToSlug(section)}`),
-];
+const CONTENT_PATHS = ["/"];
 
 /**
  * Purges the cached landing pages after a content write.

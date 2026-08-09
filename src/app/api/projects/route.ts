@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { revalidateContent } from "@/lib/revalidate";
+import { INVALID_YEAR, parseProjectYear } from "@/lib/projects";
 
 // GET /api/projects - Get all projects
 export async function GET() {
@@ -34,15 +35,23 @@ export async function POST(request: Request) {
     }
     
     const body = await request.json();
-    const { title, description, link } = body;
-    
+    const { title, description, link, year } = body;
+
     if (!title || !description || !link) {
       return NextResponse.json(
         { error: "Title, description, and link are required" },
         { status: 400 }
       );
     }
-    
+
+    const parsedYear = parseProjectYear(year);
+    if (parsedYear === INVALID_YEAR) {
+      return NextResponse.json(
+        { error: "Year is required and must be a four-digit year" },
+        { status: 400 }
+      );
+    }
+
     // Get the highest order value and add 1
     const maxOrderProject = await prisma.project.findFirst({
       orderBy: { order: "desc" },
@@ -56,6 +65,7 @@ export async function POST(request: Request) {
         title,
         description,
         link,
+        year: parsedYear,
         order: newOrder,
       },
     });

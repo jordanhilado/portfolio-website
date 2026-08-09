@@ -33,6 +33,10 @@ model Project {
   description String
   link        String
   order       Int      @default(0) // For custom ordering
+  /// Year the project was built, shown in the corner of its card. Rows that
+  /// predate this column were backfilled with the year they were created and
+  /// are placeholders until corrected in the admin dashboard.
+  year        Int
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
@@ -41,4 +45,66 @@ model RunningContent {
   id        String   @id @default(cuid())
   content   String // markdown content
   updatedAt DateTime @updatedAt
+}
+
+/// A finished race, shown as a card above the run grid.
+///
+/// Unlike StravaRun, which is synced from the API and therefore metric, these
+/// rows are hand-entered by scripts/seed-races.ts and stored in the units the
+/// card displays — nothing is round-tripped through a conversion on its way to
+/// the page. `slug` is the upsert key that makes re-running the seed script
+/// update a race in place rather than duplicate it.
+model Race {
+  id                 String   @id @default(cuid())
+  slug               String   @unique
+  name               String
+  date               DateTime
+  timeSeconds        Int
+  paceSecondsPerMile Int
+  elevationFeet      Int
+  ageGroupRank       Int
+  ageGroupTotal      Int
+  ageGroup           String
+  /// Square photo. Null renders a neutral placeholder of the same size.
+  imageUrl           String?
+  /// Null renders the card as static content rather than a link.
+  resultsUrl         String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@index([date])
+}
+
+/// A Strava activity mirrored locally. `polyline` is the raw encoded
+/// summary_polyline (source of truth); `pathD` is the derived SVG path,
+/// normalized into a 100x100 viewBox, cached so rendering does no work.
+/// stravaId is a String, not BigInt: tsconfig targets es5, which bans
+/// BigInt literals, and BigInt also breaks NextResponse.json() and RSC
+/// serialization.
+model StravaRun {
+  id             String   @id @default(cuid())
+  stravaId       String   @unique
+  name           String
+  sportType      String
+  startDateLocal DateTime
+  distanceMeters Float
+  movingTime     Int
+  polyline       String // raw encoded summary_polyline
+  pathD          String // derived SVG path, 100x100 viewBox
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([startDateLocal])
+}
+
+/// Singleton cache for the Strava OAuth token pair. Seeded from
+/// STRAVA_REFRESH_TOKEN, then self-maintaining — Strava may rotate the
+/// refresh token on any exchange, and an env-only design breaks silently
+/// and permanently when it does.
+model StravaToken {
+  id           String   @id @default(cuid())
+  accessToken  String
+  refreshToken String
+  expiresAt    DateTime
+  updatedAt    DateTime @updatedAt
 }

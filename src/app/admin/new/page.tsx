@@ -74,7 +74,11 @@ export default function NewPostPage() {
             <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
               Content (Markdown)
             </label>
-            <AdminMarkdownEditor value={content} onChange={setContent} />
+            <AdminMarkdownEditor
+              value={content}
+              onChange={setContent}
+              showHint={false}
+            />
           </div>
           <div className="flex items-center gap-2">
             <input
@@ -85,24 +89,24 @@ export default function NewPostPage() {
               onChange={(e) => setPublished(e.target.checked)}
             />
             <label htmlFor="published" className="text-sm">
-              Published
+              Publish
             </label>
           </div>
           {error && <div className="text-sm text-red-600">{error}</div>}
-          <div className="flex gap-2">
-            <button
-              type="submit"
-              disabled={saving}
-              className="px-3 py-1.5 rounded-lg bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900 text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
-            >
-              {saving ? "Saving..." : "Create"}
-            </button>
+          <div className="flex justify-end gap-2">
             <button
               type="button"
               className="px-3 py-1.5 rounded-lg text-sm bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
               onClick={() => router.push("/admin")}
             >
               Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={saving}
+              className="px-3 py-1.5 rounded-lg bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900 text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
+            >
+              {saving ? "Saving..." : "Post"}
             </button>
           </div>
         </form>

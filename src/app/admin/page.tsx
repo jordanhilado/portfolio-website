@@ -18,6 +18,7 @@ type Project = {
   description: string;
   link: string;
   order: number;
+  year: number;
   createdAt: Date;
   updatedAt: Date;
 };

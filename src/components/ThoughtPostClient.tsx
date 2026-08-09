@@ -53,10 +53,13 @@ export function ThoughtPostClient({
   readingTime,
   formattedDate,
 }: ThoughtPostClientProps) {
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
 
+  // resolvedTheme, not theme: theme is "system" until the user picks explicitly,
+  // so comparing it against "dark" would set "dark" again on a dark-mode device
+  // and swallow the first tap.
   const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
   };
 
   return (
@@ -64,7 +67,7 @@ export function ThoughtPostClient({
       {/* Header with Back Link and Theme Toggle */}
       <div className="flex justify-between items-center">
         <Link
-          href="/thoughts"
+          href="/#thoughts"
           className="flex items-center gap-2 text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300 font-songmyung"
         >
           <ArrowLeft className="w-4 h-4" />
@@ -98,7 +101,7 @@ export function ThoughtPostClient({
             {post.title}
           </h1>
           <div className="text-sm sm:text-base text-neutral-500 dark:text-neutral-400">
-            {formattedDate} • {readingTime} min read
+            {formattedDate} · {readingTime} min read
           </div>
         </header>
         {post.coverImage && (

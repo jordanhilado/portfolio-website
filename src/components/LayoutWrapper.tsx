@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useTheme } from "next-themes";
 import { usePathname } from "next/navigation";
@@ -35,12 +35,12 @@ const MoonIcon = ({ className }: { className?: string }) => (
 
 type Section = DefaultSection;
 
-const slugToSection = (slug: string, sections: Section[]): Section | null => {
-  const sectionMap: Record<string, Section> = Object.fromEntries(
-    sections.map((section) => [sectionToSlug(section), section as Section])
-  );
-  return sectionMap[slug] || null;
-};
+/**
+ * How far below the top of the viewport a section has to reach before the nav
+ * calls it the current one. Sits below the sections' scroll-margin-top so a
+ * section parked by an anchor click reads as active immediately.
+ */
+const ACTIVATION_LINE_PX = 120;
 
 export default function LayoutWrapper({
   children,
@@ -52,99 +52,195 @@ export default function LayoutWrapper({
   heroAlt: string;
 }) {
   const pathname = usePathname();
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
 
+  // Every section lives on the landing page now, so the nav is a set of anchors
+  // and the highlight has to come from scroll position rather than the route.
+  const [activeSlug, setActiveSlug] = useState<string>("");
+
+  const isAdmin = pathname.startsWith("/admin");
+  const showNavigation = !isAdmin && !pathname.startsWith("/thoughts/");
+
+  // Joined so the effect keys off the section list's contents, not the array
+  // identity, which the layout recreates on every render.
+  const slugKey = sections.map(sectionToSlug).join("|");
+
+  useEffect(() => {
+    if (!showNavigation) {
+      return;
+    }
+
+    const slugs = slugKey.split("|");
+    let frame = 0;
+
+    const update = () => {
+      frame = 0;
+
+      const present = slugs.filter((slug) => document.getElementById(slug));
+      if (present.length === 0) {
+        return;
+      }
+
+      let current = present[0];
+      for (const slug of present) {
+        const element = document.getElementById(slug);
+        if (element && element.getBoundingClientRect().top <= ACTIVATION_LINE_PX) {
+          current = slug;
+        }
+      }
+
+      // The last section is usually too short to ever climb past the activation
+      // line, so reaching the end of the page selects it outright.
+      const scrolledToBottom =
+        window.scrollY + window.innerHeight >=
+        document.documentElement.scrollHeight - 2;
+      if (scrolledToBottom) {
+        current = present[present.length - 1];
+      }
+
+      setActiveSlug(current);
+    };
+
+    const onScroll = () => {
+      if (frame) {
+        return;
+      }
+      frame = window.requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    return () => {
+      if (frame) {
+        window.cancelAnimationFrame(frame);
+      }
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [showNavigation, slugKey]);
+
+  // resolvedTheme, not theme: theme is "system" until the user picks explicitly,
+  // so comparing it against "dark" would set "dark" again on a dark-mode device
+  // and swallow the first tap.
   const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
   };
 
   // Skip wrapper entirely for admin pages
-  if (pathname.startsWith("/admin")) {
+  if (isAdmin) {
     return <>{children}</>;
   }
 
-  // Determine if we should show navigation based on the route
-  const showNavigation = !pathname.startsWith("/thoughts/");
+  // Below md the nav is a horizontal bar. Its items stay flat children of the
+  // one flex container so justify-evenly divides the free space across all of
+  // them at once — nesting them in half-row wrappers made the seam between the
+  // wrappers collect its own share of slack on top of theirs, which is what
+  // opened an extra gap at the midpoint of the bar. Below sm, where the bar
+  // breaks onto two lines, evenly spreading each line stretches its few items
+  // across the whole width, so those lines pack centered at the gap instead.
+  const firstHalf = sections.slice(0, Math.ceil(sections.length / 2));
+  const secondHalf = sections.slice(Math.ceil(sections.length / 2));
 
-  // Derive activeSection from pathname
-  const getActiveSection = (): Section => {
-    const currentSlug = pathname.replace("/", "");
-    if (currentSlug) {
-      const section = slugToSection(currentSlug, sections);
-      if (section) {
-        return section;
-      }
-    }
-    return "About";
+  const renderLink = (section: Section) => {
+    const slug = sectionToSlug(section);
+    const isActive = activeSlug === slug;
+    return (
+      <a
+        key={section}
+        href={`#${slug}`}
+        aria-current={isActive ? "true" : undefined}
+        className={`text-left md:text-right text-lg/5 tracking-tight font-songmyung font-bold transition-all whitespace-nowrap hover:text-neutral-900 dark:hover:text-neutral-100 w-fit ${
+          isActive
+            ? "text-neutral-900 dark:text-neutral-100"
+            : "text-neutral-500 dark:text-neutral-400"
+        }`}
+      >
+        {section}
+      </a>
+    );
   };
 
-  const activeSection = getActiveSection();
+
+  const hero = (
+    <Image
+      src={zionImage}
+      alt={heroAlt}
+      className="w-full h-auto object-contain"
+      priority
+    />
+  );
+
+  // Thought Post Layout - No Navigation
+  if (!showNavigation) {
+    return (
+      <main className="flex min-h-screen items-start justify-center px-6 sm:px-10 md:px-16 py-8 md:py-10 tracking-tight">
+        <div className="flex flex-col w-full max-w-2xl gap-y-4 pt-6 md:pt-10">
+          <div className="w-full">{hero}</div>
+          <div className="w-full">{children}</div>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="flex min-h-screen items-start justify-center px-6 sm:px-10 md:px-16 py-8 md:py-10 tracking-tight">
-      <div className="flex flex-col w-full max-w-2xl gap-y-4 pt-6 md:pt-10">
+      {/* Past md the page is a grid: the nav owns column one and runs down the
+          full height, while the hero and the content stack in column two so the
+          hero is only as wide as the text below it. From lg an empty third
+          column mirrors the nav's width, which is what lets justify-center land
+          the content column on the middle of the page rather than centering the
+          nav-plus-content pair. Below lg there is not room for that mirror, so
+          the pair centers together the way it always has. */}
+      <div className="grid w-full max-w-2xl md:max-w-none grid-cols-1 md:grid-cols-[5rem_minmax(0,545px)] lg:grid-cols-[5rem_minmax(0,545px)_5rem] md:justify-center gap-4 pt-6 md:pt-10">
         {/* Zion Image */}
-        <div className="w-full">
-          <Image
-            src={zionImage}
-            alt={heroAlt}
-            className="w-full h-auto object-contain"
-            priority
-          />
-        </div>
+        <div className="w-full md:col-start-2 md:row-start-1">{hero}</div>
 
-        {showNavigation ? (
-          /* Navigation and Content Layout */
-          <div className="flex flex-col md:flex-row md:justify-between gap-y-8 md:gap-y-0 md:gap-x-16">
-            {/* Left Sidebar / Top Navigation on Mobile */}
-            <nav className="flex flex-row md:flex-col justify-between md:gap-x-0 gap-x-2 gap-y-1 flex-wrap md:flex-nowrap md:justify-start items-center md:items-start">
-              {sections.map((section) => {
-                const href =
-                  section === "About" ? "/" : `/${sectionToSlug(section)}`;
-                return (
-                  <Link
-                    key={section}
-                    href={href}
-                    prefetch={true}
-                    className={`text-left text-lg/5 md:text-base/5 tracking-tight font-songmyung font-bold transition-all whitespace-nowrap hover:text-neutral-900 dark:hover:text-neutral-100 w-fit ${
-                      activeSection === section
-                        ? "text-neutral-900 dark:text-neutral-100"
-                        : "text-neutral-500 dark:text-neutral-400"
-                    }`}
-                  >
-                    {section}
-                  </Link>
-                );
-              })}
+        {/* Left Sidebar / Top Navigation on Mobile.
+            Sticky past md so the section list stays put on a page that is
+            now one long scroll; self-start is what lets it stick at all.
+            The extra bottom margin below md restores the wider gap the nav
+            bar used to have under it, which the grid's single row gap
+            would otherwise flatten. */}
+        <nav className="flex flex-row md:flex-col justify-center sm:justify-evenly md:justify-start md:gap-x-0 gap-x-4 gap-y-1 flex-wrap md:flex-nowrap items-center md:items-end mb-4 md:mb-0 md:col-start-1 md:row-start-1 md:row-span-2 md:sticky md:top-10 md:self-start">
+          {firstHalf.map(renderLink)}
 
-              {/* Theme Toggle Icon */}
-              <div
-                onClick={toggleTheme}
-                className="md:mt-2 cursor-pointer transition-colors w-fit text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100"
-                aria-label="Toggle theme"
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    toggleTheme();
-                  }
-                }}
-                style={{ minWidth: "16px", minHeight: "16px" }}
-              >
-                {/* Render both icons, CSS controls visibility based on theme */}
-                <SunIcon className="h-4 w-4 block dark:hidden" />
-                <MoonIcon className="h-4 w-4 hidden dark:block" />
-              </div>
-            </nav>
+          {/* A full-basis, zero-height item can never share a flex line, so
+              it pushes the back half onto its own row. Only below sm, where
+              the bar runs out of room; from sm up everything fits on one
+              evenly spaced line and this collapses away. */}
+          <span aria-hidden className="basis-full h-0 sm:hidden" />
 
-            {/* Content Area */}
-            <div className="w-full">{children}</div>
+          {secondHalf.map(renderLink)}
+
+          {/* Theme Toggle Icon */}
+          <div
+            onClick={toggleTheme}
+            className="md:mt-2 cursor-pointer transition-colors w-fit text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100"
+            aria-label="Toggle theme"
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                toggleTheme();
+              }
+            }}
+            style={{ minWidth: "16px", minHeight: "16px" }}
+          >
+            {/* Render both icons, CSS controls visibility based on theme */}
+            <SunIcon className="h-4 w-4 block dark:hidden" />
+            <MoonIcon className="h-4 w-4 hidden dark:block" />
           </div>
-        ) : (
-          /* Thought Post Layout - No Navigation */
-          <div className="w-full">{children}</div>
-        )}
+        </nav>
+
+        {/* Content Area */}
+        <div className="w-full md:col-start-2 md:row-start-2">{children}</div>
+
+        {/* Mirrors the nav column so the content column, not the pair, is what
+            sits centered on the page. */}
+        <div aria-hidden className="hidden lg:block lg:col-start-3 lg:row-start-1" />
       </div>
     </main>
   );

@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { DEFAULT_SECTIONS, type DefaultSection } from "@/constants/site";
+import { readingTimeMinutes } from "@/lib/reading-time";
 
 export type ListPost = {
   id: string;
@@ -7,6 +8,8 @@ export type ListPost = {
   title: string;
   createdAt: string;
   updatedAt: string;
+  /** Estimated whole minutes to read, derived from the post body. */
+  readMinutes: number;
 };
 
 export type Project = {
@@ -15,6 +18,7 @@ export type Project = {
   description: string;
   link: string;
   order: number;
+  year: number;
 };
 
 export type SiteContent = {
@@ -54,16 +58,21 @@ export async function getSiteContent(): Promise<SiteContent> {
         id: true,
         slug: true,
         title: true,
+        content: true,
         createdAt: true,
         updatedAt: true,
       },
     });
 
-    // Convert dates to strings for client component
-    content.posts = fetchedPosts.map((post) => ({
+    // Convert dates to strings for client component. `content` is read here to
+    // size the post and then dropped — the list shows the estimate, and
+    // shipping every post body to the client to recompute it would dwarf the
+    // rest of the page payload.
+    content.posts = fetchedPosts.map(({ content: body, ...post }) => ({
       ...post,
       createdAt: post.createdAt.toISOString(),
       updatedAt: post.updatedAt.toISOString(),
+      readMinutes: readingTimeMinutes(body),
     }));
   } catch (error) {
     console.error("Failed to load posts:", error);
@@ -78,6 +87,7 @@ export async function getSiteContent(): Promise<SiteContent> {
         description: true,
         link: true,
         order: true,
+        year: true,
       },
     });
   } catch (error) {
