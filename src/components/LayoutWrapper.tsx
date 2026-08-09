@@ -137,12 +137,9 @@ export default function LayoutWrapper({
   // one flex container so justify-evenly divides the free space across all of
   // them at once — nesting them in half-row wrappers made the seam between the
   // wrappers collect its own share of slack on top of theirs, which is what
-  // opened an extra gap at the midpoint of the bar. Below sm, where the bar
-  // breaks onto two lines, evenly spreading each line stretches its few items
-  // across the whole width, so those lines pack centered at the gap instead.
-  const firstHalf = sections.slice(0, Math.ceil(sections.length / 2));
-  const secondHalf = sections.slice(Math.ceil(sections.length / 2));
-
+  // opened an extra gap at the midpoint of the bar. The bar never wraps: every
+  // section plus the theme toggle stays on one line at full type size, which the
+  // narrow gap below sm is what makes room for.
   const renderLink = (section: Section) => {
     const slug = sectionToSlug(section);
     const isActive = activeSlug === slug;
@@ -151,7 +148,7 @@ export default function LayoutWrapper({
         key={section}
         href={`#${slug}`}
         aria-current={isActive ? "true" : undefined}
-        className={`text-left md:text-right text-lg/5 tracking-tight font-songmyung font-bold transition-all whitespace-nowrap hover:text-neutral-900 dark:hover:text-neutral-100 w-fit ${
+        className={`text-left md:text-right text-lg/5 tracking-tight font-songmyung font-bold transition-all whitespace-nowrap hover:text-neutral-900 dark:hover:text-neutral-100 w-fit shrink-0 ${
           isActive
             ? "text-neutral-900 dark:text-neutral-100"
             : "text-neutral-500 dark:text-neutral-400"
@@ -202,22 +199,17 @@ export default function LayoutWrapper({
             now one long scroll; self-start is what lets it stick at all.
             The extra bottom margin below md restores the wider gap the nav
             bar used to have under it, which the grid's single row gap
-            would otherwise flatten. */}
-        <nav className="flex flex-row md:flex-col justify-center sm:justify-evenly md:justify-start md:gap-x-0 gap-x-4 gap-y-1 flex-wrap md:flex-nowrap items-center md:items-end mb-4 md:mb-0 md:col-start-1 md:row-start-1 md:row-span-2 md:sticky md:top-10 md:self-start">
-          {firstHalf.map(renderLink)}
-
-          {/* A full-basis, zero-height item can never share a flex line, so
-              it pushes the back half onto its own row. Only below sm, where
-              the bar runs out of room; from sm up everything fits on one
-              evenly spaced line and this collapses away. */}
-          <span aria-hidden className="basis-full h-0 sm:hidden" />
-
-          {secondHalf.map(renderLink)}
+            would otherwise flatten.
+            Below sm the bar reaches past the page's horizontal padding: those
+            16px are the margin that keeps the four sections and the toggle on
+            one line at full type size down to a ~305px viewport. */}
+        <nav className="flex flex-row md:flex-col flex-nowrap justify-evenly md:justify-start md:gap-x-0 gap-x-1 sm:gap-x-4 gap-y-1 -mx-2 sm:mx-0 items-center md:items-end mb-4 md:mb-0 md:col-start-1 md:row-start-1 md:row-span-2 md:sticky md:top-10 md:self-start">
+          {sections.map(renderLink)}
 
           {/* Theme Toggle Icon */}
           <div
             onClick={toggleTheme}
-            className="md:mt-2 cursor-pointer transition-colors w-fit text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100"
+            className="md:mt-2 cursor-pointer transition-colors w-fit shrink-0 text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100"
             aria-label="Toggle theme"
             role="button"
             tabIndex={0}
