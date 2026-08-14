@@ -11,16 +11,14 @@ import {
 } from "@/lib/running-totals";
 
 /**
- * Day and month only, e.g. "May 30".
+ * Month, day and a two-digit year, e.g. "May 30 '25".
  *
- * The tile caption puts distance and date on one line, and "May 30, 2026"
- * alongside "6.21 mi" is wider than the ~101px tiles on a 375px phone, so it
- * would wrap. The year is redundant on a grid that is one year by
- * construction, and the full date is still carried in the tile's aria-label.
+ * The grid spans every year synced, so a bare "May 30" would be ambiguous.
+ * Intl has no apostrophe-year pattern, so the parts are assembled by hand.
  *
- * Pinned to UTC for the same reason formatPostDate is: startDateLocal holds
- * the run's wall-clock time stored as UTC components, so reading it back in
- * UTC returns the day the run actually started on.
+ * Pinned to UTC, as formatPostDate is: startDateLocal holds the run's
+ * wall-clock time stored as UTC components, so reading it back in UTC returns
+ * the day the run actually started on.
  */
 const RUN_DAY_FORMATTER = new Intl.DateTimeFormat("en-US", {
   month: "short",
@@ -28,15 +26,26 @@ const RUN_DAY_FORMATTER = new Intl.DateTimeFormat("en-US", {
   timeZone: "UTC",
 });
 
+const RUN_YEAR_FORMATTER = new Intl.DateTimeFormat("en-US", {
+  year: "2-digit",
+  timeZone: "UTC",
+});
+
 /**
- * The year of runs shown on /running.
+ * All-numeric fallback, e.g. "5/30/25".
  *
- * Deliberately a constant rather than `new Date().getFullYear()`, which would
- * silently empty the grid at midnight on January 1st. The sync route accepts
- * `?year=`, and the table has no year constraint, so next year's runs can be
- * synced before this flips.
+ * The tile caption puts distance and date on one line, and at three columns on
+ * a 375px phone the tile is roughly 101px — wide enough for "6.21 mi" beside
+ * "5/30/25" but not beside "May 30 '25". RunGrid renders both and picks by
+ * breakpoint in CSS, so the string is chosen without measuring anything at
+ * runtime.
  */
-export const RUNS_YEAR = 2026;
+const RUN_DAY_COMPACT_FORMATTER = new Intl.DateTimeFormat("en-US", {
+  month: "numeric",
+  day: "numeric",
+  year: "2-digit",
+  timeZone: "UTC",
+});
 
 /** The minimal serializable shape a run tile needs. */
 export type RunTile = {
@@ -47,12 +56,17 @@ export type RunTile = {
   miles: string;
   /** Full date for the accessible label, e.g. "Mar 14, 2026". */
   date: string;
-  /** Displayed date, year omitted, e.g. "Mar 14". */
+  /** Displayed date past the `sm` breakpoint, e.g. "Mar 14 '26". */
   dateShort: string;
+  /** Displayed date on narrow phones, e.g. "3/14/26". */
+  dateCompact: string;
 };
 
 /**
- * Loads a year of runs, newest first, preformatted for display.
+ * Loads every synced run, newest first, preformatted for display.
+ *
+ * Unfiltered on purpose: the grid shows the whole history, and RunGrid pages
+ * through it client-side, so one query and one payload cover every year.
  *
  * Formatting server-side keeps Intl off the client and removes any chance of
  * a locale-driven hydration mismatch.
@@ -60,15 +74,9 @@ export type RunTile = {
  * Returns an empty array on failure, mirroring getSiteContent()'s per-source
  * degradation: a database problem hides the grid rather than breaking the page.
  */
-export async function getRunsForYear(year: number): Promise<RunTile[]> {
+export async function getAllRuns(): Promise<RunTile[]> {
   try {
     const runs = await prisma.stravaRun.findMany({
-      where: {
-        startDateLocal: {
-          gte: new Date(Date.UTC(year, 0, 1)),
-          lt: new Date(Date.UTC(year + 1, 0, 1)),
-        },
-      },
       orderBy: { startDateLocal: "desc" },
       select: {
         id: true,
@@ -85,7 +93,8 @@ export async function getRunsForYear(year: number): Promise<RunTile[]> {
       pathD: run.pathD,
       miles: (run.distanceMeters / METERS_PER_MILE).toFixed(2),
       date: formatPostDate(run.startDateLocal),
-      dateShort: RUN_DAY_FORMATTER.format(run.startDateLocal),
+      dateShort: `${RUN_DAY_FORMATTER.format(run.startDateLocal)} '${RUN_YEAR_FORMATTER.format(run.startDateLocal)}`,
+      dateCompact: RUN_DAY_COMPACT_FORMATTER.format(run.startDateLocal),
     }));
   } catch (error) {
     console.error("Error fetching runs:", error);
@@ -97,8 +106,9 @@ export async function getRunsForYear(year: number): Promise<RunTile[]> {
  * Lifetime run totals for the Running blurb: every run on Strava plus the
  * Nike Run Club years that predate it.
  *
- * Read from Strava rather than the StravaRun table, which holds only the year
- * the grid displays and only runs that carry a GPS trace.
+ * Read from Strava rather than the StravaRun table, which holds only runs
+ * that carry a GPS trace — treadmill runs and untraced uploads are missing
+ * there by design.
  *
  * Returns null when Strava is unreachable, which the blurb renders as an em
  * dash — the same per-source degradation getSiteContent() uses, rather than

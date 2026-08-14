@@ -107,12 +107,19 @@ You can set an optional cover image URL when creating or editing a post.
 
 ### 5b) Strava run grid
 
-`/running` renders a grid of squares, one per outdoor run of `RUNS_YEAR`
-(`src/lib/runs.ts`), each showing that run's GPS trace and linking to Strava.
+The Running section renders a grid of squares, one per outdoor run, each
+showing that run's GPS trace and linking to Strava. Every synced year is in the
+grid — `getAllRuns()` in `src/lib/runs.ts` applies no date filter, and
+`RunGrid` pages through the result client-side.
 
 Runs are mirrored into the `StravaRun` table rather than fetched live. Sync
 happens three ways: a daily Vercel cron (`vercel.json`), the "Sync from Strava"
 button in the admin Running tab, and `POST /api/running/sync` directly.
+
+`POST /api/running/sync` with no `?year=` runs an **incremental** sync: it
+starts a week before the newest run already stored and walks forward. That is
+what the cron does, so it costs one request a day and never needs a constant
+bumped in January.
 
 **One-time OAuth setup.** Create an app at
 <https://www.strava.com/settings/api> with Authorization Callback Domain
@@ -148,9 +155,25 @@ automatically so a corrected env var takes effect on the next sync.
 `src/lib/strava/route-path.ts`. After changing them, `POST
 /api/running/backfill` recomputes every stored path without contacting Strava.
 
-**Changing years.** Bump `RUNS_YEAR` in `src/lib/runs.ts`. The sync route takes
-`?year=` and the table has no year constraint, so next year can be synced
-before the constant flips.
+**Backfilling history.**
+
+```bash
+pnpm backfill:strava          # every historical year, 2020-2025
+pnpm backfill:strava 2024     # one year
+```
+
+Run locally rather than through the API: a full year is hundreds of sequential
+upserts against a `connection_limit=1` pool and would risk the route's
+`maxDuration = 60`. It is idempotent, so a second pass reports all zeroes.
+
+A whole year costs two or three of the 200 reads Strava allows per 15 minutes;
+the script paces itself anyway, and honours `Retry-After` if it ever does get a
+429.
+
+**Re-syncing one year.** `POST /api/running/sync?year=2024` re-walks that
+calendar year and prunes anything Strava no longer reports. This is the fix for
+a run renamed or deleted on Strava further back than the incremental sync's
+one-week lookback, which cannot see it.
 
 ### 6) Production
 

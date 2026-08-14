@@ -12,7 +12,8 @@
     "lint": "next lint",
     "postinstall": "prisma generate",
     "seed": "tsx scripts/seed-database.ts",
-    "seed:races": "tsx scripts/seed-races.ts"
+    "seed:races": "tsx scripts/seed-races.ts",
+    "backfill:strava": "tsx --env-file=.env scripts/backfill-strava.ts"
   },
   "dependencies": {
     "@ant-design/icons": "^5.2.6",

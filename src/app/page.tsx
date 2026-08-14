@@ -1,7 +1,7 @@
 import HomeClient from "@/components/HomeClient";
 import { getSiteContent } from "@/lib/site-content";
 import { getRaces } from "@/lib/races";
-import { getRunningTotals, getRunsForYear, RUNS_YEAR } from "@/lib/runs";
+import { getAllRuns, getRunningTotals } from "@/lib/runs";
 
 // Server Component that fetches content at build time and on revalidation.
 // Every section renders here — the landing page is one scrollable document and
@@ -10,7 +10,7 @@ export default async function Home() {
   const [content, races, runs, runningTotals] = await Promise.all([
     getSiteContent(),
     getRaces(),
-    getRunsForYear(RUNS_YEAR),
+    getAllRuns(),
     getRunningTotals(),
   ]);
 

@@ -3,8 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { revalidateContent } from "@/lib/revalidate";
 import { StravaAuthError, clearStravaToken } from "@/lib/strava/client";
-import { syncStravaRuns } from "@/lib/strava/sync";
-import { RUNS_YEAR } from "@/lib/runs";
+import { syncRecentStravaRuns, syncStravaRuns } from "@/lib/strava/sync";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -39,17 +38,28 @@ async function handleSync(request: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    // No `?year=` is the cron's path: walk forward from the newest stored run.
+    // An explicit year re-syncs that whole year, which is how history gets
+    // backfilled and how an edit older than the incremental lookback is picked
+    // up.
     const yearParam = new URL(request.url).searchParams.get("year");
-    const year = yearParam ? Number(yearParam) : RUNS_YEAR;
 
-    if (!Number.isInteger(year) || year < 2000 || year > 2100) {
-      return NextResponse.json(
-        { error: "Invalid year" },
-        { status: 400 }
-      );
+    let result;
+
+    if (yearParam === null) {
+      result = await syncRecentStravaRuns();
+    } else {
+      const year = Number(yearParam);
+
+      if (!Number.isInteger(year) || year < 2000 || year > 2100) {
+        return NextResponse.json(
+          { error: "Invalid year" },
+          { status: 400 }
+        );
+      }
+
+      result = await syncStravaRuns(year);
     }
-
-    const result = await syncStravaRuns(year);
 
     revalidateContent();
 

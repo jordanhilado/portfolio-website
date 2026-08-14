@@ -47,6 +47,7 @@ type RunTile = {
   miles: string;
   date: string;
   dateShort: string;
+  dateCompact: string;
 };
 
 type RaceCardData = {

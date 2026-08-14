@@ -32,6 +32,35 @@ export class StravaAuthError extends Error {
   }
 }
 
+/**
+ * Raised when Strava returns 429 and a single retry has already been spent.
+ *
+ * Distinct from StravaAuthError because the fix is to wait, not to reconnect:
+ * callers must not clear the cached token pair over a quota problem.
+ */
+export class StravaRateLimitError extends Error {
+  /** Seconds Strava asked us to wait, when it said. */
+  readonly retryAfterSeconds: number;
+
+  constructor(message: string, retryAfterSeconds: number) {
+    super(message);
+    this.name = "StravaRateLimitError";
+    this.retryAfterSeconds = retryAfterSeconds;
+  }
+}
+
+/** Awaitable pause, used to space out backfill requests. */
+export function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+/**
+ * Fallback wait when a 429 arrives without a Retry-After header. Strava's
+ * short-term window is 15 minutes, so anything less just burns another request
+ * against a quota that has not reset.
+ */
+const DEFAULT_RETRY_AFTER_SECONDS = 15 * 60;
+
 const TokenResponseSchema = z.object({
   access_token: z.string(),
   refresh_token: z.string(),
@@ -168,11 +197,29 @@ export async function getStravaAccessToken(): Promise<string> {
   return token.access_token;
 }
 
+/** Retry-After in seconds, or the 15-minute default if absent or unparseable. */
+function parseRetryAfter(response: Response): number {
+  const header = response.headers.get("retry-after");
+  const seconds = header === null ? NaN : Number(header);
+
+  return Number.isFinite(seconds) && seconds > 0
+    ? seconds
+    : DEFAULT_RETRY_AFTER_SECONDS;
+}
+
 /**
  * Fetches one page of the authenticated athlete's activities.
  *
  * Returns the raw array; per-item validation is the caller's job so one
  * malformed activity can't void an entire page.
+ *
+ * A 429 is waited out and retried once rather than thrown, because the
+ * multi-page, multi-year backfill has no way to resume mid-run: the sync
+ * suppresses pruning on a partial pagination, so an unretried 429 turns a
+ * whole year into wasted quota.
+ *
+ * @throws {StravaAuthError} if the token is rejected.
+ * @throws {StravaRateLimitError} if the retry is also rate limited.
  */
 export async function fetchAthleteActivityPage(
   accessToken: string,
@@ -185,13 +232,34 @@ export async function fetchAthleteActivityPage(
     before: String(params.before),
   });
 
-  const response = await fetch(
-    `${STRAVA_API_BASE}/athlete/activities?${query.toString()}`,
-    {
+  const url = `${STRAVA_API_BASE}/athlete/activities?${query.toString()}`;
+
+  let response = await fetch(url, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+    cache: "no-store",
+  });
+
+  if (response.status === 429) {
+    const retryAfterSeconds = parseRetryAfter(response);
+
+    console.warn(
+      `Strava rate limited the activities request; waiting ${retryAfterSeconds}s before one retry.`
+    );
+
+    await sleep(retryAfterSeconds * 1000);
+
+    response = await fetch(url, {
       headers: { Authorization: `Bearer ${accessToken}` },
       cache: "no-store",
+    });
+
+    if (response.status === 429) {
+      throw new StravaRateLimitError(
+        `Strava is still rate limiting after a ${retryAfterSeconds}s wait. Try again once the 15-minute window resets.`,
+        parseRetryAfter(response)
+      );
     }
-  );
+  }
 
   if (response.status === 401 || response.status === 403) {
     throw new StravaAuthError(

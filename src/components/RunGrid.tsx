@@ -11,6 +11,7 @@ type RunTile = {
   miles: string;
   date: string;
   dateShort: string;
+  dateCompact: string;
 };
 
 /** One page of tiles: 4 columns by 4 rows past `sm`. */
@@ -57,8 +58,8 @@ function useRunsPerPage() {
  * the max-w-2xl wrapper suggests: past `md` the nav column and its gap-x-16
  * leave roughly 530px, so there is nothing for an md:/lg: variant to do.
  *
- * Every run for the year is already in the payload — the page renders as one
- * document — so paging is local state rather than a fetch or a route param.
+ * Every run is already in the payload — the page renders as one document — so
+ * paging is local state rather than a fetch or a route param.
  */
 export default function RunGrid({ runs }: { runs: RunTile[] }) {
   const [page, setPage] = useState(0);
@@ -115,9 +116,16 @@ export default function RunGrid({ runs }: { runs: RunTile[] }) {
               <span className="text-xs text-neutral-900 dark:text-neutral-100">
                 {run.miles} mi
               </span>
-              {/* Year omitted so distance and date fit one line on narrow
-                  phones; the full date is in the aria-label above. */}
-              <span className="whitespace-nowrap text-xs text-neutral-400 dark:text-neutral-600">
+              {/* The grid spans every year, so the tile has to name one. Two
+                  preformatted strings rather than one: at three columns on a
+                  375px phone the tile is ~101px, which fits "6.21 mi" beside
+                  "3/14/26" but not beside "Mar 14 '26". Both are rendered and
+                  CSS picks — a JS breakpoint check would be a hydration
+                  mismatch waiting to happen. */}
+              <span className="whitespace-nowrap text-xs text-neutral-400 dark:text-neutral-600 sm:hidden">
+                {run.dateCompact}
+              </span>
+              <span className="hidden whitespace-nowrap text-xs text-neutral-400 dark:text-neutral-600 sm:inline">
                 {run.dateShort}
               </span>
             </div>

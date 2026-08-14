@@ -54,7 +54,7 @@ function ordinal(value: number): string {
  * Loads every race, newest first, preformatted for display.
  *
  * Formatting server-side keeps Intl off the client and removes any chance of a
- * locale-driven hydration mismatch, matching getRunsForYear in @/lib/runs.
+ * locale-driven hydration mismatch, matching getAllRuns in @/lib/runs.
  *
  * Returns an empty array on failure, mirroring getSiteContent()'s per-source
  * degradation: a database problem hides the cards rather than breaking the page.
