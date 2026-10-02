@@ -216,6 +216,20 @@ export function MarkdownWithTOC({ content }: { content: string }) {
         {...props}
       />
     ),
+    // The body is overflow-hidden, so a table wider than the screen was
+    // clipped with no way to reach its right side. Each table now scrolls
+    // sideways in its own box. The cell minimum stops a many-column table
+    // from crushing every column down to its longest word on a phone.
+    table: ({ children, ...props }) => (
+      <div className="overflow-x-auto">
+        <table
+          className="[&_th]:min-w-[8rem] [&_td]:min-w-[8rem]"
+          {...props}
+        >
+          {children}
+        </table>
+      </div>
+    ),
   };
 
   return (
