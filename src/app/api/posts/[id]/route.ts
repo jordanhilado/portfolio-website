@@ -21,6 +21,16 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
     if (!post) {
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
+    // A draft is the admin's alone. Everyone else gets the same 404 as a
+    // missing post, so a guessed id can't confirm that a draft exists.
+    if (!post.published) {
+      const session = await getServerSession(authOptions);
+      const adminEmail = (process.env.ADMIN_EMAIL ?? "").toLowerCase().trim();
+      const email = (session?.user?.email ?? "").toLowerCase().trim();
+      if (!email || email !== adminEmail) {
+        return NextResponse.json({ error: "Not found" }, { status: 404 });
+      }
+    }
     return NextResponse.json({ post });
   } catch (error) {
     console.error("Error fetching post by id:", error);

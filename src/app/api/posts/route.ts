@@ -19,8 +19,16 @@ export async function GET(request: Request) {
     const publishedParam = searchParams.get("published");
     const takeParam = searchParams.get("take");
 
-    const where =
-      publishedParam === null
+    const session = await getServerSession(authOptions);
+    const adminEmail = (process.env.ADMIN_EMAIL ?? "").toLowerCase().trim();
+    const email = (session?.user?.email ?? "").toLowerCase().trim();
+    const isAdmin = !!email && email === adminEmail;
+
+    // Drafts are visible to the admin only; everyone else gets published
+    // posts whatever `published` they ask for.
+    const where = !isAdmin
+      ? { published: true }
+      : publishedParam === null
         ? {}
         : { published: publishedParam === "true" ? true : publishedParam === "false" ? false : undefined };
 
