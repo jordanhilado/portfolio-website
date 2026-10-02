@@ -11,6 +11,8 @@ const UpdatePostSchema = z.object({
   content: z.string().min(1).optional(),
   published: z.boolean().optional(),
   coverImage: z.string().url().optional().or(z.literal("").transform(() => null)),
+  /** The post's displayed date, as a calendar day ("2026-06-04"). */
+  createdAt: z.iso.date().optional(),
 });
 
 export async function GET(_: Request, { params }: { params: { id: string } }) {
@@ -76,11 +78,23 @@ export async function PATCH(request: Request, { params }: { params: { id: string
       slug = nextSlug;
     }
 
+    // Posts are dated in UTC (see formatPostDate), so the picked day replaces
+    // only the UTC calendar day. Keeping the original time of day preserves
+    // the order of posts that share a date.
+    const { createdAt: createdDay, ...fields } = parsed.data;
+    let createdAt: Date | undefined;
+    if (createdDay) {
+      const [year, month, day] = createdDay.split("-").map(Number);
+      createdAt = new Date(current.createdAt);
+      createdAt.setUTCFullYear(year, month - 1, day);
+    }
+
     const updated = await prisma.post.update({
       where: { id: params.id },
       data: {
-        ...parsed.data,
+        ...fields,
         slug,
+        ...(createdAt && { createdAt }),
       },
     });
 

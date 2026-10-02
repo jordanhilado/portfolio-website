@@ -26,6 +26,7 @@ export default function EditPostPage() {
   const [content, setContent] = useState("");
   const [published, setPublished] = useState(true);
   const [coverImage, setCoverImage] = useState("");
+  const [date, setDate] = useState("");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -41,6 +42,8 @@ export default function EditPostPage() {
         setContent(j.post.content);
         setPublished(j.post.published);
         setCoverImage(j.post.coverImage ?? "");
+        // The UTC calendar day, matching how the site displays post dates.
+        setDate(j.post.createdAt.slice(0, 10));
       } catch (err: any) {
         setError(err.message || "Failed to load");
       } finally {
@@ -63,6 +66,7 @@ export default function EditPostPage() {
           content,
           published,
           coverImage,
+          createdAt: date,
         }),
       });
       if (!res.ok) {
@@ -120,6 +124,22 @@ export default function EditPostPage() {
               className="w-full rounded-lg bg-neutral-100 dark:bg-neutral-800 px-3 py-2 text-sm placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900/10 dark:focus:ring-neutral-100/10 transition-shadow"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
+              required
+            />
+          </div>
+          <div className="space-y-1">
+            <label
+              htmlFor="date"
+              className="text-sm font-medium text-neutral-700 dark:text-neutral-300"
+            >
+              Date
+            </label>
+            <input
+              id="date"
+              type="date"
+              className="w-full rounded-lg bg-neutral-100 dark:bg-neutral-800 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900/10 dark:focus:ring-neutral-100/10 transition-shadow dark:[color-scheme:dark]"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
               required
             />
           </div>
