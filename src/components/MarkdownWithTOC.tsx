@@ -218,17 +218,53 @@ export function MarkdownWithTOC({ content }: { content: string }) {
     ),
     // The body is overflow-hidden, so a table wider than the screen was
     // clipped with no way to reach its right side. Each table now scrolls
-    // sideways in its own box. The cell minimum stops a many-column table
-    // from crushing every column down to its longest word on a phone.
+    // sideways in its own box. Styling follows the rest of the post: neutral
+    // rules like `hr`, Song Myung for headers and row labels like the
+    // headings, and body text in the paragraph color.
     table: ({ children, ...props }) => (
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto my-6">
         <table
-          className="[&_th]:min-w-[8rem] [&_td]:min-w-[8rem]"
+          className="!my-0 w-full border-collapse border-b border-neutral-300 dark:border-neutral-700 text-sm leading-normal"
           {...props}
         >
           {children}
         </table>
       </div>
+    ),
+    thead: ({ children, ...props }) => (
+      <thead
+        className="bg-neutral-100 dark:bg-neutral-900 border-b border-neutral-300 dark:border-neutral-700"
+        {...props}
+      >
+        {children}
+      </thead>
+    ),
+    tr: ({ children, ...props }) => (
+      <tr
+        className="border-b border-neutral-200 dark:border-neutral-800 last:border-b-0"
+        {...props}
+      >
+        {children}
+      </tr>
+    ),
+    // Every column but the row labels keeps a minimum width, so a
+    // many-column table scrolls on a phone instead of crushing each column
+    // down to its longest word.
+    th: ({ children, ...props }) => (
+      <th
+        className="px-3 py-2 text-left align-bottom font-songmyung font-bold text-base text-neutral-900 dark:text-neutral-100 [&:not(:first-child)]:min-w-[7rem]"
+        {...props}
+      >
+        {children}
+      </th>
+    ),
+    td: ({ children, ...props }) => (
+      <td
+        className="px-3 py-2.5 align-top text-neutral-500 dark:text-neutral-400 [&:not(:first-child)]:min-w-[7rem] first:font-songmyung first:text-base first:text-neutral-900 first:dark:text-neutral-100"
+        {...props}
+      >
+        {children}
+      </td>
     ),
   };
 
