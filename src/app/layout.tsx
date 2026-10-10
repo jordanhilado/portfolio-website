@@ -4,7 +4,12 @@ import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/theme-provider";
 import Script from "next/script";
 import LayoutWrapper from "@/components/LayoutWrapper";
-import { DEFAULT_HERO_ALT, DEFAULT_SECTIONS } from "@/constants/site";
+import {
+  DEFAULT_HERO_ALT,
+  DEFAULT_SECTIONS,
+  SITE_NAME,
+  SITE_URL,
+} from "@/constants/site";
 
 const sfPro = localFont({
   src: "../../public/fonts/SF-Pro.woff2",
@@ -27,7 +32,8 @@ const songMyung = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Jordan Hilado",
+  metadataBase: new URL(SITE_URL),
+  title: SITE_NAME,
   description: "Jordan Hilado's personal website",
 };
 

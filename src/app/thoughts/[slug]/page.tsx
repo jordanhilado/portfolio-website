@@ -1,18 +1,12 @@
+import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
 import { ThoughtPostClient } from "@/components/ThoughtPostClient";
 import { notFound } from "next/navigation";
 import { formatPostDate } from "@/lib/date";
-
-type Post = {
-  id: string;
-  slug: string;
-  title: string;
-  content: string;
-  published: boolean;
-  coverImage: string | null;
-  createdAt: Date;
-  updatedAt: Date;
-};
+import { getPublishedPost } from "@/lib/posts";
+import { postExcerpt } from "@/lib/post-excerpt";
+import { readingTimeMinutes } from "@/lib/reading-time";
+import { SITE_NAME } from "@/constants/site";
 
 // Generate static params for all posts at build time
 export async function generateStaticParams() {
@@ -26,22 +20,42 @@ export async function generateStaticParams() {
   }));
 }
 
-// Fetch post data at build time
-async function getPost(slug: string): Promise<Post | null> {
-  try {
-    const post = await prisma.post.findUnique({
-      where: { slug },
-    });
+/**
+ * Title and summary for the tab and for link previews. The preview image
+ * itself comes from opengraph-image.tsx beside this file, which Next adds to
+ * the openGraph and twitter tags on its own.
+ */
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const post = await getPublishedPost(params.slug);
 
-    if (!post || !post.published) {
-      return null;
-    }
-
-    return post;
-  } catch (error) {
-    console.error("Failed to load post:", error);
-    return null;
+  if (!post) {
+    return {};
   }
+
+  // undefined rather than "" so a post with no prose emits no empty tags.
+  const description = postExcerpt(post.content) || undefined;
+
+  return {
+    title: `${post.title} · ${SITE_NAME}`,
+    description,
+    openGraph: {
+      type: "article",
+      url: `/thoughts/${post.slug}`,
+      siteName: SITE_NAME,
+      title: post.title,
+      description,
+      publishedTime: post.createdAt.toISOString(),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description,
+    },
+  };
 }
 
 export default async function ThoughtPostPage({
@@ -49,21 +63,15 @@ export default async function ThoughtPostPage({
 }: {
   params: { slug: string };
 }) {
-  const post = await getPost(params.slug);
+  const post = await getPublishedPost(params.slug);
 
   if (!post) {
     notFound();
   }
 
-  // Calculate reading time (assuming average reading speed of 200 words per minute)
-  const calculateReadingTime = (content: string) => {
-    const wordsPerMinute = 200;
-    const wordCount = content.trim().split(/\s+/).length;
-    const readingTime = Math.ceil(wordCount / wordsPerMinute);
-    return readingTime;
-  };
-
-  const readingTime = calculateReadingTime(post.content);
+  // The shared estimate, so this header agrees with the landing page's list
+  // and with the post's link-preview card.
+  const readingTime = readingTimeMinutes(post.content);
 
   const formattedDate = formatPostDate(post.createdAt);
 
