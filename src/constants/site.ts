@@ -22,6 +22,19 @@ export const sectionToSlug = (section: string): string => {
 
 export const DEFAULT_HERO_ALT = "Zion National Park";
 
+export const SITE_NAME = "Jordan Hilado";
+
+/**
+ * The production origin, used as `metadataBase` so link previews get the
+ * absolute og:image URLs iMessage and the rest require.
+ *
+ * Left to itself Next falls back to VERCEL_URL, the per-deployment hostname,
+ * which Vercel's default deployment protection can put behind a login — and a
+ * crawler that hits one shows no image. Preview deployments still point their
+ * images at their own URL; Next special-cases them.
+ */
+export const SITE_URL = "https://jordanhilado.com";
+
 /**
  * The Strava athlete whose runs this site mirrors.
  *
