@@ -14,14 +14,12 @@ export const contentType = "image/png";
 // uses, resolved to hex because Satori understands neither oklch nor classes.
 const COLOR = {
   background: "#f9f9f9", // --background, oklch(0.9821 0 0)
-  accent: "#0284c7", // sky-600: post titles and the end-of-post marker
-  heading: "#171717", // neutral-900: nav labels
+  accent: "#0284c7", // sky-600: post titles
   body: "#737373", // neutral-500: the date and reading time
-  quiet: "#a3a3a3", // neutral-400: the morse beside section headings
 };
 
-// Same run of dots and dashes HomeClient sets beside the Thoughts heading.
-const THOUGHTS_MORSE = "- .... --- ..- --. .... - ...";
+const PADDING_X = 64;
+const PHOTO_HEIGHT = 270;
 
 /**
  * Satori reads TTF, OTF and WOFF but not WOFF2, so these are TTF conversions
@@ -81,7 +79,10 @@ export default async function Image({ params }: { params: { slug: string } }) {
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          padding: "56px 64px",
+          // No bottom padding: the text below takes the rest of the card and
+          // centres itself in it, so the gap under the date matches the gap
+          // over the title instead of stacking on top of a margin.
+          padding: `56px ${PADDING_X}px 0`,
           backgroundColor: COLOR.background,
           fontFamily: "SF Pro",
           // tracking-tight, which the site's <main> sets on everything.
@@ -92,8 +93,8 @@ export default async function Image({ params }: { params: { slug: string } }) {
         {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
         <img
           src={photoSrc}
-          width={1072}
-          height={200}
+          width={size.width - PADDING_X * 2}
+          height={PHOTO_HEIGHT}
           style={{ objectFit: "cover", objectPosition: "50% 42%" }}
         />
 
@@ -101,37 +102,14 @@ export default async function Image({ params }: { params: { slug: string } }) {
           style={{
             display: "flex",
             flexDirection: "column",
+            justifyContent: "center",
             flexGrow: 1,
-            paddingTop: 40,
           }}
         >
-          {/* A section heading as the landing page sets one with no photo
-              behind it: the label, then its morse smaller and a shade
-              quieter, with the tight tracking undone so it does not clump. */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 18,
-              fontFamily: "Song Myung",
-            }}
-          >
-            <span style={{ fontSize: 30, color: COLOR.heading }}>Thoughts</span>
-            <span
-              style={{
-                fontSize: 20,
-                letterSpacing: "0.15em",
-                color: COLOR.quiet,
-              }}
-            >
-              {THOUGHTS_MORSE}
-            </span>
-          </div>
           <div
             style={{
               // Satori only honours lineClamp on a block, not a flex item.
               display: "block",
-              marginTop: 14,
               fontFamily: "Song Myung",
               fontSize: titleSize(post.title),
               lineHeight: 1.12,
@@ -143,30 +121,8 @@ export default async function Image({ params }: { params: { slug: string } }) {
           >
             {post.title}
           </div>
-        </div>
-
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <span style={{ fontSize: 28, color: COLOR.body }}>{meta}</span>
-          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-            <span
-              style={{
-                fontFamily: "Song Myung",
-                fontSize: 30,
-                color: COLOR.heading,
-              }}
-            >
-              Jordan Hilado
-            </span>
-            {/* The square that closes every post on the site. */}
-            <div
-              style={{ width: 20, height: 20, backgroundColor: COLOR.accent }}
-            />
+          <div style={{ marginTop: 18, fontSize: 28, color: COLOR.body }}>
+            {meta}
           </div>
         </div>
       </div>
