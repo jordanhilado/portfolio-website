@@ -21,9 +21,10 @@ export function MarkdownWithTOC({ content }: { content: string }) {
   const { theme, systemTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  // Append purple square marker inline with the content
+  // Append the end-of-post mark inline with the last line. The non-breaking
+  // space keeps it from wrapping onto a line of its own.
   const contentWithMarker =
-    content.trim() + ' <span class="post-end-marker"></span>';
+    content.trim() + '&nbsp;<span class="post-end-marker" aria-hidden="true"></span>';
 
   useEffect(() => {
     setMounted(true);
@@ -96,7 +97,7 @@ export function MarkdownWithTOC({ content }: { content: string }) {
     ),
     strong: ({ children, ...props }) => (
       <strong
-        className="font-bold text-neutral-900 dark:text-neutral-100"
+        className="font-medium text-neutral-900 dark:text-neutral-100"
         {...props}
       >
         {children}
@@ -118,7 +119,7 @@ export function MarkdownWithTOC({ content }: { content: string }) {
     ),
     ul: ({ children, ...props }) => (
       <ul
-        className="list-disc mb-4 pl-5 [&_p]:mb-0 [&>li]:my-0.5 [&>li:first-child]:mt-0 [&>li:last-child]:mb-0"
+        className="list-disc marker:text-current mb-4 pl-5 [&>li]:pl-0 [&_p]:mb-0 [&>li]:my-0.5 [&>li:first-child]:mt-0 [&>li:last-child]:mb-0"
         {...props}
       >
         {children}
@@ -271,7 +272,10 @@ export function MarkdownWithTOC({ content }: { content: string }) {
   return (
     <div className="flex flex-col gap-4 sm:gap-6">
       {chapters.length > 0 && (
-        <div className="p-3 sm:p-4 bg-neutral-50 dark:bg-neutral-900">
+        // Light mode steps 6 shades below the page (249), mirroring how far
+        // neutral-900 sits above the dark page (17 → 23). neutral-50 matched
+        // the light page exactly, so the box vanished.
+        <div className="p-3 sm:p-4 bg-[rgb(243,243,243)] dark:bg-neutral-900">
           <div className="mb-1 text-xs sm:text-sm text-neutral-900 dark:text-neutral-100">
             Content
           </div>

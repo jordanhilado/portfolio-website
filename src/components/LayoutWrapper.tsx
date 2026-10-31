@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useTheme } from "next-themes";
 import { usePathname } from "next/navigation";
 import zionImage from "@/assets/zion.jpg";
@@ -169,13 +170,63 @@ export default function LayoutWrapper({
     />
   );
 
-  // Thought Post Layout - No Navigation
+  const themeToggle = (
+    <div
+      onClick={toggleTheme}
+      className="md:mt-2 cursor-pointer transition-colors w-fit shrink-0 text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100"
+      aria-label="Toggle theme"
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggleTheme();
+        }
+      }}
+      style={{ minWidth: "16px", minHeight: "16px" }}
+    >
+      {/* Render both icons, CSS controls visibility based on theme */}
+      <SunIcon className="h-4 w-4 block dark:hidden" />
+      <MoonIcon className="h-4 w-4 hidden dark:block" />
+    </div>
+  );
+
+  const crumbClass =
+    "text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors";
+
+  // Thought post layout: the landing page's grid, with a one-line breadcrumb
+  // standing in for the section list, right-aligned in the nav column with the
+  // toggle under it. The breadcrumb is too wide for the landing page's 5rem
+  // column, so from lg the side columns are equal 1fr tracks (which keeps the
+  // post centered) and between md and lg the nav column sizes to the
+  // breadcrumb. Below md it is one row with the toggle.
   if (!showNavigation) {
     return (
       <main className="flex min-h-screen items-start justify-center px-6 sm:px-10 md:px-16 py-8 md:py-10 tracking-tight">
-        <div className="flex flex-col w-full max-w-2xl gap-y-4 pt-6 md:pt-10">
-          <div className="w-full">{hero}</div>
-          <div className="w-full">{children}</div>
+        <div className="grid w-full max-w-2xl md:max-w-none grid-cols-1 md:grid-cols-[max-content_minmax(0,545px)] lg:grid-cols-[1fr_minmax(0,545px)_1fr] md:justify-center gap-4 pt-6 md:pt-10">
+          <div className="flex flex-row md:flex-col justify-between md:justify-start items-center md:items-end gap-y-1 mb-4 md:mb-0 md:col-start-1 md:row-start-1 md:sticky md:top-10 md:self-start">
+            <nav
+              aria-label="Breadcrumb"
+              className="flex flex-row items-baseline text-lg/5 tracking-tight font-songmyung font-bold whitespace-nowrap"
+            >
+              <Link href="/" className={crumbClass}>
+                jordanhilado.com
+              </Link>
+              <span>
+                <span aria-hidden className="mx-2 text-neutral-300 dark:text-neutral-600">
+                  \
+                </span>
+                <Link href="/#thoughts" className={crumbClass}>
+                  thoughts
+                </Link>
+              </span>
+            </nav>
+            {themeToggle}
+          </div>
+
+          <div className="w-full md:col-start-2 md:row-start-1">{children}</div>
+
+          <div aria-hidden className="hidden lg:block lg:col-start-3 lg:row-start-1" />
         </div>
       </main>
     );
@@ -206,25 +257,7 @@ export default function LayoutWrapper({
         <nav className="flex flex-row md:flex-col flex-nowrap justify-evenly md:justify-start md:gap-x-0 gap-x-1 sm:gap-x-4 gap-y-1 -mx-2 sm:mx-0 items-center md:items-end mb-4 md:mb-0 md:col-start-1 md:row-start-1 md:row-span-2 md:sticky md:top-10 md:self-start">
           {sections.map(renderLink)}
 
-          {/* Theme Toggle Icon */}
-          <div
-            onClick={toggleTheme}
-            className="md:mt-2 cursor-pointer transition-colors w-fit shrink-0 text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100"
-            aria-label="Toggle theme"
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                toggleTheme();
-              }
-            }}
-            style={{ minWidth: "16px", minHeight: "16px" }}
-          >
-            {/* Render both icons, CSS controls visibility based on theme */}
-            <SunIcon className="h-4 w-4 block dark:hidden" />
-            <MoonIcon className="h-4 w-4 hidden dark:block" />
-          </div>
+          {themeToggle}
         </nav>
 
         {/* Content Area */}

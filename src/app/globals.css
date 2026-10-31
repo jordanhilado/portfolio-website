@@ -157,14 +157,17 @@
   animation: fadeIn 150ms ease-in;
 }
 
+/* End-of-post mark: a rounded square the height of a capital letter, sitting
+   on the baseline so it reads as one more glyph in the last line. 0.705em is
+   SF Pro's cap height; em units keep it matched at any text size. An empty
+   inline-block's bottom edge lands on the baseline, so no vertical-align
+   nudging is needed. */
 .post-end-marker {
   display: inline-block;
-  width: 0.875rem;
-  height: 0.875rem;
-  margin-left: 0.25rem;
-  vertical-align: 0rem;
+  width: 0.705em;
+  height: 0.705em;
+  border-radius: 0.16em;
   background-color: rgb(2 132 199); /* sky-600 */
-  border-radius: 0;
 }
 
 .dark .post-end-marker {
