@@ -189,6 +189,15 @@ export default function EditPostPage() {
             >
               Cancel
             </button>
+            {/* Shows the last saved version, so save first to see edits. */}
+            <a
+              href={`/admin/preview/${id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-1.5 rounded-lg text-sm bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
+            >
+              Preview
+            </a>
             <button
               type="button"
               className="px-3 py-1.5 rounded-lg text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950 hover:bg-red-100 dark:hover:bg-red-900 transition-colors"

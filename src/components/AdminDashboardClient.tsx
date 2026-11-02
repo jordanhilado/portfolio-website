@@ -1,10 +1,24 @@
 "use client";
 
-import { Fragment, useMemo, useState } from "react";
+import { Fragment, useMemo, useState, useSyncExternalStore } from "react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import AdminMarkdownEditor from "@/components/AdminMarkdownEditor";
 import { parseMarkdownLink } from "@/lib/markdown-links";
+
+const noopSubscribe = () => () => {};
+
+/**
+ * False while rendering on the server and during hydration, true afterwards.
+ *
+ * The saved theme lives in the browser, so the server always sees it as
+ * undefined. Anything drawn from it has to wait for this, or the server's
+ * markup and the browser's first render disagree and React reports a
+ * hydration mismatch.
+ */
+function useHasHydrated() {
+  return useSyncExternalStore(noopSubscribe, () => true, () => false);
+}
 
 type AdminListPost = {
   id: string;
@@ -93,7 +107,10 @@ export default function AdminDashboardClient({
   aboutContent: initialAboutContent,
   runningContent: initialRunningContent,
 }: AdminDashboardClientProps) {
-  const { theme, setTheme } = useTheme();
+  const { theme: savedTheme, setTheme } = useTheme();
+  // Undefined until hydrated, which draws the neutral "system" icon the
+  // server also drew, then switches to the saved theme's icon.
+  const theme = useHasHydrated() ? savedTheme : undefined;
   const [activeTab, setActiveTab] = useState<Tab>("about");
   const [posts] = useState(initialPosts);
   const [projects, setProjects] = useState(initialProjects);
@@ -434,7 +451,7 @@ export default function AdminDashboardClient({
               setTheme(next);
             }}
             className="p-2 rounded-lg bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors text-neutral-600 dark:text-neutral-400"
-            title={`Theme: ${theme} (click to cycle)`}
+            title={theme ? `Theme: ${theme} (click to cycle)` : "Theme (click to cycle)"}
           >
             {theme === "light" && (
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -504,11 +521,17 @@ export default function AdminDashboardClient({
                       >
                         Edit
                       </Link>
+                      {/* A draft has no public page yet, so it opens the
+                          signed-in preview instead. */}
                       <Link
-                        href={`/thoughts/${post.slug}`}
+                        href={
+                          post.published
+                            ? `/thoughts/${post.slug}`
+                            : `/admin/preview/${post.id}`
+                        }
                         className="px-3 py-1.5 rounded-lg text-sm bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
                       >
-                        View
+                        {post.published ? "View" : "Preview"}
                       </Link>
                     </div>
                   </div>

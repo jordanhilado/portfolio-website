@@ -38,7 +38,7 @@ const PHOTO_SIZE_CLASSES =
  *
  * Every string arrives preformatted from @/lib/races — this component holds no
  * state and does no arithmetic. It is a client component only because
- * HomeClient is one.
+ * SectionView is one.
  *
  * Borders and shadows are deliberately absent: the page has none anywhere, so
  * cards are separated by space, and a linked card borrows the run tiles' hover

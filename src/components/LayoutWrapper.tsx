@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useTheme } from "next-themes";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import zionImage from "@/assets/zion.jpg";
 import { sectionToSlug, type DefaultSection } from "@/constants/site";
 
@@ -36,12 +36,9 @@ const MoonIcon = ({ className }: { className?: string }) => (
 
 type Section = DefaultSection;
 
-/**
- * How far below the top of the viewport a section has to reach before the nav
- * calls it the current one. Sits below the sections' scroll-margin-top so a
- * section parked by an anchor click reads as active immediately.
- */
-const ACTIVATION_LINE_PX = 120;
+/** About is the landing page; every other section lives at its own slug. */
+const sectionHref = (section: Section) =>
+  section === "About" ? "/" : `/${sectionToSlug(section)}`;
 
 export default function LayoutWrapper({
   children,
@@ -53,74 +50,29 @@ export default function LayoutWrapper({
   heroAlt: string;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
   const { resolvedTheme, setTheme } = useTheme();
 
-  // Every section lives on the landing page now, so the nav is a set of anchors
-  // and the highlight has to come from scroll position rather than the route.
-  const [activeSlug, setActiveSlug] = useState<string>("");
+  // A post preview is an admin route but shows the post as the site will, so
+  // it takes the site layout and reads as part of Thoughts.
+  const isPostPreview = pathname.startsWith("/admin/preview/");
+  const isAdmin = pathname.startsWith("/admin") && !isPostPreview;
+  const isHome = pathname === "/";
 
-  const isAdmin = pathname.startsWith("/admin");
-  const showNavigation = !isAdmin && !pathname.startsWith("/thoughts/");
-
-  // Joined so the effect keys off the section list's contents, not the array
-  // identity, which the layout recreates on every render.
-  const slugKey = sections.map(sectionToSlug).join("|");
-
+  // The site was briefly one long page, and its old section routes were
+  // permanent redirects to /#projects and the like, which browsers keep. A
+  // visitor still carrying one lands here with the hash; send them on to the
+  // section's own page.
   useEffect(() => {
-    if (!showNavigation) {
+    if (!isHome) {
       return;
     }
-
-    const slugs = slugKey.split("|");
-    let frame = 0;
-
-    const update = () => {
-      frame = 0;
-
-      const present = slugs.filter((slug) => document.getElementById(slug));
-      if (present.length === 0) {
-        return;
-      }
-
-      let current = present[0];
-      for (const slug of present) {
-        const element = document.getElementById(slug);
-        if (element && element.getBoundingClientRect().top <= ACTIVATION_LINE_PX) {
-          current = slug;
-        }
-      }
-
-      // The last section is usually too short to ever climb past the activation
-      // line, so reaching the end of the page selects it outright.
-      const scrolledToBottom =
-        window.scrollY + window.innerHeight >=
-        document.documentElement.scrollHeight - 2;
-      if (scrolledToBottom) {
-        current = present[present.length - 1];
-      }
-
-      setActiveSlug(current);
-    };
-
-    const onScroll = () => {
-      if (frame) {
-        return;
-      }
-      frame = window.requestAnimationFrame(update);
-    };
-
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-
-    return () => {
-      if (frame) {
-        window.cancelAnimationFrame(frame);
-      }
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, [showNavigation, slugKey]);
+    const slug = window.location.hash.slice(1);
+    const section = sections.find((s) => sectionToSlug(s) === slug);
+    if (section && section !== "About") {
+      router.replace(sectionHref(section));
+    }
+  }, [isHome, sections, router]);
 
   // resolvedTheme, not theme: theme is "system" until the user picks explicitly,
   // so comparing it against "dark" would set "dark" again on a dark-mode device
@@ -141,14 +93,20 @@ export default function LayoutWrapper({
   // opened an extra gap at the midpoint of the bar. The bar never wraps: every
   // section plus the theme toggle stays on one line at full type size, which the
   // narrow gap below sm is what makes room for.
+  // A section is current on its own page and on anything nested under it,
+  // which is what keeps Thoughts lit while reading a post.
   const renderLink = (section: Section) => {
-    const slug = sectionToSlug(section);
-    const isActive = activeSlug === slug;
+    const href = sectionHref(section);
+    const isActive = isPostPreview
+      ? section === "Thoughts"
+      : href === "/"
+        ? isHome
+        : pathname === href || pathname.startsWith(`${href}/`);
     return (
-      <a
+      <Link
         key={section}
-        href={`#${slug}`}
-        aria-current={isActive ? "true" : undefined}
+        href={href}
+        aria-current={isActive ? "page" : undefined}
         className={`text-left md:text-right text-lg/5 tracking-tight font-songmyung font-bold transition-all whitespace-nowrap hover:text-neutral-900 dark:hover:text-neutral-100 w-fit shrink-0 ${
           isActive
             ? "text-neutral-900 dark:text-neutral-100"
@@ -156,10 +114,9 @@ export default function LayoutWrapper({
         }`}
       >
         {section}
-      </a>
+      </Link>
     );
   };
-
 
   const hero = (
     <Image
@@ -191,77 +148,46 @@ export default function LayoutWrapper({
     </div>
   );
 
-  const crumbClass =
-    "text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors";
-
-  // Thought post layout: the landing page's grid, with a one-line breadcrumb
-  // standing in for the section list, right-aligned in the nav column with the
-  // toggle under it. The breadcrumb is too wide for the landing page's 5rem
-  // column, so from lg the side columns are equal 1fr tracks (which keeps the
-  // post centered) and between md and lg the nav column sizes to the
-  // breadcrumb. Below md it is one row with the toggle.
-  if (!showNavigation) {
-    return (
-      <main className="flex min-h-screen items-start justify-center px-6 sm:px-10 md:px-16 py-8 md:py-10 tracking-tight">
-        <div className="grid w-full max-w-2xl md:max-w-none grid-cols-1 md:grid-cols-[max-content_minmax(0,545px)] lg:grid-cols-[1fr_minmax(0,545px)_1fr] md:justify-center gap-4 pt-6 md:pt-10">
-          <div className="flex flex-row md:flex-col justify-between md:justify-start items-center md:items-end gap-y-1 mb-4 md:mb-0 md:col-start-1 md:row-start-1 md:sticky md:top-10 md:self-start">
-            <nav
-              aria-label="Breadcrumb"
-              className="flex flex-row items-baseline text-lg/5 tracking-tight font-songmyung font-bold whitespace-nowrap"
-            >
-              <Link href="/" className={crumbClass}>
-                jordanhilado.com
-              </Link>
-              <span>
-                <span aria-hidden className="mx-2 text-neutral-300 dark:text-neutral-600">
-                  \
-                </span>
-                <Link href="/#thoughts" className={crumbClass}>
-                  thoughts
-                </Link>
-              </span>
-            </nav>
-            {themeToggle}
-          </div>
-
-          <div className="w-full md:col-start-2 md:row-start-1">{children}</div>
-
-          <div aria-hidden className="hidden lg:block lg:col-start-3 lg:row-start-1" />
-        </div>
-      </main>
-    );
-  }
-
   return (
     <main className="flex min-h-screen items-start justify-center px-6 sm:px-10 md:px-16 py-8 md:py-10 tracking-tight">
       {/* Past md the page is a grid: the nav owns column one and runs down the
-          full height, while the hero and the content stack in column two so the
-          hero is only as wide as the text below it. From lg an empty third
+          full height, while the content sits in column two — under the hero on
+          `/`, which is the only page that has one, so the hero is only as wide
+          as the text below it. From lg an empty third
           column mirrors the nav's width, which is what lets justify-center land
           the content column on the middle of the page rather than centering the
           nav-plus-content pair. Below lg there is not room for that mirror, so
           the pair centers together the way it always has. */}
       <div className="grid w-full max-w-2xl md:max-w-none grid-cols-1 md:grid-cols-[5rem_minmax(0,545px)] lg:grid-cols-[5rem_minmax(0,545px)_5rem] md:justify-center gap-4 pt-6 md:pt-10">
-        {/* Zion Image */}
-        <div className="w-full md:col-start-2 md:row-start-1">{hero}</div>
-
         {/* Left Sidebar / Top Navigation on Mobile.
-            Sticky past md so the section list stays put on a page that is
-            now one long scroll; self-start is what lets it stick at all.
+            Sticky past md so the section list stays put on long pages like
+            Running and the posts; self-start is what lets it stick at all.
+            top-20 must equal the nav's resting offset (main's md:py-10 plus
+            the grid's md:pt-10) or it slides up before it catches.
             The extra bottom margin below md restores the wider gap the nav
             bar used to have under it, which the grid's single row gap
             would otherwise flatten.
             Below sm the bar reaches past the page's horizontal padding: those
             16px are the margin that keeps the four sections and the toggle on
             one line at full type size down to a ~305px viewport. */}
-        <nav className="flex flex-row md:flex-col flex-nowrap justify-evenly md:justify-start md:gap-x-0 gap-x-1 sm:gap-x-4 gap-y-1 -mx-2 sm:mx-0 items-center md:items-end mb-4 md:mb-0 md:col-start-1 md:row-start-1 md:row-span-2 md:sticky md:top-10 md:self-start">
+        <nav className={`flex flex-row md:flex-col flex-nowrap justify-evenly md:justify-start md:gap-x-0 gap-x-1 sm:gap-x-4 gap-y-1 -mx-2 sm:mx-0 items-center md:items-end mb-4 md:mb-0 md:col-start-1 md:row-start-1 ${isHome ? "md:row-span-2" : ""} md:sticky md:top-20 md:self-start`}>
           {sections.map(renderLink)}
 
           {themeToggle}
         </nav>
 
+        {/* Zion Image, on the landing page only. It follows the nav in source
+            order so below md, where the grid is one column, the bar sits on top
+            as it does on every other page; past md the explicit column and row
+            put it back beside the nav. */}
+        {isHome && (
+          <div className="w-full md:col-start-2 md:row-start-1">{hero}</div>
+        )}
+
         {/* Content Area */}
-        <div className="w-full md:col-start-2 md:row-start-2">{children}</div>
+        <div className={`w-full md:col-start-2 ${isHome ? "md:row-start-2" : "md:row-start-1"}`}>
+          {children}
+        </div>
 
         {/* Mirrors the nav column so the content column, not the pair, is what
             sits centered on the page. */}

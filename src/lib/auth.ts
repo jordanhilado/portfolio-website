@@ -1,4 +1,4 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
+import NextAuth, { NextAuthOptions, getServerSession } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions: NextAuthOptions = {
@@ -33,3 +33,16 @@ export const authOptions: NextAuthOptions = {
 };
 
 
+
+/**
+ * Whether this request is signed in as the site admin.
+ *
+ * The proxy already guards every /admin route; pages that show unpublished
+ * content check again here so a mistake in its matcher cannot expose them.
+ */
+export async function isAdminSession(): Promise<boolean> {
+  const session = await getServerSession(authOptions);
+  const adminEmail = (process.env.ADMIN_EMAIL ?? "").toLowerCase().trim();
+  const email = (session?.user?.email ?? "").toLowerCase().trim();
+  return !!email && email === adminEmail;
+}

@@ -71,7 +71,7 @@ export default async function ThoughtPostPage(
     notFound();
   }
 
-  // The shared estimate, so this header agrees with the landing page's list
+  // The shared estimate, so this header agrees with the Thoughts page's list
   // and with the post's link-preview card.
   const readingTime = readingTimeMinutes(post.content);
 

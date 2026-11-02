@@ -3,7 +3,7 @@
 import { useState, useSyncExternalStore } from "react";
 
 // Shape is re-declared rather than imported from @/lib/runs, which pulls in
-// prisma — matching how HomeClient re-declares ListPost and Project.
+// prisma.
 type RunTile = {
   id: string;
   stravaId: string;

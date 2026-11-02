@@ -19,6 +19,16 @@ type Heading = { id: string; text: string; level: number };
 
 const noopSubscribe = () => () => {};
 
+/** Left padding per contents depth, spelled out so Tailwind sees each class. */
+const TOC_INDENT = ["", "pl-3 sm:pl-4", "pl-6 sm:pl-8"];
+
+/** The text inside a markdown (hast) node, e.g. a code block's source. */
+function hastText(node: any): string {
+  if (!node) return "";
+  if (node.type === "text") return node.value ?? "";
+  return (node.children ?? []).map(hastText).join("");
+}
+
 export function MarkdownWithTOC({ content }: { content: string }) {
   const [headings, setHeadings] = useState<Heading[]>([]);
   const { theme, systemTheme } = useTheme();
@@ -55,10 +65,14 @@ export function MarkdownWithTOC({ content }: { content: string }) {
   const currentTheme = theme === "system" ? systemTheme : theme;
   const isDark = currentTheme === "dark";
 
+  // Indented by depth below the post's top heading level rather than the
+  // absolute level, so a post whose headings are all ### sits flush instead of
+  // starting two steps in.
   const chapters = useMemo(() => {
+    const topLevel = Math.min(...headings.map((h) => h.level));
     return headings.map((h) => ({
       ...h,
-      indent: h.level === 1 ? 0 : h.level === 2 ? 1 : 2,
+      indent: Math.min(h.level - topLevel, 2),
     }));
   }, [headings]);
 
@@ -105,7 +119,10 @@ export function MarkdownWithTOC({ content }: { content: string }) {
     ),
     strong: ({ children, ...props }) => (
       <strong
-        className="font-medium text-neutral-900 dark:text-neutral-100"
+        // Weight alone carries the emphasis, so it takes the full bold step
+        // rather than medium, which barely reads against regular. The color
+        // follows the text it sits in, so bold in a paragraph stays grey.
+        className="font-bold text-inherit"
         {...props}
       >
         {children}
@@ -157,33 +174,42 @@ export function MarkdownWithTOC({ content }: { content: string }) {
         {children}
       </blockquote>
     ),
-    code: ({ inline, className, children, ...props }: any) => {
-      const match = /language-(\w+)/.exec(className || "");
-      const language = match ? match[1] : "";
-
-      if (inline) {
-        return (
-          <code
-            className="bg-neutral-100 dark:bg-neutral-800 px-1.5 py-0.5 rounded text-[0.95em] text-sky-700 dark:text-sky-300 font-sfmono"
-            {...props}
-          >
-            {children}
-          </code>
-        );
-      }
+    // Inline code only. react-markdown 10 no longer passes an `inline` flag,
+    // so a fenced block is told apart by the <pre> it sits in, and `pre`
+    // below renders those. Telling them apart here instead would send inline
+    // snippets through the highlighter, whose <div> is invalid inside a <p>.
+    code: ({ node: _node, children, ...props }: any) => (
+      <code
+        className="bg-neutral-100 dark:bg-neutral-800 px-1.5 py-0.5 rounded text-[0.95em] text-sky-700 dark:text-sky-300 font-sfmono"
+        {...props}
+      >
+        {children}
+      </code>
+    ),
+    // A fenced block. Its language and text are read off the <code> element
+    // inside it in the markdown tree, so the inline renderer above never sees
+    // block code.
+    pre: ({ node }: any) => {
+      const codeNode = node?.children?.find(
+        (child: any) => child.type === "element" && child.tagName === "code"
+      );
+      const classNames: string[] = codeNode?.properties?.className ?? [];
+      const language =
+        classNames
+          .map((name) => /^language-(\w+)/.exec(String(name))?.[1])
+          .find(Boolean) ?? "";
+      const source = hastText(codeNode).replace(/\n$/, "");
 
       if (language === "mermaid") {
-        return <MermaidDiagram source={String(children).replace(/\n$/, "")} />;
+        return <MermaidDiagram source={source} />;
       }
 
-      // Don't render until mounted to prevent hydration mismatch
+      // Don't highlight until mounted: the theme, and so the colors, are only
+      // known in the browser.
       if (!mounted) {
         return (
-          <code
-            className="block bg-neutral-100 dark:bg-neutral-800 p-4 rounded text-[0.875rem] overflow-x-auto font-sfmono"
-            {...props}
-          >
-            {children}
+          <code className="block bg-neutral-100 dark:bg-neutral-800 p-4 rounded text-[0.875rem] overflow-x-auto font-sfmono">
+            {source}
           </code>
         );
       }
@@ -212,16 +238,11 @@ export function MarkdownWithTOC({ content }: { content: string }) {
             lineProps={{
               style: { background: "transparent" },
             }}
-            {...props}
           >
-            {String(children).replace(/\n$/, "")}
+            {source}
           </SyntaxHighlighter>
         </div>
       );
-    },
-    pre: ({ children }) => {
-      // Just return children directly, let the code component handle the styling
-      return <>{children}</>;
     },
     hr: ({ ...props }) => (
       <hr
@@ -293,7 +314,7 @@ export function MarkdownWithTOC({ content }: { content: string }) {
           </div>
           <ul className="space-y-1 text-xs sm:text-sm">
             {chapters.map((c) => (
-              <li key={c.id}>
+              <li key={c.id} className={TOC_INDENT[c.indent]}>
                 <a
                   href={`#${c.id}`}
                   className="text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 break-words"
@@ -305,7 +326,16 @@ export function MarkdownWithTOC({ content }: { content: string }) {
           </ul>
         </div>
       )}
-      <div className="markdown-body prose dark:prose-invert max-w-none overflow-hidden [&_ul>li:first-child]:!mt-0 [&_ol>li:first-child]:!mt-0 [&_ul>li>p]:!m-0 [&_ol>li>p]:!m-0">
+      {/* A nested list sits as tight to its parent bullet, above and below, as
+          bullets sit to each other (my-0.5). Otherwise typography's 0.75em
+          above and the list's own mb-4 below open a paragraph-sized gap.
+          A top-level list sits 8px from the paragraphs around it, closer than
+          paragraphs sit to each other, so it reads as part of the text that
+          introduces it. Margins collapse to the larger of the pair, so the
+          paragraph on each side gives up its margin too.
+          Typography wraps inline code in literal backticks; the code style
+          already marks it, so those are dropped. */}
+      <div className="markdown-body prose dark:prose-invert max-w-none overflow-hidden [&_ul>li:first-child]:!mt-0 [&_ol>li:first-child]:!mt-0 [&_ul>li>p]:!m-0 [&_ol>li>p]:!m-0 [&_li>ul]:!my-0.5 [&_li>ol]:!my-0.5 prose-code:before:content-none prose-code:after:content-none [&>ul]:!my-2 [&>ol]:!my-2 [&>p:has(+ul)]:!mb-2 [&>p:has(+ol)]:!mb-2 [&>ul+p]:!mt-2 [&>ol+p]:!mt-2">
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
           rehypePlugins={[

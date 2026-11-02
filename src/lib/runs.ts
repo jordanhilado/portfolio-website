@@ -71,7 +71,7 @@ export type RunTile = {
  * Formatting server-side keeps Intl off the client and removes any chance of
  * a locale-driven hydration mismatch.
  *
- * Returns an empty array on failure, mirroring getSiteContent()'s per-source
+ * Returns an empty array on failure, mirroring the site-content loaders' per-source
  * degradation: a database problem hides the grid rather than breaking the page.
  */
 export async function getAllRuns(): Promise<RunTile[]> {
@@ -111,7 +111,7 @@ export async function getAllRuns(): Promise<RunTile[]> {
  * there by design.
  *
  * Returns null when Strava is unreachable, which the blurb renders as an em
- * dash — the same per-source degradation getSiteContent() uses, rather than
+ * dash — the same per-source degradation the site-content loaders use, rather than
  * failing the whole page over one sentence.
  */
 export async function getRunningTotals(): Promise<RunningTotals | null> {

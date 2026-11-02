@@ -1,16 +1,14 @@
 import { revalidatePath } from "next/cache";
 
 /**
- * Every path that renders shared site content.
- *
- * All sections render together on the landing page, so that single route is
- * the only thing a content write can stale. The old per-section routes are
- * redirects handled in next.config.js and hold no cache entry of their own.
+ * Every path that renders shared site content: one route per section, with
+ * About at `/`. Purging all of them on any write is a handful of cheap
+ * re-renders and saves each handler from knowing which page it feeds.
  */
-const CONTENT_PATHS = ["/"];
+const CONTENT_PATHS = ["/", "/projects", "/thoughts", "/running"];
 
 /**
- * Purges the cached landing pages after a content write.
+ * Purges the cached section pages after a content write.
  *
  * Call this from every mutating handler. Pages set a long `revalidate` as a
  * backstop, so a handler that forgets to call this leaves content stale until
@@ -23,7 +21,7 @@ export function revalidateContent(): void {
 }
 
 /**
- * Purges the shared landing pages plus individual thought post pages.
+ * Purges the section pages plus individual thought post pages.
  *
  * Pass every slug the write touched. A rename produces two — the old URL
  * still has a cache entry that would otherwise serve the pre-rename post

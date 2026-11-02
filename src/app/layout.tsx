@@ -46,7 +46,9 @@ export default async function RootLayout({
   const heroAlt = DEFAULT_HERO_ALT;
 
   return (
-    <html lang="en">
+    // next-themes sets class and color-scheme on <html> before hydration, so
+    // the server markup can never match; this silences only <html>'s own attributes.
+    <html lang="en" suppressHydrationWarning>
       <head>
         <Script
           async

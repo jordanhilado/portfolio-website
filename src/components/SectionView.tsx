@@ -12,33 +12,19 @@ import {
   sectionToSlug,
   type DefaultSection,
 } from "@/constants/site";
+import type { ListPost, Project } from "@/lib/site-content";
 import { formatPostDate } from "@/lib/date";
 import { formatReadingTime } from "@/lib/reading-time";
 import { parseMarkdownLink } from "@/lib/markdown-links";
 import {
   applyRunningTotals,
+  isLiveMilesHref,
+  liveMilesHrefTarget,
   type RunningTotals,
 } from "@/lib/running-totals";
+import LiveDot from "@/components/LiveDot";
 
 type Section = DefaultSection;
-
-type ListPost = {
-  id: string;
-  slug: string;
-  title: string;
-  createdAt: string;
-  updatedAt: string;
-  readMinutes: number;
-};
-
-type Project = {
-  id: string;
-  title: string;
-  description: string;
-  link: string;
-  order: number;
-  year: number;
-};
 
 type RunTile = {
   id: string;
@@ -150,42 +136,49 @@ function RunningLink({
   href?: string;
   children?: React.ReactNode;
 }) {
+  const isLiveMiles = isLiveMilesHref(href);
   return (
     <a
-      href={href}
+      href={isLiveMiles && href ? liveMilesHrefTarget(href) : href}
       target="_blank"
       rel="noopener noreferrer"
       className="rounded-sm no-underline transition-colors hover:underline hover:text-sky-700 dark:hover:text-sky-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 dark:focus-visible:ring-sky-400"
     >
+      {isLiveMiles && <LiveDot />}
       {children}
     </a>
   );
 }
 
-interface HomeClientProps {
-  posts: ListPost[];
+interface SectionViewProps {
+  section: Section;
+  posts?: ListPost[];
   projects?: Project[];
-  aboutParagraphs: string[];
+  aboutParagraphs?: string[];
   contactLinks?: string[];
   running?: string;
   races?: RaceCardData[];
   runs?: RunTile[];
   /** Null when Strava could not be reached for this render. */
   runningTotals?: RunningTotals | null;
-  sections: Section[];
 }
 
-export default function HomeClient({
-  posts,
+/**
+ * One section's page. Every section is its own route, so this renders a single
+ * section: About sits under the hero on `/` with no heading of its own, and the
+ * rest open with their heading band, which doubles as the page title.
+ */
+export default function SectionView({
+  section,
+  posts = [],
   projects,
-  aboutParagraphs,
+  aboutParagraphs = [],
   contactLinks = [],
   running = "",
   races = [],
   runs = [],
   runningTotals = null,
-  sections,
-}: HomeClientProps) {
+}: SectionViewProps) {
   const renderContent = (section: Section) => {
     switch (section) {
       case "About":
@@ -201,18 +194,24 @@ export default function HomeClient({
                     if (typeof part === "string") {
                       return <Fragment key={partIndex}>{part}</Fragment>;
                     } else {
+                      const isLiveMiles = isLiveMilesHref(part.url);
                       return (
                         <Link
                           key={partIndex}
-                          href={part.url}
+                          href={isLiveMiles ? liveMilesHrefTarget(part.url) : part.url}
                           target="_blank"
                           rel="noopener noreferrer"
                           // Inline in a paragraph, so it matches the body font
                           // rather than the display face used for standalone
                           // links elsewhere on the page. The underline arrives
                           // on hover only, as it does on the Running totals.
-                          className="font-sfpro text-sky-600 hover:underline hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300"
+                          // The live mileage takes the 500 weight typography
+                          // gives the same figure on the Running page.
+                          className={`font-sfpro text-sky-600 hover:underline hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300 ${
+                            isLiveMiles ? "font-medium" : ""
+                          }`}
                         >
+                          {isLiveMiles && <LiveDot />}
                           {part.text}
                         </Link>
                       );
@@ -334,112 +333,97 @@ export default function HomeClient({
     }
   };
 
+  const slug = sectionToSlug(section);
+  // About opens `/` directly under the hero, so a heading there would only
+  // restate the nav. Every other page needs one to say what it is.
+  const showHeading = section !== "About";
+  // Only ever a backdrop for a heading, so a page without one gets no band.
+  const headerImage = showHeading ? SECTION_HEADER_IMAGE[section] : undefined;
+
+  // Over a photograph the heading pair switches to white — the neutral greys it
+  // uses on the page background would sink into the water — and the pair
+  // centers itself on the band's height while staying on the left edge the rest
+  // of the column shares.
+  const heading = showHeading ? (
+    <h1
+      id={`${slug}-heading`}
+      // items-center, not items-baseline: the morse is set smaller than the
+      // label, and sharing a baseline would hang it off the bottom of the line
+      // rather than sitting it in the middle.
+      className={`flex w-fit flex-wrap items-center gap-x-3 font-songmyung text-lg/5 font-bold tracking-tight ${
+        headerImage
+          ? "text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.55)]"
+          : "text-neutral-900 dark:text-neutral-100"
+      }`}
+    >
+      <span>{section}</span>
+      {/* Hidden from assistive tech: it would otherwise land in the heading's
+          accessible name as a run of dots and dashes. */}
+      {SECTION_MORSE[section] && (
+        <span
+          aria-hidden
+          // Set well below the label: at the heading's own size the longest of
+          // these runs — Projects' and Thoughts' — outgrow a phone's content
+          // column and drop onto a second line, and decoration is not worth a
+          // line break. leading-none keeps the shrunken text from carrying a
+          // taller line box than its glyphs, which is what lets items-center
+          // land it on the middle of the label rather than a few pixels below.
+          //
+          // Off the photograph the color steps a shade past the body grey so it
+          // reads as texture; over one it takes the heading's own white, since
+          // a dimmer grey would be the first thing the water swallows. Either
+          // way the heading's tight tracking is undone so the dots and dashes
+          // do not clump into single glyphs.
+          className={`text-xs leading-none tracking-[0.15em] ${
+            headerImage ? "" : "text-neutral-400 dark:text-neutral-600"
+          }`}
+        >
+          {SECTION_MORSE[section]}
+        </span>
+      )}
+    </h1>
+  ) : null;
+
   return (
-    <div className="flex flex-col gap-y-14 pb-0 md:pb-20 text-base/5 text-neutral-500 dark:text-neutral-400">
-      {sections.map((section, index) => {
-        const slug = sectionToSlug(section);
-        // The first section opens the page directly under the hero, so a
-        // heading there would only restate what the reader is already looking
-        // at. Every section below it needs one to break up the scroll.
-        const showHeading = index > 0;
-        // Only ever a backdrop for a heading, so a section that renders without
-        // one gets no band either.
-        const headerImage = showHeading ? SECTION_HEADER_IMAGE[section] : undefined;
-
-        // Over a photograph the heading pair switches to white — the neutral
-        // greys it uses on the page background would sink into the water — and
-        // the pair centers itself on the band's height while staying on the
-        // left edge the rest of the column shares.
-        const heading = showHeading ? (
-          <h2
-            id={`${slug}-heading`}
-            // items-center, not items-baseline: the morse is set smaller than
-            // the label, and sharing a baseline would hang it off the bottom of
-            // the line rather than sitting it in the middle.
-            className={`flex w-fit flex-wrap items-center gap-x-3 font-songmyung text-lg/5 font-bold tracking-tight ${
-              headerImage
-                ? "text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.55)]"
-                : "text-neutral-900 dark:text-neutral-100"
-            }`}
-          >
-            <span>{section}</span>
-            {/* Hidden from assistive tech: it would otherwise land in the
-                section's accessible name as a run of dots and dashes. */}
-            {SECTION_MORSE[section] && (
-              <span
-                aria-hidden
-                // Set well below the label: at the heading's own size the
-                // longest of these runs — Projects' and Thoughts' — outgrow a
-                // phone's content column and drop onto a second line, and
-                // decoration is not worth a line break. leading-none keeps the
-                // shrunken text from carrying a taller line box than its
-                // glyphs, which is what lets items-center land it on the middle
-                // of the label rather than a few pixels below.
-                //
-                // Off the photograph the color steps a shade past the body grey
-                // so it reads as texture; over one it takes the heading's own
-                // white, since a dimmer grey would be the first thing the water
-                // swallows. Either way the heading's tight tracking is undone
-                // so the dots and dashes do not clump into single glyphs.
-                className={`text-xs leading-none tracking-[0.15em] ${
-                  headerImage ? "" : "text-neutral-400 dark:text-neutral-600"
-                }`}
-              >
-                {SECTION_MORSE[section]}
-              </span>
-            )}
-          </h2>
-        ) : null;
-
-        return (
-          <section
-            key={section}
-            id={slug}
-            aria-label={showHeading ? undefined : section}
-            aria-labelledby={showHeading ? `${slug}-heading` : undefined}
-            // scroll-margin keeps a jumped-to heading clear of the viewport
-            // edge, and sits above the line LayoutWrapper's scroll spy
-            // activates on so the nav highlight agrees with where the click
-            // landed.
-            className="flex scroll-mt-6 flex-col gap-y-4 md:scroll-mt-10"
-          >
-            {/* Repeats the nav label on purpose: on one long page the nav only
-                says where you are, the heading says what you are reading. */}
-            {headerImage ? (
-              // The heading pair sits on the photograph rather than beside it.
-              // No height of its own: the band is the heading's line box plus
-              // its padding, and `fill` + object-cover crop the photo down to
-              // whatever that comes to — so the image is a band behind a
-              // heading rather than a banner the heading is placed on. The
-              // padding is what centers the pair vertically, while the heading
-              // keeps the left edge the rest of the column shares.
-              //
-              // A scrim that fades out to the right keeps the text legible over
-              // whatever the crop happens to land on without flattening the
-              // rest of the frame. `isolate` bounds the negative z-indexes to
-              // this band so they cannot slip behind the page itself.
-              <div className="relative isolate flex w-full items-center overflow-hidden px-4 py-4">
-                <Image
-                  src={headerImage}
-                  alt=""
-                  aria-hidden
-                  fill
-                  sizes={HEADER_IMAGE_SIZES}
-                  className="-z-10 object-cover"
-                />
-                <div
-                  aria-hidden
-                  className="absolute inset-0 -z-10 bg-gradient-to-r from-black/55 via-black/30 to-black/10"
-                />
-                {heading}
-              </div>
-            ) : (
-              heading
-            )}
-            {renderContent(section)}
-          </section>
-        );
-      })}
-    </div>
+    <section
+      aria-label={showHeading ? undefined : section}
+      aria-labelledby={showHeading ? `${slug}-heading` : undefined}
+      className="flex flex-col gap-y-4 pb-0 md:pb-20 text-base/5 text-neutral-500 dark:text-neutral-400"
+    >
+      {headerImage ? (
+        // The heading pair sits on the photograph rather than beside it. No
+        // height of its own: the band is the heading's line box plus its
+        // padding, and `fill` + object-cover crop the photo down to whatever
+        // that comes to — so the image is a band behind a heading rather than a
+        // banner the heading is placed on. The padding is what centers the pair
+        // vertically, while the heading keeps the left edge the rest of the
+        // column shares.
+        //
+        // A scrim that fades out to the right keeps the text legible over
+        // whatever the crop happens to land on without flattening the rest of
+        // the frame. `isolate` bounds the negative z-indexes to this band so
+        // they cannot slip behind the page itself.
+        <div className="relative isolate flex w-full items-center overflow-hidden px-4 py-4">
+          <Image
+            src={headerImage}
+            alt=""
+            aria-hidden
+            fill
+            // The band is the first thing on its page, so it is the LCP.
+            priority
+            sizes={HEADER_IMAGE_SIZES}
+            className="-z-10 object-cover"
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0 -z-10 bg-gradient-to-r from-black/55 via-black/30 to-black/10"
+          />
+          {heading}
+        </div>
+      ) : (
+        heading
+      )}
+      {renderContent(section)}
+    </section>
   );
 }

@@ -56,7 +56,7 @@ function ordinal(value: number): string {
  * Formatting server-side keeps Intl off the client and removes any chance of a
  * locale-driven hydration mismatch, matching getAllRuns in @/lib/runs.
  *
- * Returns an empty array on failure, mirroring getSiteContent()'s per-source
+ * Returns an empty array on failure, mirroring the site-content loaders' per-source
  * degradation: a database problem hides the cards rather than breaking the page.
  */
 export async function getRaces(): Promise<RaceCard[]> {

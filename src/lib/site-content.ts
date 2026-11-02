@@ -1,5 +1,4 @@
 import { prisma } from "@/lib/prisma";
-import { DEFAULT_SECTIONS, type DefaultSection } from "@/constants/site";
 import { readingTimeMinutes } from "@/lib/reading-time";
 
 export type ListPost = {
@@ -21,35 +20,14 @@ export type Project = {
   year: number;
 };
 
-export type SiteContent = {
-  posts: ListPost[];
-  projects: Project[];
-  aboutParagraphs: string[];
-  contactLinks: string[];
-  running: string;
-  sections: DefaultSection[];
-};
-
 /**
- * Loads every piece of content the landing page renders.
+ * One loader per section, since each section is now its own route and loads
+ * only what it renders.
  *
- * Both `/` and `/[slug]` render the same HomeClient with identical props —
- * the active section is derived client-side from the pathname — so they
- * share this loader rather than keeping two copies of it in sync.
- *
- * Each section is fetched independently and failures are swallowed so that
- * one unavailable table degrades a single section instead of the whole page.
+ * Failures are logged and swallowed: an unavailable table renders that page's
+ * empty state rather than an error page.
  */
-export async function getSiteContent(): Promise<SiteContent> {
-  const content: SiteContent = {
-    posts: [],
-    projects: [],
-    aboutParagraphs: [],
-    contactLinks: [],
-    running: "",
-    sections: [...DEFAULT_SECTIONS],
-  };
-
+export async function getPosts(): Promise<ListPost[]> {
   try {
     const fetchedPosts = await prisma.post.findMany({
       where: { published: true },
@@ -68,7 +46,7 @@ export async function getSiteContent(): Promise<SiteContent> {
     // size the post and then dropped — the list shows the estimate, and
     // shipping every post body to the client to recompute it would dwarf the
     // rest of the page payload.
-    content.posts = fetchedPosts.map(({ content: body, ...post }) => ({
+    return fetchedPosts.map(({ content: body, ...post }) => ({
       ...post,
       createdAt: post.createdAt.toISOString(),
       updatedAt: post.updatedAt.toISOString(),
@@ -76,10 +54,13 @@ export async function getSiteContent(): Promise<SiteContent> {
     }));
   } catch (error) {
     console.error("Failed to load posts:", error);
+    return [];
   }
+}
 
+export async function getProjects(): Promise<Project[]> {
   try {
-    content.projects = await prisma.project.findMany({
+    return await prisma.project.findMany({
       orderBy: { order: "asc" },
       select: {
         id: true,
@@ -92,28 +73,36 @@ export async function getSiteContent(): Promise<SiteContent> {
     });
   } catch (error) {
     console.error("Failed to load projects:", error);
+    return [];
   }
+}
 
+export async function getAbout(): Promise<{
+  aboutParagraphs: string[];
+  contactLinks: string[];
+}> {
   try {
     const aboutContent = await prisma.aboutContent.findFirst();
     if (aboutContent) {
-      content.aboutParagraphs = JSON.parse(aboutContent.content);
-      if (aboutContent.contactLinks) {
-        content.contactLinks = JSON.parse(aboutContent.contactLinks);
-      }
+      return {
+        aboutParagraphs: JSON.parse(aboutContent.content),
+        contactLinks: aboutContent.contactLinks
+          ? JSON.parse(aboutContent.contactLinks)
+          : [],
+      };
     }
   } catch (error) {
     console.error("Failed to load about content:", error);
   }
+  return { aboutParagraphs: [], contactLinks: [] };
+}
 
+export async function getRunningBlurb(): Promise<string> {
   try {
     const runningContent = await prisma.runningContent.findFirst();
-    if (runningContent && runningContent.content) {
-      content.running = runningContent.content;
-    }
+    return runningContent?.content ?? "";
   } catch (error) {
     console.error("Failed to load running:", error);
+    return "";
   }
-
-  return content;
 }

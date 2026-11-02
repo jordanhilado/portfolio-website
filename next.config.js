@@ -24,22 +24,20 @@ const nextConfig = {
     ],
   },
 
-  // Every section now lives on the landing page as an anchored block, so the
-  // old per-section routes are gone and survive only as redirects into the
-  // matching anchor. Slugs are duplicated from DEFAULT_SECTIONS in
-  // src/constants/site.ts because this file cannot import TypeScript — adding
-  // a section there means adding its redirect here.
+  // Each section is its own route, with About at `/`. /about and the
+  // pre-rename /blogs and /hobbies (now Thoughts and Running) redirect to
+  // their current homes.
   //
-  // /blogs and /hobbies are the pre-rename names of Thoughts and Running.
+  // Not permanent: these routes have changed shape before, and a cached 308
+  // in someone's browser outlives the next change. The old /#section
+  // redirects browsers may still have cached are sent back to their routes
+  // by LayoutWrapper.
   async redirects() {
     return [
-      { source: '/about', destination: '/#about', permanent: true },
-      { source: '/projects', destination: '/#projects', permanent: true },
-      { source: '/thoughts', destination: '/#thoughts', permanent: true },
-      { source: '/running', destination: '/#running', permanent: true },
-      { source: '/blogs', destination: '/#thoughts', permanent: true },
+      { source: '/about', destination: '/', permanent: false },
+      { source: '/blogs', destination: '/thoughts', permanent: false },
       { source: '/blogs/:slug', destination: '/thoughts/:slug', permanent: true },
-      { source: '/hobbies', destination: '/#running', permanent: true },
+      { source: '/hobbies', destination: '/running', permanent: false },
     ];
   },
 

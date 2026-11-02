@@ -65,6 +65,17 @@ const config = {
           foreground: "var(--card-foreground)",
         },
       },
+      // The live-mileage dot: holds, fades, holds, rather than pulse's
+      // constant drift, so it reads as a blink.
+      keyframes: {
+        blink: {
+          "0%, 40%, 100%": { opacity: "1" },
+          "60%, 80%": { opacity: "0.2" },
+        },
+      },
+      animation: {
+        blink: "blink 1.6s ease-in-out infinite",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",

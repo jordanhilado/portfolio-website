@@ -1,8 +1,8 @@
 /**
- * The lifetime mileage line in the Running blurb.
+ * The lifetime mileage figures in the Running blurb and the About text.
  *
- * The blurb is authored in the admin dashboard and stored as markdown, so the
- * two numbers live in it as placeholders that this module fills in at render
+ * Both are authored in the admin dashboard and stored as text, so the two
+ * numbers live in them as placeholders that this module fills in at render
  * time. Keeping them out of the stored text means the sentence is never stale
  * and the author never has to edit a number after a run.
  *
@@ -11,6 +11,24 @@
  */
 
 import { STRAVA_PROFILE_URL } from "@/constants/site";
+
+/**
+ * Appended to the miles link's URL so the renderers can tell it apart from the
+ * runs link, which points at the same profile, and draw the live dot beside
+ * it. A fragment because both renderers only see a link's text and URL; they
+ * strip it again before the link reaches the page.
+ */
+const LIVE_MILES_MARK = "#live-miles";
+
+/** Whether a rendered link is the live miles total. */
+export function isLiveMilesHref(href: string | undefined): boolean {
+  return !!href && href.endsWith(LIVE_MILES_MARK);
+}
+
+/** A link's real destination, without the live-miles mark. */
+export function liveMilesHrefTarget(href: string): string {
+  return href.slice(0, -LIVE_MILES_MARK.length);
+}
 
 /** Written verbatim in the stored markdown. */
 export const TOTAL_MILES_PLACEHOLDER = "<total_miles>";
@@ -89,11 +107,12 @@ export function applyRunningTotals(
   markdown: string,
   totals: RunningTotals | null
 ): string {
-  const link = (value: string) => `[${value}](${STRAVA_PROFILE_URL})`;
+  const link = (value: string, mark = "") =>
+    `[${value}](${STRAVA_PROFILE_URL}${mark})`;
 
   return markdown
     .split(TOTAL_MILES_PLACEHOLDER)
-    .join(totals ? link(totals.miles) : "—")
+    .join(totals ? link(totals.miles, LIVE_MILES_MARK) : "—")
     .split(TOTAL_RUNS_PLACEHOLDER)
     .join(totals ? link(totals.runs) : "—");
 }

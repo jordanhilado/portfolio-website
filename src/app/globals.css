@@ -124,7 +124,7 @@
     /* Always show scrollbar gutter to prevent layout shifts */
     overflow-y: scroll;
     scrollbar-gutter: stable;
-    /* Smooth scrolling for the section anchors in the sidebar nav */
+    /* Smooth scrolling for in-page anchors, such as a post's table of contents */
     scroll-behavior: smooth;
   }
   @media (prefers-reduced-motion: reduce) {
