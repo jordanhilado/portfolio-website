@@ -6,10 +6,8 @@ import { revalidateContent } from "@/lib/revalidate";
 import { INVALID_YEAR, parseProjectYear } from "@/lib/projects";
 
 // PUT /api/projects/[id] - Update a project (admin only)
-export async function PUT(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
+export async function PUT(request: Request, props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   try {
     // Check authentication
     const session = await getServerSession(authOptions);
@@ -59,10 +57,8 @@ export async function PUT(
 }
 
 // DELETE /api/projects/[id] - Delete a project (admin only)
-export async function DELETE(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
+export async function DELETE(request: Request, props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   try {
     // Check authentication
     const session = await getServerSession(authOptions);

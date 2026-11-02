@@ -58,8 +58,9 @@ function titleSize(title: string): number {
  * hero photo, then the title in the accent colour and display face, then the
  * date and reading time — so a shared link looks like the page it opens.
  */
-export default async function Image({ params }: { params: { slug: string } }) {
-  const post = await getPublishedPost(params.slug);
+export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const post = await getPublishedPost(slug);
 
   if (!post) {
     notFound();
@@ -90,7 +91,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
         }}
       >
         {/* The hero, as it sits above every post, cropped to a band. */}
-        {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
+        {/* eslint-disable-next-line jsx-a11y/alt-text */}
         <img
           src={photoSrc}
           width={size.width - PADDING_X * 2}

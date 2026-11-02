@@ -15,7 +15,8 @@ const UpdatePostSchema = z.object({
   createdAt: z.iso.date().optional(),
 });
 
-export async function GET(_: Request, { params }: { params: { id: string } }) {
+export async function GET(_: Request, props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   try {
     const post = await prisma.post.findUnique({
       where: { id: params.id },
@@ -46,7 +47,8 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
   }
 }
 
-export async function PATCH(request: Request, { params }: { params: { id: string } }) {
+export async function PATCH(request: Request, props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   try {
     const session = await getServerSession(authOptions);
     const adminEmail = (process.env.ADMIN_EMAIL ?? "").toLowerCase().trim();
@@ -114,7 +116,8 @@ export async function PATCH(request: Request, { params }: { params: { id: string
   }
 }
 
-export async function DELETE(_: Request, { params }: { params: { id: string } }) {
+export async function DELETE(_: Request, props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   try {
     const session = await getServerSession(authOptions);
     const adminEmail = (process.env.ADMIN_EMAIL ?? "").toLowerCase().trim();

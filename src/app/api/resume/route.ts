@@ -2,6 +2,10 @@ import { NextResponse } from "next/server";
 import { readFile } from "fs/promises";
 import path from "path";
 
+// Built once and served from the CDN. GET handlers stopped being static by
+// default in Next 15, and the PDF only changes with a deploy.
+export const dynamic = "force-static";
+
 export async function GET() {
   try {
     const filePath = path.join(

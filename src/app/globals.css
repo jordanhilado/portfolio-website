@@ -173,3 +173,67 @@
 .dark .post-end-marker {
   background-color: rgb(56 189 248); /* sky-400 */
 }
+
+/* Diagrams in posts, drawn by Pele from ```mermaid blocks (see
+   MermaidDiagram.tsx). Pele colors everything through --pele-* variables,
+   set here per site theme rather than per OS theme. Statechart marks:
+   `mayBreak` and `breaks` color a state that can break a rule, `bugPath`
+   outlines the states on the shortest path to that break. A `classDef` in the
+   Mermaid source becomes an inline style on the node, so the marks need
+   !important to win in dark mode. */
+.post-diagram .pele {
+  --pele-bg: transparent;
+  --pele-fg: rgb(23 23 23);
+  --pele-muted: rgb(115 115 115);
+  --pele-line: rgb(163 163 163);
+  --pele-surface: rgb(243 243 243);
+  --pele-surface-alt: rgb(235 235 235);
+  --pele-border: rgb(212 212 212);
+  --pele-radius: 6px;
+}
+.post-diagram .pele .mayBreak rect {
+  fill: #fff3e6 !important;
+  stroke: #e8730c !important;
+  stroke-width: 2px !important;
+}
+.post-diagram .pele .mayBreak text {
+  fill: #b85a06 !important;
+}
+.post-diagram .pele .breaks rect {
+  fill: #ffecee !important;
+  stroke: #e72e3b !important;
+  stroke-width: 2px !important;
+}
+.post-diagram .pele .breaks text {
+  fill: #cd2834 !important;
+}
+.post-diagram .pele .bugPath rect {
+  stroke: rgb(2 132 199) !important; /* sky-600 */
+  stroke-width: 2px !important;
+}
+
+.dark .post-diagram .pele {
+  --pele-fg: rgb(245 245 245);
+  --pele-muted: rgb(163 163 163);
+  --pele-line: rgb(115 115 115);
+  --pele-surface: rgb(23 23 23);
+  --pele-surface-alt: rgb(38 38 38);
+  --pele-border: rgb(64 64 64);
+}
+.dark .post-diagram .pele .mayBreak rect {
+  fill: #2e2619 !important;
+  stroke: #d0700f !important;
+}
+.dark .post-diagram .pele .mayBreak text {
+  fill: #ffa257 !important;
+}
+.dark .post-diagram .pele .breaks rect {
+  fill: #2e2021 !important;
+  stroke: #cf2b35 !important;
+}
+.dark .post-diagram .pele .breaks text {
+  fill: #ff6463 !important;
+}
+.dark .post-diagram .pele .bugPath rect {
+  stroke: rgb(56 189 248) !important; /* sky-400 */
+}

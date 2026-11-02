@@ -78,9 +78,8 @@ model Race {
 /// A Strava activity mirrored locally. `polyline` is the raw encoded
 /// summary_polyline (source of truth); `pathD` is the derived SVG path,
 /// normalized into a 100x100 viewBox, cached so rendering does no work.
-/// stravaId is a String, not BigInt: tsconfig targets es5, which bans
-/// BigInt literals, and BigInt also breaks NextResponse.json() and RSC
-/// serialization.
+/// stravaId is a String, not BigInt: BigInt breaks NextResponse.json() and
+/// RSC serialization.
 model StravaRun {
   id             String   @id @default(cuid())
   stravaId       String   @unique

@@ -12,7 +12,7 @@ export const maxDuration = 60;
  * Authorized either by the Vercel Cron shared secret or by an admin session.
  *
  * Vercel attaches `Authorization: Bearer $CRON_SECRET` to cron invocations
- * when CRON_SECRET is set as a project env var. middleware.ts only matches
+ * when CRON_SECRET is set as a project env var. proxy.ts only matches
  * /admin/:path*, so it does not gate this route.
  */
 async function isSyncAuthorized(request: Request): Promise<boolean> {

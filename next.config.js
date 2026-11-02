@@ -1,11 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Optimize for production
-  swcMinify: true,
-
-  // Enable static optimization where possible
-  experimental: {
-    optimizePackageImports: ['lucide-react'],
+  // Pins the project root. Left to itself Next guesses it from the nearest
+  // lockfile walking upward, and a stray one in a parent folder (e.g. the
+  // home directory) makes it warn on every build.
+  turbopack: {
+    root: __dirname,
   },
 
   // Race photos (Race.imageUrl) live in the public `race-photos` bucket in

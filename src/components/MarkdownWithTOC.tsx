@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
@@ -13,22 +13,27 @@ import {
   oneLight,
 } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { useTheme } from "next-themes";
+import { MermaidDiagram } from "@/components/MermaidDiagram";
 
 type Heading = { id: string; text: string; level: number };
+
+const noopSubscribe = () => () => {};
 
 export function MarkdownWithTOC({ content }: { content: string }) {
   const [headings, setHeadings] = useState<Heading[]>([]);
   const { theme, systemTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  // False on the server and during hydration, true after: the highlighter's
+  // theme depends on the client-only resolved theme.
+  const mounted = useSyncExternalStore(
+    noopSubscribe,
+    () => true,
+    () => false
+  );
 
   // Append the end-of-post mark inline with the last line. The non-breaking
   // space keeps it from wrapping onto a line of its own.
   const contentWithMarker =
     content.trim() + '&nbsp;<span class="post-end-marker" aria-hidden="true"></span>';
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     const nodes = Array.from(
@@ -41,6 +46,9 @@ export function MarkdownWithTOC({ content }: { content: string }) {
       text: n.textContent || "",
       level: parseInt(n.tagName.substring(1), 10),
     }));
+    // Reads the rendered DOM, an external system, so this is a legitimate
+    // sync from outside React rather than derived state.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setHeadings(hs);
   }, [contentWithMarker]);
 
@@ -162,6 +170,10 @@ export function MarkdownWithTOC({ content }: { content: string }) {
             {children}
           </code>
         );
+      }
+
+      if (language === "mermaid") {
+        return <MermaidDiagram source={String(children).replace(/\n$/, "")} />;
       }
 
       // Don't render until mounted to prevent hydration mismatch

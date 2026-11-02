@@ -25,11 +25,12 @@ export async function generateStaticParams() {
  * itself comes from opengraph-image.tsx beside this file, which Next adds to
  * the openGraph and twitter tags on its own.
  */
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
+export async function generateMetadata(
+  props: {
+    params: Promise<{ slug: string }>;
+  }
+): Promise<Metadata> {
+  const params = await props.params;
   const post = await getPublishedPost(params.slug);
 
   if (!post) {
@@ -58,11 +59,12 @@ export async function generateMetadata({
   };
 }
 
-export default async function ThoughtPostPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export default async function ThoughtPostPage(
+  props: {
+    params: Promise<{ slug: string }>;
+  }
+) {
+  const params = await props.params;
   const post = await getPublishedPost(params.slug);
 
   if (!post) {
