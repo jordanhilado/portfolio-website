@@ -7,16 +7,20 @@
 \geometry{letterpaper, margin=0.35in}
 \usepackage{titlesec}
 \usepackage{enumitem}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
+
+% Left-aligned text, no automatic hyphenation
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
 
 \setlist[itemize]{itemsep=1pt, topsep=2pt, parsep=0pt, partopsep=0pt, leftmargin=*}
 \titleformat{\section}{\normalsize\bfseries}{\thesection}{1em}{}[\titlerule]
 \titlespacing*{\section}{0pt}{0.85\baselineskip}{0.6\baselineskip}
-\renewcommand{\baselinestretch}{1.03}
+\renewcommand{\baselinestretch}{1.065}
 
 \begin{document}
 \normalsize
-
+\raggedright
 \pagestyle{empty}
 
 \begin{center}
@@ -28,61 +32,66 @@
 
 \noindent
 \textbf{Microsoft Azure, Cloud + AI} \hfill San Francisco, CA \\
-\textit{Software Engineer (Backend, Distributed Systems, Cloud Infrastructure)} \hfill Jun 2024 --- Present
+\textit{Software Engineer -- Backend, Distributed Systems} \hfill Jun 2024 --- Present
 \begin{itemize}
-    \item Scaled Azure Resource Graph's \textbf{8B+ events/day} ingestion pipeline, moving 20+ scale units to Premium Azure Event Hubs and growing one path from 9 to 17 endpoints/region in 5 regions via consumer-first rollouts, \textbf{cutting SLA breaches 40\%}
-    \item Extended a \textbf{cross-team C\#/.NET ingestion contract} to accept Apache Spark NDJSON batches via async streaming deserialization without changing the legacy path, and enforced \textbf{partition-aligned batching} to reject cross-shard writes
-    \item Sized capacity for a projected \textbf{300M extra events/day} by modeling \textbf{5.8K/sec bursts} against \mbox{95--99\%} regional CPU \mbox{saturation}, then scaled the bottlenecked Service Fabric clusters up to 29\% and reconciled config drift with production
-    \item Hardened ingestion against \textbf{replay collisions and poison messages} by replacing a 9,000-value blob-naming scheme with GUID-based identity and isolating malformed Event Hub messages to prevent \textbf{head-of-line blocking}
-    \item Built \textbf{C\# operator APIs} (Swagger/OpenAPI) for 2 services to inspect and update Event Hub writer access, letting on-call engineers drain a degraded hub through a validated control plane instead of hand-editing config
-    \item Built a capacity-review dashboard (C\# Azure Functions, React/TypeScript), then \textbf{removed its backend and auth} by rebuilding it as a static app that parses Bicep config into topology, VMSS capacity, and production-drift views
-    \item Implemented \textbf{EU Data Boundary} notification routing for Azure Resource Notifications subscribers in 2 staged cohorts, made Global boundary behavior explicit after an incident, and identified \textbf{287 redundant Event Grid subscriptions}
-    \item As on-call engineer for \textbf{Fortune 500 and government customers}, debugged incidents with Kusto (KQL), ETW traces, and PerfView, and built dashboards and an AI agent skill that map \textbf{956 of 962 Event Hub namespaces} to live telemetry
+    \item Led a horizontal scale out of Azure Resource Graph's ingestion pipeline to process \textbf{3.4x more traffic} and \textbf{25B events/day}, by adopting Premium Azure Event Hubs across \textbf{127 global clusters} with IaC (Azure Bicep/ARM) rollouts
+    \item Delivered compliant EU Data Boundary ingestion routing across \textbf{28 customers} making \textbf{130k requests/day} by introducing \textbf{geographic partitioning} and \textbf{regional data residency isolation}
+    \item Investigated and resolved over 117 customer-impacting incidents for government and F500 customers through \textbf{CPU/memory profiling} and \textbf{application-layer tracing} with KQL, ETW collection, PerfView and Azure Monitor
+    \item Addressed bursty traffic for 2 of the pipeline's core ingestion services in 23 fault-isolated clusters across 5 global regions by vertically scaling VM nodes through \textbf{CPU-threshold autoscaling} to \textbf{relieve consumer backpressure}
+    \item Eliminated read/write race conditions for \textbf{40M daily blob payloads} by decoupling diagnostic timestamps from naming creation and introducing GUID-based identifiers for \textbf{concurrency-safe uniqueness} in C\#/.NET
+    \item Onboarded Apache Spark NDJSON batch processing to production with zero downtime by extending the ingestion contract with \textbf{async streaming deserialization} and \textbf{partition-aligned batching} for optimized downstream indexing
+    \item Reduced infrastructure capacity review time for dozens of engineers from days to minutes by developing an infrastructure visualizer in React and TypeScript which parses \textbf{15k resources} across \textbf{177 IaC files} in real-time
 \end{itemize}
 
 \noindent
 \textbf{Walt Disney Animation Studios} \hfill Burbank, CA \\
-\textit{Software Engineer Intern (Full-Stack, Data Engineering)} \hfill May 2023 --- Aug 2023
+\textit{Software Engineer Intern -- Full-Stack, Data Engineering} \hfill May 2023 --- Aug 2023
 \begin{itemize}
-    \item Built and shipped an internal platform on React, FastAPI, and the Autodesk ShotGrid REST API that \textbf{100+ production managers} use to manage animated clip metadata, now powering \textbf{every Disney Animation film production since 2024}
-    \item Automated ingestion of \textbf{terabytes of cross-department production data} with Python, Apache Airflow, AWS, and Snowflake, adding monitoring and backfill-safe reruns to protect data integrity
+    \item Built an \textbf{animation clip metadata application} adopted by over \textbf{85 production managers} and used on \textbf{every Disney Animation film production since 2024} with React, TypeScript, FastAPI, GraphQL and the Autodesk ShotGrid API
+    \item Automated ingestion of \textbf{terabytes of cross-department production data} into \textbf{Snowflake} for \textbf{internal analytics and reporting}, by building pipelines with Python, Apache Airflow and AWS SDK
 \end{itemize}
 
 \noindent
-\textit{Software Engineer Intern (Full-Stack, Data Engineering)} \hfill May 2022 --- Aug 2022
+\textit{Software Engineer Intern -- Full-Stack, Data Engineering} \hfill May 2022 --- Aug 2022
 \begin{itemize}
-    \item Shipped \textbf{12 features and hotfixes} across internal production and employee-management tools (React, Django, GraphQL), covered them with Cypress tests, and migrated core services from JavaScript to TypeScript
-    \item Built Python and Apache Airflow pipelines that sync employee profile metadata across internal systems via REST APIs, MySQL, and Ruby on Rails, \textbf{keeping employee records consistent} between them
+    \item Shipped \textbf{12 features, hotfixes and JavaScript to TypeScript refactors} to \textbf{internal film production software} and \textbf{employee management tools} with React, Django, GraphQL and Document Object Model (DOM) testing
+    \item \textbf{Kept employee records consistent} across internal systems through \textbf{automated profile-metadata syncs} by building Python and Apache Airflow pipelines over REST APIs, MySQL, and Ruby on Rails
+\end{itemize}
+
+\section*{PROJECTS AND PUBLICATIONS}
+\noindent
+\textbf{Runlab}
+(\textit{App Store:} \url{https://apps.apple.com/us/app/runlab-ai/id6760689466}) \hfill 2026
+\begin{itemize}
+    \item Built and shipped an \textbf{AI running coach iOS app} to the \textbf{App Store} that reasons over \textbf{on-device Apple Health data} and a \textbf{persistent coach memory}, using SwiftUI, SwiftData, HealthKit, the Claude API, Cloudflare Workers, and Supabase
+\end{itemize}
+
+\noindent
+\textbf{Heaptree}
+(\textit{Project:} \url{https://pypi.org/project/htsdk/}) \hfill 2025
+\begin{itemize}
+    \item Built a \textbf{Python SDK and API} for \textbf{isolated, ephemeral code execution} that provisions \textbf{headless Linux VMs} with \textbf{one line of code}, using React, Next.js, TypeScript, Python, and AWS (EC2, DynamoDB, Lambda)
+\end{itemize}
+
+\noindent
+\textbf{Comparative Study of Text-to-Image Models: A Focus on Subject-Specific Training for Improved Generation}
+(\textit{Publication:} \url{https://scholarworks.calstate.edu/concern/projects/pz50h376p}) \hfill 2023
+\begin{itemize}
+    \item \textbf{Improved subject fidelity} in \textbf{text-to-image generation}, measured through a \textbf{comparative evaluation} of performance trade-offs, by applying \textbf{subject-specific fine-tuning (LoRA)} to \textbf{Stable Diffusion 1.1}
 \end{itemize}
 
 \section*{TECHNICAL SKILLS}
 \begin{itemize}
-    \item \textbf{Languages:} Python, C\#, JavaScript/TypeScript, HTML/CSS, SQL, GraphQL, PowerShell
-    \item \textbf{Frameworks:} React, .NET, FastAPI, Express, Next.js, Django, Flask, Ruby on Rails
-    \item \textbf{Data \& Storage:} PostgreSQL, DynamoDB, Cosmos DB, Redis, MySQL, MongoDB, Firebase, SQLite, Supabase
-    \item \textbf{Software \& Tools:} Azure, AWS, GCP, Git, Node.js, CI/CD (GitHub Actions/Azure DevOps), Infrastructure as Code (Terraform), Microservices, Event Streaming, Observability, Performance Profiling, Postman
+    \item \textbf{Languages:} Python, C\#, TypeScript/JavaScript, KQL, SQL, PowerShell, GraphQL
+    \item \textbf{Cloud \& Infrastructure:} Azure (VM Scale Sets, Blob Storage, Event Hubs, Service Fabric, Monitor, DevOps), AWS (EC2, S3, Lambda), Cloudflare (Workers, D1, R2), Infrastructure as Code, Vercel, GitHub Actions, ETW Tracing, PerfView
+    \item \textbf{Data \& Storage:} PostgreSQL, Cosmos DB, DynamoDB, MySQL, Redis, Snowflake, Apache Airflow
+    \item \textbf{Frameworks:} .NET, ASP.NET Core, React, REST APIs, Next.js, FastAPI, TanStack, Django, Express
 \end{itemize}
 
 \section*{EDUCATION}
 
 \noindent
 \textbf{California State University, Long Beach} \hfill Long Beach, CA\\
-B.S. Computer Science \hfill Aug 2020 --- Dec 2023\\
-\textit{Affiliations:} Associated Engineering Student Body, Association for Computing Machinery, BeachHacks Organizing Committee, Computer Engineering/Science Student Advisory Board, ICPC Programming Team, The Aerospace Corporation's Dean's Leadership Academy, Engineering Honors Program, Google Developer Student Club, STEM Advantage Scholarship
-
-\section*{PROJECTS AND PUBLICATIONS}
-\noindent
-\textbf{Heaptree}
-(\textit{Website:} \url{https://heaptree.com/}) \hfill Jan 2025 --- Dec 2025
-\begin{itemize}
-    \item Built a developer platform (web + SDK) for \textbf{one-line headless VM provisioning} for isolated, ephemeral code execution and testing, using React/Next.js, TypeScript, Python, and AWS (EC2, DynamoDB, Lambda)
-\end{itemize}
-
-\noindent
-\textbf{Comparative Study of Text-to-Image Models: A Focus on Subject-Specific Training for Improved Generation}
-(\textit{Publication:} \url{https://scholarworks.calstate.edu/concern/projects/pz50h376p}) \hfill Jan 2023 --- Dec 2023
-\begin{itemize}
-    \item Investigated \textbf{subject-specific fine-tuning} for text-to-image generation (Stable Diffusion 1.1 + LoRA), emphasizing evaluation methodology and comparative performance trade-offs for improved subject fidelity
-\end{itemize}
+B.S. Computer Science (GPA: 3.8/4.0) \hfill Aug 2020 --- Dec 2023
 
 \end{document}

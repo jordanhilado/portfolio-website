@@ -41,3 +41,18 @@ pnpm backfill:strava [year]     # mirror old Strava runs
 pnpm prisma migrate deploy      # apply migrations (not run on deploy)
 pnpm prisma studio              # browse the database
 ```
+
+## Resume
+
+LaTeX source and compiled PDF live in `src/assets/resume/`. Needs a TeX
+install with `latexmk` and `pdflatex` (MacTeX on macOS). Only the `.tex` and
+`.pdf` are committed; aux files are gitignored.
+
+```bash
+cd src/assets/resume
+latexmk -pdf Jordan_Ali_Hilado_2026.tex         # build the PDF
+latexmk -pdf -pvc Jordan_Ali_Hilado_2026.tex    # rebuild on every save
+latexmk -c                                      # remove aux files, keep PDF
+latexmk -C                                      # remove aux files and PDF
+latexmk -C && latexmk -pdf Jordan_Ali_Hilado_2026.tex   # clean rebuild
+```
