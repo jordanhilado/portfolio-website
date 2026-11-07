@@ -47,6 +47,14 @@ model RunningContent {
   updatedAt DateTime @updatedAt
 }
 
+/// Markdown for the Taste page: the music, art, people and work Jordan loves.
+/// A singleton, edited as one block in the admin dashboard.
+model TasteContent {
+  id        String   @id @default(cuid())
+  content   String // markdown content
+  updatedAt DateTime @updatedAt
+}
+
 /// A finished race, shown as a card above the run grid.
 ///
 /// Unlike StravaRun, which is synced from the API and therefore metric, these

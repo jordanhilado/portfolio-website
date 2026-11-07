@@ -53,13 +53,14 @@ type ContactLink = {
   url: string;
 };
 
-type Tab = "posts" | "about" | "projects" | "running";
+type Tab = "posts" | "about" | "projects" | "running" | "taste";
 
 interface AdminDashboardClientProps {
   posts: AdminListPost[];
   projects: Project[];
   aboutContent: AboutContent;
   runningContent: string;
+  tasteContent: string;
 }
 
 function parseContactLink(md: string): ContactLink {
@@ -106,6 +107,7 @@ export default function AdminDashboardClient({
   projects: initialProjects,
   aboutContent: initialAboutContent,
   runningContent: initialRunningContent,
+  tasteContent: initialTasteContent,
 }: AdminDashboardClientProps) {
   const { theme: savedTheme, setTheme } = useTheme();
   // Undefined until hydrated, which draws the neutral "system" icon the
@@ -165,6 +167,33 @@ export default function AdminDashboardClient({
   const [runningSaveMessage, setRunningSaveMessage] = useState("");
   const [isSyncingStrava, setIsSyncingStrava] = useState(false);
   const [stravaSyncMessage, setStravaSyncMessage] = useState("");
+
+  // Taste state
+  const [tasteText, setTasteText] = useState(initialTasteContent);
+  const [isSavingTaste, setIsSavingTaste] = useState(false);
+  const [tasteSaveMessage, setTasteSaveMessage] = useState("");
+
+  const handleSaveTaste = async () => {
+    setIsSavingTaste(true);
+    setTasteSaveMessage("");
+
+    try {
+      const response = await fetch("/api/taste", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content: tasteText }),
+      });
+
+      if (!response.ok) throw new Error("Failed to save");
+
+      setTasteSaveMessage("Saved successfully!");
+      setTimeout(() => setTasteSaveMessage(""), 3000);
+    } catch {
+      setTasteSaveMessage("Error saving content");
+    } finally {
+      setIsSavingTaste(false);
+    }
+  };
 
   // Handle Running content save
   const handleSaveRunning = async () => {
@@ -438,6 +467,7 @@ export default function AdminDashboardClient({
     { key: "projects", label: "Projects" },
     { key: "posts", label: "Thoughts" },
     { key: "running", label: "Running" },
+    { key: "taste", label: "Taste" },
   ];
 
   return (
@@ -733,6 +763,39 @@ export default function AdminDashboardClient({
                 className="px-3 py-1.5 rounded-lg bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900 text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
               >
                 {isSavingRunning ? "Saving..." : "Save"}
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Taste Tab */}
+        {activeTab === "taste" && (
+          <div>
+            <AdminMarkdownEditor
+              value={tasteText}
+              onChange={setTasteText}
+              minHeight="400px"
+              showHint={false}
+            />
+
+            <div className="mt-6 flex flex-wrap gap-2 items-center justify-end">
+              {tasteSaveMessage && (
+                <span
+                  className={`text-sm ${
+                    tasteSaveMessage.includes("Error")
+                      ? "text-red-600"
+                      : "text-green-600 dark:text-green-400"
+                  }`}
+                >
+                  {tasteSaveMessage}
+                </span>
+              )}
+              <button
+                onClick={handleSaveTaste}
+                disabled={isSavingTaste}
+                className="px-3 py-1.5 rounded-lg bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900 text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
+              >
+                {isSavingTaste ? "Saving..." : "Save"}
               </button>
             </div>
           </div>

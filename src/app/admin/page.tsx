@@ -83,6 +83,15 @@ export default async function AdminDashboard() {
     console.error("Error fetching running:", error);
   }
 
+  // Fetch taste content
+  let tasteContent = "";
+  try {
+    const taste = await prisma.tasteContent.findFirst();
+    if (taste) tasteContent = taste.content;
+  } catch (error) {
+    console.error("Error fetching taste:", error);
+  }
+
   // Convert dates to strings for client component
   const postsData = posts.map((post) => ({
     ...post,
@@ -111,6 +120,7 @@ export default async function AdminDashboard() {
       projects={projectsData}
       aboutContent={aboutData}
       runningContent={runningContent}
+      tasteContent={tasteContent}
     />
   );
 }

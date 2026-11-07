@@ -55,6 +55,7 @@ const SECTION_MORSE: Partial<Record<Section, string>> = {
   Projects: ".--. .-. --- .--- . -.-. - ...",
   Thoughts: "- .... --- ..- --. .... - ...",
   Running: ".-. ..- -. -. .. -. --.",
+  Taste: "- .- ... - .",
 };
 
 /**
@@ -150,6 +151,30 @@ function RunningLink({
   );
 }
 
+/**
+ * Anchor treatment for the Taste list. Everything it links to is off-site — an
+ * album, a painting, someone's homepage — so links open in a new tab, with the
+ * same hover-only underline the Running blurb uses.
+ */
+function TasteLink({
+  href,
+  children,
+}: {
+  href?: string;
+  children?: React.ReactNode;
+}) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="rounded-sm no-underline transition-colors hover:underline hover:text-sky-700 dark:hover:text-sky-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 dark:focus-visible:ring-sky-400"
+    >
+      {children}
+    </a>
+  );
+}
+
 interface SectionViewProps {
   section: Section;
   posts?: ListPost[];
@@ -161,6 +186,8 @@ interface SectionViewProps {
   runs?: RunTile[];
   /** Null when Strava could not be reached for this render. */
   runningTotals?: RunningTotals | null;
+  /** Markdown for the Taste page. */
+  taste?: string;
 }
 
 /**
@@ -178,6 +205,7 @@ export default function SectionView({
   races = [],
   runs = [],
   runningTotals = null,
+  taste = "",
 }: SectionViewProps) {
   const renderContent = (section: Section) => {
     switch (section) {
@@ -326,6 +354,24 @@ export default function SectionView({
             <RaceCards races={races} />
             <RunGrid runs={runs} />
           </div>
+        );
+
+      case "Taste":
+        // Written as markdown in the admin dashboard: a `##` heading per
+        // category (Music, Paintings, Engineers, ...) with a list under each.
+        // Category headings take the display face the section headings use,
+        // and the lists stay tight so a long one still scans.
+        return taste ? (
+          <div className="prose dark:prose-invert prose-base max-w-none text-neutral-500 dark:text-neutral-400 prose-p:text-neutral-500 dark:prose-p:text-neutral-400 prose-p:leading-5 prose-li:text-neutral-500 dark:prose-li:text-neutral-400 prose-li:my-0.5 prose-li:leading-5 prose-ul:my-2 prose-ol:my-2 prose-headings:font-songmyung prose-headings:font-normal prose-headings:tracking-tight prose-headings:text-neutral-900 dark:prose-headings:text-neutral-100 prose-h2:text-lg prose-h2:mt-6 prose-h2:mb-2 [&>*:first-child]:mt-0 prose-h3:text-base prose-h3:mt-4 prose-h3:mb-1 prose-a:text-sky-600 dark:prose-a:text-sky-400 prose-strong:text-neutral-700 dark:prose-strong:text-neutral-300">
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={{ a: TasteLink }}
+            >
+              {taste}
+            </ReactMarkdown>
+          </div>
+        ) : (
+          <div className="text-neutral-500 dark:text-neutral-400">...</div>
         );
 
       default:

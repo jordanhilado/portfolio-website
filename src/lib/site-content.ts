@@ -106,3 +106,13 @@ export async function getRunningBlurb(): Promise<string> {
     return "";
   }
 }
+
+export async function getTaste(): Promise<string> {
+  try {
+    const taste = await prisma.tasteContent.findFirst();
+    return taste?.content ?? "";
+  } catch (error) {
+    console.error("Failed to load taste:", error);
+    return "";
+  }
+}

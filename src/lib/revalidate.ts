@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
  * About at `/`. Purging all of them on any write is a handful of cheap
  * re-renders and saves each handler from knowing which page it feeds.
  */
-const CONTENT_PATHS = ["/", "/projects", "/thoughts", "/running"];
+const CONTENT_PATHS = ["/", "/projects", "/thoughts", "/running", "/taste"];
 
 /**
  * Purges the cached section pages after a content write.

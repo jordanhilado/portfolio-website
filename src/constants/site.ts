@@ -3,6 +3,7 @@ export const DEFAULT_SECTIONS = [
   "Projects",
   "Thoughts",
   "Running",
+  "Taste",
 ] as const;
 
 export type DefaultSection = (typeof DEFAULT_SECTIONS)[number];
