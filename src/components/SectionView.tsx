@@ -72,7 +72,7 @@ const SECTION_HEADER_IMAGE: Partial<Record<Section, string>> = {
   Running:
     "https://snxrkwpgkkydsbizqsaz.supabase.co/storage/v1/object/public/race-photos/water.jpg",
   Taste:
-    "https://snxrkwpgkkydsbizqsaz.supabase.co/storage/v1/object/public/race-photos/tahoe-1.JPG",
+    "https://snxrkwpgkkydsbizqsaz.supabase.co/storage/v1/object/public/race-photos/missionbay.jpg",
 };
 
 /**
