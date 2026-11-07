@@ -3,8 +3,7 @@
 import { Fragment } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import { Markdown, MARKDOWN_LINK_CLASS } from "@/components/Markdown";
 import RaceCards from "@/components/RaceCards";
 import RunGrid from "@/components/RunGrid";
 import {
@@ -72,12 +71,21 @@ const SECTION_HEADER_IMAGE: Partial<Record<Section, string>> = {
     "https://snxrkwpgkkydsbizqsaz.supabase.co/storage/v1/object/public/race-photos/graffiti.jpg",
   Running:
     "https://snxrkwpgkkydsbizqsaz.supabase.co/storage/v1/object/public/race-photos/water.jpg",
+  Taste:
+    "https://snxrkwpgkkydsbizqsaz.supabase.co/storage/v1/object/public/race-photos/tahoe-1.JPG",
 };
 
 /**
  * Sizing hint for the header photo: the content column tops out at 545px, and
  * below md it is the full viewport minus the page's horizontal padding.
  */
+/**
+ * Drops the outer margins of a markdown block that sits inside a section, so
+ * its first heading lines up under the section heading and its last paragraph
+ * doesn't push the content below it further down.
+ */
+const MARKDOWN_TRIM = "[&>:first-child]:!mt-0 [&>:last-child]:!mb-0";
+
 const HEADER_IMAGE_SIZES = "(min-width: 768px) 545px, 100vw";
 
 function ThoughtsListClient({ posts }: { posts: ListPost[] }) {
@@ -117,18 +125,10 @@ function ThoughtsListClient({ posts }: { posts: ListPost[] }) {
 }
 
 /**
- * Anchor treatment for the Running blurb.
- *
- * Its links — the two mileage totals, plus anything the markdown itself
- * carries — all point off-site, so they open in a new tab the way the run
- * tiles and race cards below them do. The accent colour comes from the
- * wrapper's `prose-a`; this only adds the hover and focus states, which
- * typography styles do not supply.
- *
- * The underline typography puts on every link is deferred to hover: the two
- * mileage totals sit mid-sentence, and a permanent rule under them reads as
- * emphasis on the numbers rather than as the quiet accent the rest of the
- * page uses.
+ * Links in the Running blurb. They look like links in a post, but all lead
+ * off-site, so they open in a new tab like the run tiles and race cards.
+ * The two mileage totals sit mid-sentence, so they keep their underline for
+ * hover: a permanent rule under them reads as emphasis on the numbers.
  */
 function RunningLink({
   href,
@@ -143,33 +143,11 @@ function RunningLink({
       href={isLiveMiles && href ? liveMilesHrefTarget(href) : href}
       target="_blank"
       rel="noopener noreferrer"
-      className="rounded-sm no-underline transition-colors hover:underline hover:text-sky-700 dark:hover:text-sky-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 dark:focus-visible:ring-sky-400"
+      className={`${MARKDOWN_LINK_CLASS} ${
+        isLiveMiles ? "font-medium no-underline hover:underline" : ""
+      }`}
     >
       {isLiveMiles && <LiveDot />}
-      {children}
-    </a>
-  );
-}
-
-/**
- * Anchor treatment for the Taste list. Everything it links to is off-site — an
- * album, a painting, someone's homepage — so links open in a new tab, with the
- * same hover-only underline the Running blurb uses.
- */
-function TasteLink({
-  href,
-  children,
-}: {
-  href?: string;
-  children?: React.ReactNode;
-}) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="rounded-sm no-underline transition-colors hover:underline hover:text-sky-700 dark:hover:text-sky-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 dark:focus-visible:ring-sky-400"
-    >
       {children}
     </a>
   );
@@ -338,18 +316,15 @@ export default function SectionView({
         // on top of RunGrid's own top margin.
         return (
           <div>
-            <div className="prose dark:prose-invert prose-base max-w-none prose-p:text-neutral-500 dark:prose-p:text-neutral-400 prose-p:leading-5 prose-a:text-sky-600 dark:prose-a:text-sky-400">
-              {/* The stored blurb carries the lifetime mileage as placeholders;
-                  they become accent-coloured links to Strava here, so the
-                  numbers are never edited by hand. */}
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                components={{ a: RunningLink }}
-              >
-                {running ? applyRunningTotals(running, runningTotals) : "..."}
-              </ReactMarkdown>
-            </div>
-            {/* Both blocks sit outside the prose wrapper on purpose: typography
+            {/* The stored blurb carries the lifetime mileage as placeholders;
+                they become accent-coloured links to Strava here, so the
+                numbers are never edited by hand. */}
+            <Markdown
+              content={running ? applyRunningTotals(running, runningTotals) : "..."}
+              components={{ a: RunningLink }}
+              className={MARKDOWN_TRIM}
+            />
+            {/* Both blocks sit outside the markdown on purpose: typography
                 styles would restyle their anchors, images and svg margins. */}
             <RaceCards races={races} />
             <RunGrid runs={runs} />
@@ -357,19 +332,11 @@ export default function SectionView({
         );
 
       case "Taste":
-        // Written as markdown in the admin dashboard: a `##` heading per
-        // category (Music, Paintings, Engineers, ...) with a list under each.
-        // Category headings take the display face the section headings use,
-        // and the lists stay tight so a long one still scans.
+        // Written in the admin dashboard as a `##` heading per category
+        // (Music, Paintings, Engineers, ...) with a list under each. Every
+        // link leads off-site, so they all open in a new tab.
         return taste ? (
-          <div className="prose dark:prose-invert prose-base max-w-none text-neutral-500 dark:text-neutral-400 prose-p:text-neutral-500 dark:prose-p:text-neutral-400 prose-p:leading-5 prose-li:text-neutral-500 dark:prose-li:text-neutral-400 prose-li:my-0.5 prose-li:leading-5 prose-ul:my-2 prose-ol:my-2 prose-headings:font-songmyung prose-headings:font-normal prose-headings:tracking-tight prose-headings:text-neutral-900 dark:prose-headings:text-neutral-100 prose-h2:text-lg prose-h2:mt-6 prose-h2:mb-2 [&>*:first-child]:mt-0 prose-h3:text-base prose-h3:mt-4 prose-h3:mb-1 prose-a:text-sky-600 dark:prose-a:text-sky-400 prose-strong:text-neutral-700 dark:prose-strong:text-neutral-300">
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
-              components={{ a: TasteLink }}
-            >
-              {taste}
-            </ReactMarkdown>
-          </div>
+          <Markdown content={taste} externalLinks className={MARKDOWN_TRIM} />
         ) : (
           <div className="text-neutral-500 dark:text-neutral-400">...</div>
         );

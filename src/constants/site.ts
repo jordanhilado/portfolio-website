@@ -25,6 +25,11 @@ export const DEFAULT_HERO_ALT = "Zion National Park";
 
 export const SITE_NAME = "Jordan Hilado";
 
+/** What the browser tab reads: bare on About, `section · jordanhilado.com` elsewhere. */
+export const SITE_TITLE = "jordanhilado.com";
+
+export const pageTitle = (page: string): string => `${page} · ${SITE_TITLE}`;
+
 /**
  * The production origin, used as `metadataBase` so link previews get the
  * absolute og:image URLs iMessage and the rest require.

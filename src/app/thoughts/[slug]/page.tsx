@@ -6,7 +6,7 @@ import { formatPostDate } from "@/lib/date";
 import { getPublishedPost } from "@/lib/posts";
 import { postExcerpt } from "@/lib/post-excerpt";
 import { readingTimeMinutes } from "@/lib/reading-time";
-import { SITE_NAME } from "@/constants/site";
+import { SITE_NAME, pageTitle } from "@/constants/site";
 
 // Generate static params for all posts at build time
 export async function generateStaticParams() {
@@ -41,7 +41,7 @@ export async function generateMetadata(
   const description = postExcerpt(post.content) || undefined;
 
   return {
-    title: `${post.title} · ${SITE_NAME}`,
+    title: pageTitle(post.title),
     description,
     openGraph: {
       type: "article",

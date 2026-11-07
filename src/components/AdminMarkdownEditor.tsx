@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import { Markdown } from "@/components/Markdown";
 
 interface AdminMarkdownEditorProps {
   value: string;
@@ -59,11 +58,11 @@ export default function AdminMarkdownEditor({
         />
       ) : (
         <div
-          className="rounded-lg bg-neutral-50 dark:bg-neutral-900 p-4 overflow-y-auto prose dark:prose-invert prose-sm max-w-none"
+          className="rounded-lg bg-neutral-50 dark:bg-neutral-900 p-4 overflow-y-auto text-base/5 text-neutral-500 dark:text-neutral-400"
           style={{ minHeight }}
         >
           {value ? (
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{value}</ReactMarkdown>
+            <Markdown content={value} className="[&>:first-child]:!mt-0 [&>:last-child]:!mb-0" />
           ) : (
             <p className="text-neutral-400 dark:text-neutral-500 italic">
               Nothing to preview.

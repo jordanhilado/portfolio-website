@@ -7,7 +7,7 @@ import LayoutWrapper from "@/components/LayoutWrapper";
 import {
   DEFAULT_HERO_ALT,
   DEFAULT_SECTIONS,
-  SITE_NAME,
+  SITE_TITLE,
   SITE_URL,
 } from "@/constants/site";
 
@@ -33,7 +33,7 @@ const songMyung = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: SITE_NAME,
+  title: SITE_TITLE,
   description: "Jordan Hilado's personal website",
 };
 

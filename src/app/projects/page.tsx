@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import SectionView from "@/components/SectionView";
 import { getProjects } from "@/lib/site-content";
-import { SITE_NAME } from "@/constants/site";
+import { pageTitle } from "@/constants/site";
 
-export const metadata: Metadata = { title: `Projects · ${SITE_NAME}` };
+export const metadata: Metadata = { title: pageTitle("projects") };
 
 export default async function ProjectsPage() {
   const projects = await getProjects();

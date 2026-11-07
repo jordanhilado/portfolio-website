@@ -6,7 +6,7 @@ import { isAdminSession } from "@/lib/auth";
 import { ThoughtPostClient } from "@/components/ThoughtPostClient";
 import { formatPostDate } from "@/lib/date";
 import { readingTimeMinutes } from "@/lib/reading-time";
-import { SITE_NAME } from "@/constants/site";
+import { pageTitle } from "@/constants/site";
 
 /**
  * A post as the site will show it, drafts included, for the admin only.
@@ -18,7 +18,7 @@ import { SITE_NAME } from "@/constants/site";
  * Keyed by id rather than slug: the slug can change while a draft is edited.
  */
 export const metadata: Metadata = {
-  title: `Preview · ${SITE_NAME}`,
+  title: pageTitle("preview"),
   robots: { index: false, follow: false },
 };
 
