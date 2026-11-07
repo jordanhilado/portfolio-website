@@ -55,3 +55,6 @@ export const STRAVA_PROFILE_URL = `https://www.strava.com/athletes/${STRAVA_ATHL
 
 export const RESUME_URL = "/api/resume";
 
+/** The site's Google Analytics 4 property. */
+export const GA_MEASUREMENT_ID = "G-WGVKJ26WL1";
+

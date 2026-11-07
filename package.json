@@ -18,6 +18,7 @@
     "thought:pull": "tsx --env-file=.env scripts/thoughts.ts pull"
   },
   "dependencies": {
+    "@next/third-parties": "16.4.3",
     "@prisma/client": "^6.19.3",
     "@types/node": "24.19.2",
     "@types/react": "19.3.0",

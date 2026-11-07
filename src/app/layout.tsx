@@ -2,8 +2,8 @@ import "./globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/theme-provider";
-import Script from "next/script";
 import LayoutWrapper from "@/components/LayoutWrapper";
+import Analytics from "@/components/Analytics";
 import {
   DEFAULT_HERO_ALT,
   DEFAULT_SECTIONS,
@@ -49,20 +49,6 @@ export default async function RootLayout({
     // next-themes sets class and color-scheme on <html> before hydration, so
     // the server markup can never match; this silences only <html>'s own attributes.
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <Script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-WGVKJ26WL1"
-        ></Script>
-        <Script id="google-analytics">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-WGVKJ26WL1');
-          `}
-        </Script>
-      </head>
       <body
         className={`${sfPro.variable} ${sfMono.variable} ${songMyung.variable} font-sfpro`}
       >
@@ -77,6 +63,7 @@ export default async function RootLayout({
           </LayoutWrapper>
         </ThemeProvider>
       </body>
+      <Analytics />
     </html>
   );
 }
