@@ -1,6 +1,17 @@
 # jordanhilado.com
 
-Next.js on Vercel, with Supabase Postgres through Prisma.
+## Stack
+
+- **Framework:** Next.js 16 (App Router), React 19, TypeScript
+- **Styling:** Tailwind CSS with the typography plugin, next-themes for dark mode
+- **Hosting:** Vercel, with a daily cron that syncs Strava runs
+- **Database:** Supabase Postgres through Prisma
+- **Storage:** Supabase Storage (`race-photos` bucket) for race and header photos
+- **Auth:** NextAuth with Google sign-in, limited to `ADMIN_EMAIL`
+- **Content:** Markdown via react-markdown (remark-gfm, rehype), Mermaid diagrams via pele
+- **Integrations:** Strava API for runs and mileage
+- **Analytics:** Google Analytics 4 via `@next/third-parties`, not loaded on `/admin`
+- **Resume:** LaTeX, compiled to PDF
 
 ## Local
 
