@@ -1,3 +1,4 @@
+import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { formatPostDate } from "@/lib/date";
 import {
@@ -103,6 +104,28 @@ export async function getAllRuns(): Promise<RunTile[]> {
 }
 
 /**
+ * The Strava half of getRunningTotals, cached for an hour.
+ *
+ * The cache is what lets `/` and `/running` be served statically. Refreshing
+ * the access token is a `no-store` fetch, and outside a cache scope that one
+ * request opts the whole route into rendering on every visit — a cold function,
+ * a database round trip and up to two Strava calls before the first byte.
+ * Inside `unstable_cache` the page renders once an hour and visitors get the
+ * cached HTML.
+ *
+ * Throws rather than returning null so a Strava outage is not cached for an
+ * hour; getRunningTotals catches it.
+ */
+const getCachedRunningTotals = unstable_cache(
+  async (): Promise<RunningTotals> => {
+    const accessToken = await getStravaAccessToken();
+    return formatRunningTotals(await fetchAthleteRunTotals(accessToken));
+  },
+  ["strava-running-totals"],
+  { revalidate: 3600 }
+);
+
+/**
  * Lifetime run totals for the Running blurb: every run on Strava plus the
  * Nike Run Club years that predate it.
  *
@@ -116,8 +139,7 @@ export async function getAllRuns(): Promise<RunTile[]> {
  */
 export async function getRunningTotals(): Promise<RunningTotals | null> {
   try {
-    const accessToken = await getStravaAccessToken();
-    return formatRunningTotals(await fetchAthleteRunTotals(accessToken));
+    return await getCachedRunningTotals();
   } catch (error) {
     console.error("Error fetching running totals:", error);
     return null;
