@@ -9,7 +9,7 @@
  * PrismaClient is imported directly rather than through `@/lib/prisma` so the
  * script does not depend on tsconfig path resolution under tsx.
  */
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, RaceDistance } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -43,6 +43,20 @@ const pace = hms;
  */
 const RACES = [
   {
+    slug: "surf-city-half-marathon-2024",
+    name: "Surf City Half Marathon",
+    date: new Date("2024-02-04T00:00:00Z"),
+    timeSeconds: hms("1:41:35"),
+    paceSecondsPerMile: pace("7:45"),
+    elevationFeet: 342, // Strava 10696658467: 104.2m
+    ageGroupRank: 38,
+    ageGroupTotal: 284,
+    ageGroup: "M20-24",
+    distance: RaceDistance.HALF_MARATHON,
+    imageUrl: null,
+    resultsUrl: "https://results2.xacte.com/#/e/2531/searchable/6782",
+  },
+  {
     slug: "long-beach-marathon-2025",
     name: "Long Beach Marathon",
     // Pinned to UTC so the stored instant is the calendar day of the race
@@ -55,6 +69,7 @@ const RACES = [
     ageGroupRank: 33,
     ageGroupTotal: 404,
     ageGroup: "M20-24",
+    distance: RaceDistance.MARATHON,
     imageUrl: null,
     resultsUrl: "https://results2.xacte.com/#/e/2611/searchable/24343",
   },
@@ -68,6 +83,7 @@ const RACES = [
     ageGroupRank: 27,
     ageGroupTotal: 1220,
     ageGroup: "M20-24",
+    distance: RaceDistance.MARATHON,
     imageUrl: null,
     resultsUrl: "https://results2.xacte.com/#/e/2626/searchable/11282",
   },
@@ -84,6 +100,7 @@ const RACES = [
     ageGroupRank: 11,
     ageGroupTotal: 647,
     ageGroup: "M20-29",
+    distance: RaceDistance.MARATHON,
     imageUrl: null,
     resultsUrl: "https://live.chronotrack.com/event/91608/results/entry/79142950",
   },
@@ -104,6 +121,7 @@ const RACES = [
     ageGroupRank: 12,
     ageGroupTotal: 441,
     ageGroup: "M20-29",
+    distance: RaceDistance.FIVE_K,
     imageUrl: null,
     resultsUrl:
       "https://results.raceroster.com/v3/events/ewzwgkt9tw639anp/race/249806/participant/5437sdkprxdygcnp",
@@ -121,6 +139,7 @@ const RACES = [
     ageGroupRank: 3,
     ageGroupTotal: 217,
     ageGroup: "Overall",
+    distance: RaceDistance.FIVE_K,
     imageUrl: null,
     resultsUrl:
       "https://runsignup.com/Race/Results/170017/IndividualResult/RRdDQ?resultSetId=764982#U121781453",

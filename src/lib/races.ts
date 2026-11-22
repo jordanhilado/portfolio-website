@@ -1,3 +1,4 @@
+import type { RaceDistance } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { formatPostDate } from "@/lib/date";
 
@@ -15,6 +16,8 @@ export type RaceCard = {
   elevation: string;
   /** e.g. "11th out of 662 · M20-29". */
   placing: string;
+  /** Which tab the card is listed under. */
+  distance: RaceDistance;
   imageUrl: string | null;
   resultsUrl: string | null;
 };
@@ -78,6 +81,7 @@ export async function getRaces(): Promise<RaceCard[]> {
         ageGroupRank: true,
         ageGroupTotal: true,
         ageGroup: true,
+        distance: true,
         imageUrl: true,
         resultsUrl: true,
       },
@@ -91,6 +95,7 @@ export async function getRaces(): Promise<RaceCard[]> {
       pace: formatPace(race.paceSecondsPerMile),
       elevation: `${race.elevationFeet.toLocaleString("en-US")}ft`,
       placing: `${ordinal(race.ageGroupRank)} out of ${race.ageGroupTotal} · ${race.ageGroup}`,
+      distance: race.distance,
       imageUrl: race.imageUrl,
       resultsUrl: race.resultsUrl,
     }));

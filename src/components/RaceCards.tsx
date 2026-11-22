@@ -1,6 +1,9 @@
 "use client";
 
+import { useId, useRef, useState, type KeyboardEvent } from "react";
 import Image from "next/image";
+
+type Distance = "FIVE_K" | "HALF_MARATHON" | "MARATHON";
 
 // Shape is re-declared rather than imported from @/lib/races, which pulls in
 // prisma — matching how RunGrid re-declares RunTile.
@@ -12,6 +15,7 @@ type RaceCardData = {
   pace: string;
   elevation: string;
   placing: string;
+  distance: Distance;
   imageUrl: string | null;
   resultsUrl: string | null;
 };
@@ -34,27 +38,123 @@ const PHOTO_SIZE_CLASSES =
   "w-[calc((100%-1.5rem)/3)] sm:w-[calc((100%-2.25rem)/4)]";
 
 /**
- * The races, above the run grid: one horizontal card each, photo on the left.
+ * Tab order, left to right. Marathon leads because it is the tab open on load:
+ * the longest distance is what the section is mostly about.
+ */
+const TABS: { distance: Distance; label: string }[] = [
+  { distance: "MARATHON", label: "Marathon" },
+  { distance: "HALF_MARATHON", label: "Half Marathon" },
+  { distance: "FIVE_K", label: "5K" },
+];
+
+/**
+ * The races, above the run grid, split into one tab per distance with one
+ * horizontal card per race, photo on the left.
  *
  * Every string arrives preformatted from @/lib/races — this component holds no
- * state and does no arithmetic. It is a client component only because
- * SectionView is one.
+ * state beyond the selected tab and does no arithmetic. It is a client
+ * component because the tabs are local state and because SectionView is one.
  *
  * Borders and shadows are deliberately absent: the page has none anywhere, so
  * cards are separated by space, and a linked card borrows the run tiles' hover
  * tint rather than introducing a new affordance.
  */
 export default function RaceCards({ races }: { races: RaceCardData[] }) {
-  if (races.length === 0) {
+  // A distance with no races gets no tab rather than an empty panel.
+  const tabs = TABS.filter((tab) =>
+    races.some((race) => race.distance === tab.distance),
+  );
+  const [selected, setSelected] = useState<Distance>("MARATHON");
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const idPrefix = useId();
+
+  if (tabs.length === 0) {
     return null;
   }
 
+  // Falls back to the first tab that exists, so the block never opens on a
+  // panel whose tab was filtered out above.
+  const active = tabs.some((tab) => tab.distance === selected)
+    ? selected
+    : tabs[0].distance;
+  const activeIndex = tabs.findIndex((tab) => tab.distance === active);
+  const visible = races.filter((race) => race.distance === active);
+  const tabId = (distance: Distance) => `${idPrefix}-tab-${distance}`;
+  const panelId = `${idPrefix}-panel`;
+
+  // The WAI-ARIA tabs pattern: one tab stop for the whole row, arrows move
+  // between tabs and select as they go, Home and End jump to either end.
+  const onKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
+    const last = tabs.length - 1;
+    const next =
+      event.key === "ArrowRight"
+        ? activeIndex === last
+          ? 0
+          : activeIndex + 1
+        : event.key === "ArrowLeft"
+          ? activeIndex === 0
+            ? last
+            : activeIndex - 1
+          : event.key === "Home"
+            ? 0
+            : event.key === "End"
+              ? last
+              : null;
+    if (next === null) {
+      return;
+    }
+    event.preventDefault();
+    setSelected(tabs[next].distance);
+    tabRefs.current[next]?.focus();
+  };
+
   return (
-    <div className="mt-8 flex flex-col gap-y-4">
-      {/* Unlabelled on purpose: the Running section heading covers the whole
-          block, and each card already names its race in an aria-label. */}
-      <div className="flex flex-col gap-y-2">
-        {races.map((race) => (
+    <div className="mt-8 flex flex-col gap-y-3">
+      {/* Styled as a smaller echo of the site nav: the current tab is the
+          dark one and the rest sit grey until hovered, so it reads as "where
+          you are" with no new chrome. flex-wrap is only a safety net — the
+          three labels fit on one line at 320px. The py-1.5 on each tab, pulled
+          back by the row's -my-1.5, gives a ~36px touch target without adding
+          visible space above the cards. */}
+      <div
+        role="tablist"
+        aria-label="Races by distance"
+        className="-my-1.5 flex flex-wrap gap-x-5"
+      >
+        {tabs.map((tab, index) => {
+          const isActive = tab.distance === active;
+          return (
+            <button
+              key={tab.distance}
+              ref={(element) => {
+                tabRefs.current[index] = element;
+              }}
+              type="button"
+              role="tab"
+              id={tabId(tab.distance)}
+              aria-selected={isActive}
+              aria-controls={panelId}
+              tabIndex={isActive ? 0 : -1}
+              onClick={() => setSelected(tab.distance)}
+              onKeyDown={onKeyDown}
+              className={`whitespace-nowrap py-1.5 font-songmyung text-base/5 font-bold tracking-tight transition-colors hover:text-neutral-900 dark:hover:text-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 dark:focus-visible:ring-sky-400 ${
+                isActive
+                  ? "text-neutral-900 dark:text-neutral-100"
+                  : "text-neutral-500 dark:text-neutral-400"
+              }`}
+            >
+              {tab.label}
+            </button>
+          );
+        })}
+      </div>
+      <div
+        role="tabpanel"
+        id={panelId}
+        aria-labelledby={tabId(active)}
+        className="flex flex-col gap-y-2"
+      >
+        {visible.map((race) => (
           <RaceRow key={race.id} race={race} />
         ))}
       </div>
@@ -111,12 +211,20 @@ function RaceRow({ race }: { race: RaceCardData }) {
           {/* The three numbers that describe the run itself, on one line in
               the mono face: they line up as a column of figures rather than
               reading as prose. */}
-          <span className="font-sfmono text-sm tabular-nums text-neutral-900 dark:text-neutral-100">
-            {race.time}
-            <Slash />
-            {race.pace}
-            <Slash />
-            {race.elevation}
+          {/* Each figure is unbreakable but the line between them is not: on
+              a phone the text column is ~170-210px, narrower than the three
+              figures together, and without a break point the elevation ran
+              off the edge of the screen. */}
+          <span className="flex flex-wrap font-sfmono text-sm tabular-nums text-neutral-900 dark:text-neutral-100">
+            <span className="whitespace-nowrap">
+              {race.time}
+              <Slash />
+            </span>
+            <span className="whitespace-nowrap">
+              {race.pace}
+              <Slash />
+            </span>
+            <span className="whitespace-nowrap">{race.elevation}</span>
           </span>
         </div>
         {/* Placing and date share the bottom line. flex-wrap is the

@@ -43,6 +43,7 @@ type RaceCardData = {
   pace: string;
   elevation: string;
   placing: string;
+  distance: "FIVE_K" | "HALF_MARATHON" | "MARATHON";
   imageUrl: string | null;
   resultsUrl: string | null;
 };

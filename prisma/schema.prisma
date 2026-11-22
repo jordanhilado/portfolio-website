@@ -73,6 +73,8 @@ model Race {
   ageGroupRank       Int
   ageGroupTotal      Int
   ageGroup           String
+  /// Which tab on the Running page the race is listed under.
+  distance           RaceDistance
   /// Square photo. Null renders a neutral placeholder of the same size.
   imageUrl           String?
   /// Null renders the card as static content rather than a link.
@@ -81,6 +83,12 @@ model Race {
   updatedAt          DateTime @updatedAt
 
   @@index([date])
+}
+
+enum RaceDistance {
+  FIVE_K
+  HALF_MARATHON
+  MARATHON
 }
 
 /// A Strava activity mirrored locally. `polyline` is the raw encoded
