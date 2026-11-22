@@ -87,6 +87,44 @@ const RACES = [
     imageUrl: null,
     resultsUrl: "https://live.chronotrack.com/event/91608/results/entry/79142950",
   },
+  {
+    // A midnight New Year's run: RaceRoster dates the event Dec 31, but the
+    // gun went at midnight and the Strava activity starts Jan 1 00:00.
+    //
+    // RaceRoster prints "12 / 1296" for the division, but that total counts
+    // every gender in 20 to 29 while the rank is among men only (the women's
+    // division places restart at 1). 441 is the men in 20 to 29, matching the
+    // convention above.
+    slug: "lululemon-run-with-the-roses-5k-2026",
+    name: "lululemon 5K Run with the Roses",
+    date: new Date("2026-01-01T00:00:00Z"),
+    timeSeconds: hms("19:19"),
+    paceSecondsPerMile: pace("6:13"),
+    elevationFeet: 86, // Strava 16901285741: 26.2m
+    ageGroupRank: 12,
+    ageGroupTotal: 441,
+    ageGroup: "M20-29",
+    imageUrl: null,
+    resultsUrl:
+      "https://results.raceroster.com/v3/events/ewzwgkt9tw639anp/race/249806/participant/5437sdkprxdygcnp",
+  },
+  {
+    // This race publishes no age-group divisions, only overall and gender
+    // places, so the placing is the official overall one rather than a
+    // bracket counted by hand. Chip time 18:02.30, truncated to the second.
+    slug: "city-of-artesia-5k-2026",
+    name: "City of Artesia 5K",
+    date: new Date("2026-11-21T00:00:00Z"),
+    timeSeconds: hms("18:02"),
+    paceSecondsPerMile: pace("5:49"),
+    elevationFeet: 7, // Strava 21072319587: 2m
+    ageGroupRank: 3,
+    ageGroupTotal: 217,
+    ageGroup: "Overall",
+    imageUrl: null,
+    resultsUrl:
+      "https://runsignup.com/Race/Results/170017/IndividualResult/RRdDQ?resultSetId=764982#U121781453",
+  },
 ];
 
 async function main() {

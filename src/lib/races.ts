@@ -19,13 +19,18 @@ export type RaceCard = {
   resultsUrl: string | null;
 };
 
-/** Seconds to "H:MM:SS", hours unpadded — race times are read that way. */
+/**
+ * Seconds to "H:MM:SS", or "M:SS" under an hour — race times are read that
+ * way, so a 5K is "18:02" rather than "0:18:02".
+ */
 function formatDuration(seconds: number): string {
   const hours = Math.floor(seconds / 3600);
   const minutes = Math.floor((seconds % 3600) / 60);
   const secs = seconds % 60;
   const pad = (value: number) => String(value).padStart(2, "0");
-  return `${hours}:${pad(minutes)}:${pad(secs)}`;
+  return hours > 0
+    ? `${hours}:${pad(minutes)}:${pad(secs)}`
+    : `${minutes}:${pad(secs)}`;
 }
 
 /** Seconds per mile to "6:44/mi". */
