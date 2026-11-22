@@ -18,7 +18,7 @@
     "thought:pull": "tsx --env-file=.env scripts/thoughts.ts pull"
   },
   "dependencies": {
-    "@next/third-parties": "16.4.3",
+    "@next/third-parties": "16.4.6",
     "@prisma/client": "^6.19.3",
     "@types/node": "24.19.2",
     "@types/react": "19.3.0",
@@ -26,8 +26,8 @@
     "@types/react-syntax-highlighter": "^15.5.13",
     "autoprefixer": "10.6.2",
     "eslint": "9.39.5",
-    "eslint-config-next": "16.4.3",
-    "next": "16.4.3",
+    "eslint-config-next": "16.4.6",
+    "next": "16.4.6",
     "next-auth": "^4.24.15",
     "next-themes": "^0.4.6",
     "pele": "1.9.0",
