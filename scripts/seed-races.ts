@@ -37,10 +37,14 @@ const pace = hms;
  * Elevation is the one figure no timing provider publishes, so it comes from
  * the matching Strava activity's elevation gain, converted metres -> feet.
  *
- * `imageUrl` stays null until square photos exist. Adding the photo's host to
- * `images.remotePatterns` in next.config.js is required before a remote image
- * will render.
+ * `imageUrl` is the photo's public URL in the `race-photos` Supabase Storage
+ * bucket, or null to render the placeholder. It has to be filled in here, not
+ * in the database directly: the upsert writes every field, so a URL set
+ * anywhere else is overwritten with whatever this file says the next time the
+ * script runs.
  */
+const PHOTOS =
+  "https://snxrkwpgkkydsbizqsaz.supabase.co/storage/v1/object/public/race-photos";
 const RACES = [
   {
     slug: "surf-city-half-marathon-2024",
@@ -70,7 +74,7 @@ const RACES = [
     ageGroupTotal: 404,
     ageGroup: "M20-24",
     distance: RaceDistance.MARATHON,
-    imageUrl: null,
+    imageUrl: `${PHOTOS}/lbm-1.jpg`,
     resultsUrl: "https://results2.xacte.com/#/e/2611/searchable/24343",
   },
   {
@@ -84,7 +88,7 @@ const RACES = [
     ageGroupTotal: 1220,
     ageGroup: "M20-24",
     distance: RaceDistance.MARATHON,
-    imageUrl: null,
+    imageUrl: `${PHOTOS}/lam.jpg`,
     resultsUrl: "https://results2.xacte.com/#/e/2626/searchable/11282",
   },
   {
@@ -101,7 +105,7 @@ const RACES = [
     ageGroupTotal: 647,
     ageGroup: "M20-29",
     distance: RaceDistance.MARATHON,
-    imageUrl: null,
+    imageUrl: `${PHOTOS}/sfm.jpg`,
     resultsUrl: "https://live.chronotrack.com/event/91608/results/entry/79142950",
   },
   {

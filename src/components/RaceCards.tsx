@@ -20,6 +20,13 @@ type RaceCardData = {
   resultsUrl: string | null;
 };
 
+/** Printed on the stand-in square of a race that has no photo yet. */
+const PLACEHOLDER_MILES: Record<Distance, string> = {
+  MARATHON: "26.2",
+  HALF_MARATHON: "13.1",
+  FIVE_K: "3.1",
+};
+
 /**
  * Sizing hint passed to next/image, not a rendered size — the classes below are
  * what size the photo on screen. A run tile is roughly 127px wide in the widest
@@ -190,12 +197,18 @@ function RaceRow({ race }: { race: RaceCardData }) {
           className={`aspect-square h-auto shrink-0 object-cover ${PHOTO_SIZE_CLASSES}`}
         />
       ) : (
-        // Same footprint as the photo so the row does not reflow once the
-        // real images land.
+        // Same footprint as the photo so the row does not reflow once a real
+        // image lands. The distance in miles marks it as a deliberate stand-in
+        // rather than an image that failed to load. Hidden from assistive
+        // tech: the card's name and tab already say the distance.
         <div
           aria-hidden="true"
-          className={`aspect-square shrink-0 bg-neutral-100 dark:bg-neutral-900 ${PHOTO_SIZE_CLASSES}`}
-        />
+          className={`flex aspect-square shrink-0 items-center justify-center bg-neutral-100 dark:bg-neutral-900 ${PHOTO_SIZE_CLASSES}`}
+        >
+          <span className="font-songmyung text-xl tracking-tight text-neutral-400 sm:text-2xl dark:text-neutral-600">
+            {PLACEHOLDER_MILES[race.distance]}
+          </span>
+        </div>
       )}
       {/* Stretches to the photo's height and pushes its two groups apart, so
           the name sits on the photo's top edge and the placing on its bottom
